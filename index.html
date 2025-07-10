@@ -24,9 +24,232 @@
 	</style>
 </head>
   <body>
-	  <div class="result-box">
-		<h1>Hello World</h1>
-		<p>I'm hosted with GitHub Pages.1</p>
-	  </div>
+	 <div class="result-box">
+        <h2>輸入排盤資訊</h2>
+        <div>
+            <label for="year_gan_zhi"><a href="https://www.go-calendar.com/lunar-calendar" target="_blank">【農民曆】2025農曆查詢、萬年曆、黃曆 | Go日曆</a></label>
+        </div>
+        <form method="POST" action="">
+            <div>
+                <label for="datetime">*本地時間:</label>
+                <input type="datetime-local" id="datetime" name="datetime" value="<?=htmlspecialchars($inputTime)?>">
+            </div>
+            <div>
+                <label for="year_gan_zhi">*年干支:</label>
+                <input type="text" id="year_gan_zhi" name="year_gan_zhi" value="<?=htmlspecialchars($manualYearGanZhi)?>" placeholder="例如: 乙巳">
+            </div>
+            <div>
+                <label for="month_gan_zhi">*月干支:</label>
+                <input type="text" id="month_gan_zhi" name="month_gan_zhi" value="<?=htmlspecialchars($manualMonthGanZhi)?>" placeholder="例如: 壬午">
+            </div>
+            <div>
+                <label for="day_gan_zhi">*日干支:</label>
+                <input type="text" id="day_gan_zhi" name="day_gan_zhi" value="<?=htmlspecialchars($manualDayGanZhi)?>" placeholder="例如: 癸丑">
+            </div>
+            <div>
+                <label for="pmemo">*想詢問:</label>
+                <input type="text" id="pmemo" name="pmemo" value="<?=htmlspecialchars($manualpmemo)?>" placeholder="例如: 今天工作會順利嗎?怎麼解?該注意甚麼?">
+            </div>
+            <div>
+                <label for="uname">*詢問者:</label>
+                <input type="text" id="uname" name="uname" value="<?=htmlspecialchars($manualuname)?>" placeholder="例如: 王阿花">
+            </div>
+						<hr/>
+            <div>
+								<label for="chu_Chuan">初傳數(1~9):</label>
+								<input type="number" id="chu_Chuan" name="chu_Chuan" value="<?=htmlspecialchars($manualchu_Chuan)?>" placeholder="例如: 3"
+											 min="0" max="9" pattern="[1-9]" title="請輸入1到9之間的數字" inputmode="numeric">
+								<div class="form-check">
+										<input class="form-check-input chu_rand" type="checkbox" name="chu_Chuan_rand" id="chu_Chuan_rand" <?=$htmlchu_Chuan_rand?>>
+										<label class="form-check-label" for="chu_Chuan_rand">
+												隨機數(1~9)
+										</label>
+								</div>
+						</div>
+
+						<div>
+								<label for="zhong_Chuan">中傳數(1~9):</label>
+								<input type="number" id="zhong_Chuan" name="zhong_Chuan" value="<?=htmlspecialchars($manualzhong_Chuan)?>" placeholder="例如: 5"
+											 min="0" max="9" pattern="[1-9]" title="請輸入1到9之間的數字" inputmode="numeric">
+								<div class="form-check">
+										<input class="form-check-input zhong_rand" type="checkbox" name="zhong_Chuan_rand" id="zhong_Chuan_rand" <?=$htmlzhong_Chuan_rand?>>
+										<label class="form-check-label" for="zhong_Chuan_rand">
+												隨機數(1~9)
+										</label>
+								</div>
+						</div>
+
+						<div>
+								<label for="mo_Chuan">末傳數(1~9):</label>
+								<input type="number" id="mo_Chuan" name="mo_Chuan" value="<?=htmlspecialchars($manualmo_Chuan)?>" placeholder="例如: 9"
+											 min="0" max="9" pattern="[1-9]" title="請輸入1到9之間的數字" inputmode="numeric">
+								<div class="form-check">
+										<input class="form-check-input mo_rand" type="checkbox" name="mo_Chuan_rand" id="mo_Chuan_rand" <?=$htmlmo_Chuan_rand?>>
+										<label class="form-check-label" for="mo_Chuan_rand">
+												隨機數(1~9)
+										</label>
+								</div>
+						</div>
+            <div>
+                <button type="submit">開始排盤</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="result-box">
+        <h2>輸入時間與計算時間</h2>
+        <p><strong>輸入本地時間:</strong> <?=htmlspecialchars($inputTime)?></p>
+        <p><strong>計算真太陽時:</strong> <?=htmlspecialchars($trueSolarTime['year'].'-'.$trueSolarTime['mon'].'-'.$trueSolarTime['mday'].' '.$trueSolarTime['hours'].':'.$trueSolarTime['minutes'].':'.$trueSolarTime['seconds'])?></p>
+    </div>
+
+    <div class="result-box">
+        <h2>干支結果</h2>
+        <p><strong>年干支 (手動輸入):</strong> <?=htmlspecialchars($ganZhi['year'])?></p>
+        <p><strong>月干支 (手動輸入):</strong> <?=htmlspecialchars($ganZhi['month'])?></p>
+        <p><strong>日干支 (手動輸入):</strong> <?=htmlspecialchars($ganZhi['day'])?></p>
+        <p><strong>時干支 (程式計算):</strong> <?=htmlspecialchars($ganZhi['hour'])?></p>
+        <p class="info">**說明:** 年、月、日干支為手動輸入，時干支基於日干與真太陽時的小時計算。</p>
+    </div>
+
+    <div class="result-box">
+        <h2>天地盤</h2>
+        <h3>地盤 (固定)</h3>
+        <p><?=implode(' ', getDiPan())?></p>
+        <h3>天盤 (月將加時)</h3>
+        <?php if (!empty( $tianPan )): ?>
+            <table>
+                <tr>
+                    <?php foreach ($tianPan as $di => $tian): ?>
+                        <td><strong><?=$di?></strong> 上 <strong><?=$tian?></strong></td>
+                    <?php endforeach; ?>
+                </tr>
+            </table>
+        <?php else: ?>
+            <p class="warning">無法計算天盤，請檢查輸入的月地支和時地支是否正確。</p>
+        <?php endif; ?>
+        <p class="warning">**重要提醒:** 天盤的計算正確性依賴於準確的月地支，由於月地支是手動輸入，請確保其準確性，並確保您的月將對應規則正確。</p>
+    </div>
+
+    <div class="result-box">
+        <h2>四課與五行關係</h2>
+        <table>
+            <tr>
+                <th>課別</th>
+                <th>內容</th>
+                <th>五行關係</th>
+                <th>解釋</th>
+            </tr>
+            <tr>
+                <td>第一課 (日干上神)</td>
+                <td><?=$siKe['ke1']['shen']?></td>
+                <td><?=$siKe['ke1']['relation']?></td>
+                <td><?=getRelationExplanation($siKe['ke1']['relation'])?></td>
+            </tr>
+            <tr>
+                <td>第二課 (日支上神)</td>
+                <td><?=$siKe['ke2']['shen']?></td>
+                <td><?=$siKe['ke2']['relation']?></td>
+                <td><?=getRelationExplanation($siKe['ke2']['relation'])?></td>
+            </tr>
+            <tr>
+                <td>第三課 (日干陰神)</td>
+                <td><?=$siKe['ke3']['shen']?></td>
+                <td><?=$siKe['ke3']['relation']?></td>
+                <td><?=getRelationExplanation($siKe['ke3']['relation'])?></td>
+            </tr>
+            <tr>
+                <td>第四課 (日支陰神)</td>
+                <td><?=$siKe['ke4']['shen']?></td>
+                <td><?=$siKe['ke4']['relation']?></td>
+                <td><?=getRelationExplanation($siKe['ke4']['relation'])?></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="result-box">
+        <h2>三傳</h2>
+        <p><strong>初傳:</strong> <?=htmlspecialchars($sanChuan['chuChuan'])?><?=$htmluserNumbers[0]?></p>
+        <p><strong>中傳:</strong> <?=htmlspecialchars($sanChuan['zhongChuan'])?><?=$htmluserNumbers[1]?></p>
+        <p><strong>末傳:</strong> <?=htmlspecialchars($sanChuan['moChuan'])?><?=$htmluserNumbers[2]?></p>
+        <p class="warning">**極度重要提醒:** 三傳的計算是六壬最精髓的部分，目前程式碼僅為簡化版本，與正統六壬推演規則仍有很大差異。</p>
+    </div>
+<div class="result-box">
+<h2>複製下列內容貼到各AI去幫忙分析</h2>
+<p><?=$prompt?></p>
+</div>
   </body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	// 控制初傳隨機數
+    const chuInput = document.getElementById('chu_Chuan');
+    const chuRand = document.getElementById('chu_Chuan_rand');
+    
+    // 控制中傳隨機數
+    const zhongInput = document.getElementById('zhong_Chuan');
+    const zhongRand = document.getElementById('zhong_Chuan_rand');
+    
+    // 控制末傳隨機數
+    const moInput = document.getElementById('mo_Chuan');
+    const moRand = document.getElementById('mo_Chuan_rand');
+    
+    // 初始化狀態
+    if(chuRand.checked) {
+        chuInput.disabled = true;
+    }
+    if(zhongRand.checked) {
+        zhongInput.disabled = true;
+    }
+    if(moRand.checked) {
+        moInput.disabled = true;
+    }
+    
+    // 添加事件監聽器
+    chuRand.addEventListener('change', function() {
+        chuInput.disabled = this.checked;
+        if(this.checked) {
+          chuInput.value = '0';
+        }
+    });
+    
+    zhongRand.addEventListener('change', function() {
+        zhongInput.disabled = this.checked;
+        if(this.checked) {
+          zhongInput.value = '0';
+        }
+    });
+    
+    moRand.addEventListener('change', function() {
+        moInput.disabled = this.checked;
+        if(this.checked) {
+          moInput.value = '0';
+        }
+    });
+	
+	// 輸入數字檢查
+	const numberInputs = document.querySelectorAll('.number-input');
+
+	numberInputs.forEach(input => {
+			// Use 'input' event for real-time validation as user types
+			input.addEventListener('input', function(event) {
+					let value = this.value;
+
+					// Remove any non-digit characters
+					value = value.replace(/[^0-9]/g, '');
+
+					// Ensure it's a single digit from 1 to 9
+					if (value.length > 1) {
+							value = value.charAt(0); // Keep only the first character if more than one
+					}
+
+					if (value !== '' && (parseInt(value) < 1 || parseInt(value) > 9)) {
+							value = ''; // Clear if out of range
+					}
+
+					this.value = value;
+			});
+
+	});
+});
+</script>
+
 </html>
