@@ -48,6 +48,16 @@
     th {
       background-color: #f8f9fa;
     }
+    .time-input-group {
+      display: flex;
+      align-items: center;
+    }
+    .time-input-group input {
+      flex: 1;
+    }
+    .time-input-group button {
+      margin-left: 10px;
+    }
   </style>
 </head>
 <body>
@@ -68,7 +78,12 @@
           <!-- 本地時間 -->
           <div class="mb-3">
             <label for="datetime" class="form-label required-field">本地時間:</label>
-            <input type="datetime-local" id="datetime" class="form-control" v-model="formData.datetime" required>
+            <div class="time-input-group">
+              <input type="datetime-local" id="datetime" class="form-control" v-model="formData.datetime" required>
+              <button type="button" class="btn btn-outline-secondary" @click="setCurrentTime">
+                <i class="bi bi-clock"></i> 現在時間
+              </button>
+            </div>
           </div>
           
           <!-- 干支輸入 -->
@@ -280,6 +295,16 @@
           if (val) formData.value.mo_Chuan = Math.floor(Math.random() * 9) + 1;
         });
         
+        // 設置當前時間
+        const setCurrentTime = () => {
+          const now = new Date();
+          // 轉換為本地時間格式 (YYYY-MM-DDTHH:mm)
+          const localDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+            .toISOString()
+            .slice(0, 16);
+          formData.value.datetime = localDateTime;
+        };
+        
         // 計算排盤
         const calculate = () => {
           // 簡單驗證
@@ -363,6 +388,7 @@
         return {
           formData,
           results,
+          setCurrentTime,
           calculate,
           generateAIPrompt,
           copyToClipboard
