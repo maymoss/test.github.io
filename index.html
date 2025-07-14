@@ -48,16 +48,6 @@
     th {
       background-color: #f8f9fa;
     }
-    .time-input-group {
-      display: flex;
-      align-items: center;
-    }
-    .time-input-group input {
-      flex: 1;
-    }
-    .time-input-group button {
-      margin-left: 10px;
-    }
   </style>
 </head>
 <body>
@@ -72,18 +62,17 @@
           <a href="https://www.go-calendar.com/lunar-calendar" target="_blank" class="btn btn-outline-primary">
             【農民曆】2025農曆查詢、萬年曆、黃曆 | Go日曆
           </a>
+					&nbsp
+          <button type="button" class="btn btn-info" @click="btgetganzhi">
+						填入干支月日
+          </button>
         </div>
         
         <form @submit.prevent="calculate">
           <!-- 本地時間 -->
           <div class="mb-3">
             <label for="datetime" class="form-label required-field">本地時間:</label>
-            <div class="time-input-group">
-              <input type="datetime-local" id="datetime" class="form-control" v-model="formData.datetime" required>
-              <button type="button" class="btn btn-outline-secondary" @click="setCurrentTime">
-                <i class="bi bi-clock"></i> 現在時間
-              </button>
-            </div>
+            <input type="datetime-local" id="datetime" class="form-control" v-model="formData.datetime" required>
           </div>
           
           <!-- 干支輸入 -->
@@ -294,16 +283,33 @@
         watch(() => formData.value.mo_Chuan_rand, (val) => {
           if (val) formData.value.mo_Chuan = Math.floor(Math.random() * 9) + 1;
         });
-        
-        // 設置當前時間
-        const setCurrentTime = () => {
-          const now = new Date();
-          // 轉換為本地時間格式 (YYYY-MM-DDTHH:mm)
-          const localDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
-            .toISOString()
-            .slice(0, 16);
-          formData.value.datetime = localDateTime;
-        };
+				
+				// 填入干支月日
+				const btgetganzhi = async () =>{
+					try {
+            const selectedDate = new Date(formData.value.datetime);
+            const year = selectedDate.getFullYear();
+            const month = selectedDate.getMonth() + 1; // Months are 0-indexed
+            const day = selectedDate.getDate();
+            
+            const response = await fetch(`https://api.tiax.cn/almanac/?year=${year}&month=${month}&day=${day}`);
+            const data = await response.json();
+            
+            const ganZhiDate = data.干支日期;
+            const ganZhiParts = ganZhiDate.split(' ');
+            
+            if (ganZhiParts.length >= 3) {
+              formData.value.year_gan_zhi = ganZhiParts[0].substring(0, 2); // 年干支 (e.g. 乙巳)
+              formData.value.month_gan_zhi = ganZhiParts[1].substring(0, 2); // 月干支 (e.g. 癸未)
+              formData.value.day_gan_zhi = ganZhiParts[2].substring(0, 2); // 日干支 (e.g. 甲申)
+            } else {
+              alert('API返回的干支日期格式不符合預期');
+            }
+          } catch (error) {
+            console.error('獲取干支信息失敗:', error);
+            alert('獲取干支信息失敗，請檢查網絡連接或稍後再試');
+          }
+				};
         
         // 計算排盤
         const calculate = () => {
@@ -314,15 +320,15 @@
             return;
           }
           
-          // 模擬計算結果 (實際應用中這裡應該調用您的計算邏輯)
+          // 模擬計算結果
           results.value = {
             calculated: true,
             inputTime: formatDateTime(formData.value.datetime),
-            trueSolarTime: '2025-07-15 12:34:56', // 這裡應該是計算結果
-            hourGanZhi: '甲子', // 這裡應該是計算結果
+            trueSolarTime: '2025-07-15 12:34:56',
+            hourGanZhi: '甲子', 
             tianPan: null,
             siKe: {
-              ke1: { shen: '青龍', relation: '木生火', explanation: '主文書喜慶' },
+              ke1: { shen: '青龍', relation: '木生火1', explanation: '主文書喜慶' },
               ke2: { shen: '朱雀', relation: '火生土', explanation: '主口舌是非' },
               ke3: { shen: '勾陳', relation: '土生金', explanation: '主爭鬥田宅' },
               ke4: { shen: '白虎', relation: '金生水', explanation: '主疾病喪事' }
@@ -380,18 +386,20 @@
         // 複製到剪貼板
         const copyToClipboard = () => {
           const prompt = generateAIPrompt();
+          
           navigator.clipboard.writeText(prompt)
             .then(() => alert('已複製到剪貼板'))
             .catch(err => console.error('複製失敗:', err));
+          
         };
         
         return {
           formData,
           results,
-          setCurrentTime,
           calculate,
           generateAIPrompt,
-          copyToClipboard
+          copyToClipboard,
+					btgetganzhi
         };
       }
     }).mount('#app');
