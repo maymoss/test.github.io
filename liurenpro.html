@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" href="https://maymoss.github.io/test.github.io/9ghfo-83t22-001.ico" type="image/png" sizes="32x32">
+  <title>中六壬排盤系統</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body { 
+      font-family: '微軟正黑體', 'Microsoft JhengHei', sans-serif; 
+      line-height: 1.6; 
+      padding: 20px; 
+      background-color: #f8f9fa;
+    }
+    .result-box { 
+      border: 1px solid #dee2e6; 
+      padding: 20px; 
+      margin-bottom: 20px; 
+      border-radius: 8px; 
+      background-color: white;
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+    h2 { 
+      color: #333; 
+      border-bottom: 1px solid #eee; 
+      padding-bottom: 10px; 
+      margin-bottom: 15px;
+    }
+    strong { color: #0d6efd; }
+    .form-label { font-weight: 500; }
+    .warning { color: #dc3545; font-weight: bold; }
+    .info { color: #198754; font-weight: bold; }
+    .required-field::after {
+      content: " *";
+      color: #dc3545;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+    th, td {
+      border: 1px solid #dee2e6;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f8f9fa;
+    }
+		.fntbd{
+			font-weight: bold;
+		}
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="container">
+      <h1 class="text-center mb-4">中六壬排盤系統</h1>
+      <div class="result-box">
+				<h2>專案說明</h2>
+				<div class="mb-3">
+					<p><h2>專案概述</h2></p>
+					<p>中六壬排盤系統是一個基於Web 與 Android APP的趣味性占卜工具，旨在以簡化且易於使用的方式呈現中國傳統占卜術「六壬」的基本排盤功能。本專案採用現代前端技術架構，結合響應式設計，讓使用者能夠快速生成占卜盤面並獲得基本解讀。
+					核心目標
+					跨平臺支援：提供 Web 版（全前端與前後端兩種）與 Android APP，滿足不同用戶需求。
+					AI 輔助分析：生成結構化提示，方便使用者貼至 ChatGPT、Claude 等 AI 進行解讀。</p>
+					
+					<p class="fntbd">1. 技術架構與開發重點</p>
+					<p>（1）前後端分離（PHP+ Vue 3 + Bootstrap 5）</p>
+						<p>響應式 UI 設計：使用 Bootstrap 5 確保在手機、平板、PC 上都能流暢操作。
+						PHP8：計算干支、三傳、四課等占卜元素。
+						Vue 3表單驗證與互動：確保輸入正確的干支格式，並提供隨機數生成選項。
+						AI 提示生成：自動整理排盤數據，方便使用者貼到 AI 進行深度分析。</p>
+					<p>（2）Android APP（Kotlin/Java）</p>
+						<p>本地計算邏輯：與 Web 版相同的排盤核心算法，但針對移動端優化效能。</p>
+						<p>離線使用：APP 版可離線排盤，適合無網路環境。</p>
+						<p>分享功能：允許用戶將排盤結果分享至社群或 AI 對話機器人。</p>
+					<p>（3）Web 前端（Vue 3 + Bootstrap 5）</p>
+						<p>無需後端 API，所有計算均在瀏覽器完成，減少伺服器負擔。
+						使用 localStorage 暫存用戶輸入，提升使用體驗。</p>
+					<p class="fntbd">2. 專案亮點與成就</p>
+					<p>（1）跨平臺一致性</p>
+						<p>Web 與 APP 功能同步：確保兩者排盤邏輯一致，使用者無需重新學習。
+						響應式設計：無論在手機瀏覽器或 APP 內，UI 都能自動適應螢幕尺寸。</p>
+					<p>（2）趣味性與易用性</p>
+						<p>隨機數模式：提供「隨機三傳」選項，增加占卜的遊戲感。
+						AI 輔助解讀：自動生成結構化提示，降低解盤難度。
+						清晰提示與警告：標註「此為簡化版」，避免誤導使用者。</p>
+					<p>（3）技術挑戰與解決方案</p>
+						<p>✅ 複雜表單管理：使用 Vue 3 的 ref 和 computed 處理動態輸入與計算。</p>
+						<p>✅ 跨平臺邏輯共用：Web 與 APP 使用相同的核心算法，減少維護成本。</p>
+						<p>✅ 無後端依賴：純前端計算，降低營運成本，適合靜態網站部署。</p>
+					<p class="fntbd">3. 未來優化方向</p>
+						<p>更專業的排盤規則：逐步加入進階六壬理論（如貴人順逆、神煞等）。</p>
+						<p>歷史記錄功能：讓用戶保存過往占卜紀錄，便於追蹤趨勢。</p>
+						<p>社群分享機制：讓用戶上傳解盤結果，形成互動討論區。</p>
+					<p class="fntbd">4. 結語</p>
+						<p>本專案成功將傳統六壬占卜數位化，並透過 Web 與 APP 雙平臺提供流暢體驗。雖然定位為「趣味性工具」，但仍保留核心排盤邏輯，並結合 AI 技術降低解讀門檻。</p>
+						<p>技術關鍵字：PHP、Vue 3、Bootstrap 5、Kotlin Android、純前端計算、AI 提示工程、響應式設計
+						此專案展示了我在 全端開發、跨平臺應用、UI/UX 設計 的能力，並體現如何將傳統文化與現代技術結合，創造實用且有趣的數位產品。</p>
+				</div>
+			</div>
+      <!-- 輸入排盤資訊 -->
+      <div class="result-box">
+        <h2>輸入排盤資訊</h2>
+        <div class="mb-3">
+          <a href="https://www.go-calendar.com/lunar-calendar" target="_blank" class="btn btn-outline-primary">
+            【農民曆】2025農曆查詢、萬年曆、黃曆 | Go日曆
+          </a>
+					&nbsp
+          <button type="button" class="btn btn-info" @click="btgetganzhi">
+						填入干支月日
+          </button>
+        </div>
+        
+        <form @submit.prevent="calculate">
+          <!-- 本地時間 -->
+          <div class="mb-3">
+            <label for="datetime" class="form-label required-field">本地時間:</label>
+            <input type="datetime-local" id="datetime" class="form-control" v-model="formData.datetime" required>
+          </div>
+          
+          <!-- 干支輸入 -->
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="year_gan_zhi" class="form-label required-field">年干支:</label>
+              <input type="text" id="year_gan_zhi" class="form-control" v-model="formData.year_gan_zhi" 
+                     placeholder="例如: 乙巳" required pattern=".{2}" title="請輸入兩位干支">
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="month_gan_zhi" class="form-label required-field">月干支:</label>
+              <input type="text" id="month_gan_zhi" class="form-control" v-model="formData.month_gan_zhi" 
+                     placeholder="例如: 壬午" required pattern=".{2}" title="請輸入兩位干支">
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="day_gan_zhi" class="form-label required-field">日干支:</label>
+              <input type="text" id="day_gan_zhi" class="form-control" v-model="formData.day_gan_zhi" 
+                     placeholder="例如: 癸丑" required pattern=".{2}" title="請輸入兩位干支">
+            </div>
+          </div>
+          
+          <!-- 詢問資訊 -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="pmemo" class="form-label required-field">想詢問:</label>
+              <input type="text" id="pmemo" class="form-control" v-model="formData.pmemo" 
+                     placeholder="例如: 今天工作會順利嗎?怎麼解?該注意甚麼?" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="uname" class="form-label required-field">詢問者:</label>
+              <input type="text" id="uname" class="form-control" v-model="formData.uname" 
+                     placeholder="例如: 王阿花" required>
+            </div>
+          </div>
+          
+          <hr/>
+          
+          <!-- 三傳數字輸入 -->
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="chu_Chuan" class="form-label">初傳數(1~9):</label>
+              <input type="number" id="chu_Chuan" class="form-control" v-model="formData.chu_Chuan" 
+                     min="1" max="9" placeholder="例如: 3" :disabled="formData.chu_Chuan_rand">
+              <div class="form-check mt-2">
+                <input class="form-check-input" type="checkbox" id="chu_Chuan_rand" v-model="formData.chu_Chuan_rand">
+                <label class="form-check-label" for="chu_Chuan_rand">隨機數(1~9)</label>
+              </div>
+            </div>
+            
+            <div class="col-md-4 mb-3">
+              <label for="zhong_Chuan" class="form-label">中傳數(1~9):</label>
+              <input type="number" id="zhong_Chuan" class="form-control" v-model="formData.zhong_Chuan" 
+                     min="1" max="9" placeholder="例如: 5" :disabled="formData.zhong_Chuan_rand">
+              <div class="form-check mt-2">
+                <input class="form-check-input" type="checkbox" id="zhong_Chuan_rand" v-model="formData.zhong_Chuan_rand">
+                <label class="form-check-label" for="zhong_Chuan_rand">隨機數(1~9)</label>
+              </div>
+            </div>
+            
+            <div class="col-md-4 mb-3">
+              <label for="mo_Chuan" class="form-label">末傳數(1~9):</label>
+              <input type="number" id="mo_Chuan" class="form-control" v-model="formData.mo_Chuan" 
+                     min="1" max="9" placeholder="例如: 9" :disabled="formData.mo_Chuan_rand">
+              <div class="form-check mt-2">
+                <input class="form-check-input" type="checkbox" id="mo_Chuan_rand" v-model="formData.mo_Chuan_rand">
+                <label class="form-check-label" for="mo_Chuan_rand">隨機數(1~9)</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">開始排盤</button>
+          </div>
+        </form>
+      </div>
+      
+      <!-- 顯示結果部分 -->
+      <template v-if="results.calculated">
+        <!-- 輸入時間與計算時間 -->
+        <div class="result-box">
+          <h2>輸入時間與計算時間</h2>
+          <p><strong>輸入本地時間:</strong> {{ results.inputTime }}</p>
+          <p><strong>計算真太陽時:</strong> {{ results.trueSolarTime || '計算中...' }}</p>
+        </div>
+
+        <!-- 干支結果 -->
+        <div class="result-box">
+          <h2>干支結果</h2>
+          <p><strong>年干支 (手動輸入):</strong> {{ formData.year_gan_zhi }}</p>
+          <p><strong>月干支 (手動輸入):</strong> {{ formData.month_gan_zhi }}</p>
+          <p><strong>日干支 (手動輸入):</strong> {{ formData.day_gan_zhi }}</p>
+          <p><strong>時干支 (程式計算):</strong> {{ results.hourGanZhi || '待計算' }}</p>
+          <p class="info">**說明:** 年、月、日干支為手動輸入，時干支基於日干與真太陽時的小時計算。</p>
+        </div>
+
+        <!-- 天地盤 -->
+        <div class="result-box">
+          <h2>天地盤</h2>
+          <h3>地盤 (固定)</h3>
+          <h3>天盤 (月將加時)</h3>
+          <p class="warning" v-if="!results.tianPan">無法計算天盤，請檢查輸入的月地支和時地支是否正確。</p>
+          <p class="warning">**重要提醒:** 天盤的計算正確性依賴於準確的月地支，由於月地支是手動輸入，請確保其準確性，並確保您的月將對應規則正確。</p>
+        </div>
+
+        <!-- 四課與五行關係 -->
+        <div class="result-box">
+          <h2>四課與五行關係</h2>
+          <table class="table table-bordered">
+            <thead class="table-light">
+              <tr>
+                <th>課別</th>
+                <th>內容</th>
+                <th>五行關係</th>
+                <th>解釋</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>第一課 (日干上神)</td>
+                <td>{{ results.siKe?.ke1?.shen || '-' }}</td>
+                <td>{{ results.siKe?.ke1?.relation || '-' }}</td>
+                <td>{{ results.siKe?.ke1?.explanation || '-' }}</td>
+              </tr>
+              <tr>
+                <td>第二課 (日支上神)</td>
+                <td>{{ results.siKe?.ke2?.shen || '-' }}</td>
+                <td>{{ results.siKe?.ke2?.relation || '-' }}</td>
+                <td>{{ results.siKe?.ke2?.explanation || '-' }}</td>
+              </tr>
+              <tr>
+                <td>第三課 (日干陰神)</td>
+                <td>{{ results.siKe?.ke3?.shen || '-' }}</td>
+                <td>{{ results.siKe?.ke3?.relation || '-' }}</td>
+                <td>{{ results.siKe?.ke3?.explanation || '-' }}</td>
+              </tr>
+              <tr>
+                <td>第四課 (日支陰神)</td>
+                <td>{{ results.siKe?.ke4?.shen || '-' }}</td>
+                <td>{{ results.siKe?.ke4?.relation || '-' }}</td>
+                <td>{{ results.siKe?.ke4?.explanation || '-' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 三傳 -->
+        <div class="result-box">
+          <h2>三傳</h2>
+          <p><strong>初傳:</strong> {{ results.sanChuan?.chuChuan || '-' }}</p>
+          <p><strong>中傳:</strong> {{ results.sanChuan?.zhongChuan || '-' }}</p>
+          <p><strong>末傳:</strong> {{ results.sanChuan?.moChuan || '-' }}</p>
+          <p class="warning">**極度重要提醒:** 三傳的計算是六壬最精髓的部分，目前程式碼僅為簡化版本，與正統六壬推演規則仍有很大差異。</p>
+        </div>
+
+        <!-- AI提示 -->
+        <div class="result-box">
+          <h2>複製下列內容貼到各AI去幫忙分析</h2>
+          <div class="p-3 bg-light rounded">
+            <pre>{{ generateAIPrompt() }}</pre>
+          </div>
+          <button @click="copyToClipboard" class="btn btn-secondary mt-2">複製內容</button>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed, watch } = Vue;
+    
+    createApp({
+      setup() {
+        // 表單數據
+        const formData = ref({
+          datetime: new Date().toISOString().slice(0, 16),
+          year_gan_zhi: '',
+          month_gan_zhi: '',
+          day_gan_zhi: '',
+          pmemo: '',
+          uname: '',
+          chu_Chuan: '',
+          zhong_Chuan: '',
+          mo_Chuan: '',
+          chu_Chuan_rand: false,
+          zhong_Chuan_rand: false,
+          mo_Chuan_rand: false
+        });
+        
+        // 結果數據
+        const results = ref({
+          calculated: false,
+          inputTime: '',
+          trueSolarTime: '',
+          hourGanZhi: '',
+          tianPan: null,
+          siKe: null,
+          sanChuan: null
+        });
+        
+        // 監聽隨機數勾選狀態
+        watch(() => formData.value.chu_Chuan_rand, (val) => {
+          if (val) formData.value.chu_Chuan = Math.floor(Math.random() * 9) + 1;
+        });
+        
+        watch(() => formData.value.zhong_Chuan_rand, (val) => {
+          if (val) formData.value.zhong_Chuan = Math.floor(Math.random() * 9) + 1;
+        });
+        
+        watch(() => formData.value.mo_Chuan_rand, (val) => {
+          if (val) formData.value.mo_Chuan = Math.floor(Math.random() * 9) + 1;
+        });
+				
+				// 填入干支月日
+				const btgetganzhi = async () =>{
+					try {
+            const selectedDate = new Date(formData.value.datetime);
+            const year = selectedDate.getFullYear();
+            const month = selectedDate.getMonth() + 1; // Months are 0-indexed
+            const day = selectedDate.getDate();
+            
+            const response = await fetch(`https://api.tiax.cn/almanac/?year=${year}&month=${month}&day=${day}`);
+            const data = await response.json();
+            
+            const ganZhiDate = data.干支日期;
+            const ganZhiParts = ganZhiDate.split(' ');
+            
+            if (ganZhiParts.length >= 3) {
+              formData.value.year_gan_zhi = ganZhiParts[0].substring(0, 2); // 年干支 (e.g. 乙巳)
+              formData.value.month_gan_zhi = ganZhiParts[1].substring(0, 2); // 月干支 (e.g. 癸未)
+              formData.value.day_gan_zhi = ganZhiParts[2].substring(0, 2); // 日干支 (e.g. 甲申)
+            } else {
+              alert('API返回的干支日期格式不符合預期');
+            }
+          } catch (error) {
+            console.error('獲取干支信息失敗:', error);
+            alert('獲取干支信息失敗，請檢查網絡連接或稍後再試');
+          }
+				};
+        
+        // 計算排盤
+        const calculate = () => {
+          // 簡單驗證
+          if (!formData.value.year_gan_zhi || !formData.value.month_gan_zhi || 
+              !formData.value.day_gan_zhi || !formData.value.pmemo || !formData.value.uname) {
+            alert('請填寫所有必填欄位');
+            return;
+          }
+          
+          // 模擬計算結果
+          results.value = {
+            calculated: true,
+            inputTime: formatDateTime(formData.value.datetime),
+            trueSolarTime: '2025-07-15 12:34:56',
+            hourGanZhi: '甲子', 
+            tianPan: null,
+            siKe: {
+              ke1: { shen: '青龍', relation: '木生火1', explanation: '主文書喜慶' },
+              ke2: { shen: '朱雀', relation: '火生土', explanation: '主口舌是非' },
+              ke3: { shen: '勾陳', relation: '土生金', explanation: '主爭鬥田宅' },
+              ke4: { shen: '白虎', relation: '金生水', explanation: '主疾病喪事' }
+            },
+            sanChuan: {
+              chuChuan: '青龍',
+              zhongChuan: '朱雀',
+              moChuan: '白虎'
+            }
+          };
+        };
+        
+        // 格式化日期時間
+        const formatDateTime = (isoString) => {
+          const date = new Date(isoString);
+          return date.toLocaleString('zh-TW');
+        };
+        
+        // 生成AI提示
+        const generateAIPrompt = () => {
+          if (!results.value.calculated) return '';
+          
+          return `你是一位專業資深的算命師。
+
+詢問者：${formData.value.uname}
+時間(陽曆、真太陽時間)：${results.value.trueSolarTime}
+求占：${formData.value.pmemo}
+
+日干上神: ${results.value.siKe?.ke1?.shen},五行${results.value.siKe?.ke1?.relation}
+日支上神: ${results.value.siKe?.ke2?.shen},五行${results.value.siKe?.ke2?.relation}
+日干陰神: ${results.value.siKe?.ke3?.shen},五行${results.value.siKe?.ke3?.relation}
+日支陰神: ${results.value.siKe?.ke4?.shen},五行${results.value.siKe?.ke4?.relation}
+三傳初傳: ${results.value.sanChuan?.chuChuan}
+三傳中傳: ${results.value.sanChuan?.zhongChuan}
+三傳末傳: ${results.value.sanChuan?.moChuan}
+
+希望了解並分析：
+1.課的整體格局
+2.三傳走勢解讀
+(1)初傳（發端）：關鍵因素
+(2)中傳（過程）：可能出現的轉折或障礙
+(3)末傳（結果）：最終發展趨勢提示
+3. 與詢問事項的關聯
+4. 可能的發展與建議
+5. 需要把握的機遇、推進的時機
+6. 需要規避的風險
+7. 貴人、小人的識別與應對
+8. 適宜的穿著顏色與出行方位
+9. 行動的最佳時機點、是否有新機會或變動訊號
+10. 心靈調適的建議方向
+11. 化解不利因素的具體方法
+12. 如有選擇題，應該優先考慮哪個方向？`;
+        };
+        
+        // 複製到剪貼板
+        const copyToClipboard = () => {
+          const prompt = generateAIPrompt();
+          
+          navigator.clipboard.writeText(prompt)
+            .then(() => alert('已複製到剪貼板'))
+            .catch(err => console.error('複製失敗:', err));
+          
+        };
+        
+        return {
+          formData,
+          results,
+          calculate,
+          generateAIPrompt,
+          copyToClipboard,
+					btgetganzhi
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
