@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="icon" href="https://maymoss.github.io/test.github.io/9ghfo-83t22-001.ico" type="image/png" sizes="32x32">
   <title>中六壬排盤系統</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -63,10 +62,6 @@
           <a href="https://www.go-calendar.com/lunar-calendar" target="_blank" class="btn btn-outline-primary">
             【農民曆】2025農曆查詢、萬年曆、黃曆 | Go日曆
           </a>
-					&nbsp
-          <button type="button" class="btn btn-info" @click="btgetganzhi">
-						填入干支月日
-          </button>
         </div>
         
         <form @submit.prevent="calculate">
@@ -284,33 +279,6 @@
         watch(() => formData.value.mo_Chuan_rand, (val) => {
           if (val) formData.value.mo_Chuan = Math.floor(Math.random() * 9) + 1;
         });
-				
-				// 填入干支月日
-				const btgetganzhi = async () =>{
-					try {
-            const selectedDate = new Date(formData.value.datetime);
-            const year = selectedDate.getFullYear();
-            const month = selectedDate.getMonth() + 1; // Months are 0-indexed
-            const day = selectedDate.getDate();
-            
-            const response = await fetch(`https://api.tiax.cn/almanac/?year=${year}&month=${month}&day=${day}`);
-            const data = await response.json();
-            
-            const ganZhiDate = data.干支日期;
-            const ganZhiParts = ganZhiDate.split(' ');
-            
-            if (ganZhiParts.length >= 3) {
-              formData.value.year_gan_zhi = ganZhiParts[0].substring(0, 2); // 年干支 (e.g. 乙巳)
-              formData.value.month_gan_zhi = ganZhiParts[1].substring(0, 2); // 月干支 (e.g. 癸未)
-              formData.value.day_gan_zhi = ganZhiParts[2].substring(0, 2); // 日干支 (e.g. 甲申)
-            } else {
-              alert('API返回的干支日期格式不符合預期');
-            }
-          } catch (error) {
-            console.error('獲取干支信息失敗:', error);
-            alert('獲取干支信息失敗，請檢查網絡連接或稍後再試');
-          }
-				};
         
         // 計算排盤
         const calculate = () => {
@@ -399,8 +367,7 @@
           results,
           calculate,
           generateAIPrompt,
-          copyToClipboard,
-					btgetganzhi
+          copyToClipboard
         };
       }
     }).mount('#app');
