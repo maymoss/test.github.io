@@ -1,104 +1,112 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant-TW">
 <head>
   <meta charset="UTF-8">
-  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" href="https://maymoss.github.io/test.github.io/9ghfo-83t22-001.ico" type="image/png" sizes="32x32">-->
-  
-  <link rel="icon" href="https://maymoss.github.io/test.github.io/9ghfo-83t22-001.ico" type="image/png" sizes="32x32">
-  <title>專案作品</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="description" content="Brooks 專案作品集，展示六壬趣味算命系統、Android 展示及官方網站開發案例。">
+  <link rel="icon" href="https://maymoss.github.io/test.github.io/9ghfo-83t22-001.ico" type="image/x-icon">
+  <title>專案作品集 | Brooks</title>
   <style>
-    body { 
-      font-family: '微軟正黑體', 'Microsoft JhengHei', sans-serif; 
-      line-height: 1.6; 
-      padding: 20px; 
-      background-color: #f8f9fa;
-    }
-    .result-box { 
-      border: 1px solid #dee2e6; 
-      padding: 20px; 
-      margin-bottom: 20px; 
-      border-radius: 8px; 
-      background-color: white;
-      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    }
-    h2 { 
-      color: #333; 
-      border-bottom: 1px solid #eee; 
-      padding-bottom: 10px; 
-      margin-bottom: 15px;
-    }
-    strong { color: #0d6efd; }
-    .form-label { font-weight: 500; }
-    .warning { color: #dc3545; font-weight: bold; }
-    .info { color: #198754; font-weight: bold; }
-    .required-field::after {
-      content: " *";
-      color: #dc3545;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 15px 0;
-    }
-    th, td {
-      border: 1px solid #dee2e6;
-      padding: 8px;
-      text-align: left;
-    }
-    th {
-      background-color: #f8f9fa;
-    }
+    :root { color-scheme: dark; --bg:#080e1b; --panel:#111c30; --line:rgba(170,194,228,.14); --text:#f0f5ff; --muted:#a4b4cd; --accent:#7ba8ff; --teal:#67dfc9; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; font-family:"Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif; color:var(--text); background:radial-gradient(ellipse 65% 34% at 78% 0%,rgba(69,103,202,.23),transparent 70%),radial-gradient(ellipse 45% 30% at 5% 36%,rgba(37,170,154,.11),transparent 75%),var(--bg); line-height:1.7; }
+    a { color:inherit; }
+    .container { width:min(1120px,calc(100% - 44px)); margin-inline:auto; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:26px 0; }
+    .brand { display:flex; align-items:center; gap:11px; text-decoration:none; font-weight:800; letter-spacing:.05em; }
+    .brand-mark { display:grid; place-items:center; width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg,#89adff,#64e1c9); color:#071427; font-weight:900; }
+    .nav-link { font-size:.9rem; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .nav-link:hover,.nav-link:focus-visible { color:#fff; }
+    .hero { padding:91px 0 84px; max-width:810px; }
+    .eyebrow { display:inline-flex; align-items:center; gap:9px; padding:7px 13px; border:1px solid rgba(111,223,201,.26); border-radius:99px; background:rgba(84,207,191,.07); color:#8fe7d8; font-size:.82rem; letter-spacing:.12em; font-weight:700; }
+    .dot { width:7px; height:7px; border-radius:50%; background:#6ee7c9; box-shadow:0 0 12px #6ee7c9; }
+    h1 { margin:22px 0 19px; font-size:clamp(2.55rem,6vw,4.8rem); line-height:1.22; letter-spacing:-.055em; }
+    .gradient-text { background:linear-gradient(105deg,#9dbaff 8%,#8cf0db 94%); color:transparent; background-clip:text; -webkit-background-clip:text; }
+    .hero p { max-width:630px; margin:0; color:var(--muted); font-size:1.08rem; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:13px; margin-top:33px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:9px; min-height:47px; padding:10px 20px; border-radius:11px; text-decoration:none; font-size:.94rem; font-weight:700; transition:transform .2s,background .2s,border-color .2s; }
+    .btn:hover { transform:translateY(-2px); }
+    .btn-primary { color:#091528; background:linear-gradient(120deg,#98b7ff,#82e6d5); }
+    .btn-outline { border:1px solid rgba(169,192,228,.3); background:rgba(255,255,255,.035); }
+    .btn-outline:hover { border-color:#a1c2f9; background:rgba(255,255,255,.075); }
+    .section-heading { display:flex; justify-content:space-between; align-items:end; flex-wrap:wrap; gap:16px; margin-bottom:25px; }
+    .section-kicker { margin:0 0 6px; color:var(--teal); font-size:.78rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+    h2 { margin:0; font-size:clamp(1.55rem,3vw,2.1rem); letter-spacing:-.025em; }
+    .section-description { margin:0; color:var(--muted); font-size:.92rem; }
+    .project-section { padding:16px 0 70px; }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+    .project-card { display:flex; flex-direction:column; overflow:hidden; border:1px solid var(--line); border-radius:20px; background:linear-gradient(145deg,rgba(23,37,62,.92),rgba(12,22,39,.96)); box-shadow:0 18px 48px rgba(0,0,0,.13); transition:transform .25s,border-color .25s,box-shadow .25s; }
+    .project-card:hover { transform:translateY(-5px); border-color:rgba(138,180,248,.4); box-shadow:0 24px 55px rgba(0,0,0,.24); }
+    .preview { position:relative; display:flex; align-items:center; justify-content:center; height:208px; overflow:hidden; }
+    .preview::before { content:""; position:absolute; width:250px; height:250px; border:1px solid rgba(255,255,255,.15); border-radius:50%; box-shadow:0 0 0 35px rgba(255,255,255,.035),0 0 0 75px rgba(255,255,255,.025); }
+    .preview::after { content:""; position:absolute; inset:auto 0 0; height:70px; background:linear-gradient(transparent,rgba(10,18,31,.18)); }
+    .preview-icon { position:relative; z-index:1; display:grid; place-items:center; width:92px; height:92px; border-radius:24px; background:rgba(255,255,255,.11); border:1px solid rgba(255,255,255,.2); box-shadow:0 12px 30px rgba(0,0,0,.15); font-size:2.8rem; }
+    .preview-blue { background:radial-gradient(circle at 28% 26%,#385ab2,#152849 64%,#101c35); }
+    .preview-violet { background:radial-gradient(circle at 28% 26%,#6751b2,#302657 64%,#17172f); }
+    .preview-green { background:radial-gradient(circle at 28% 26%,#267e85,#153e4c 64%,#112733); }
+    .preview-amber { background:radial-gradient(circle at 28% 26%,#997344,#493a31 64%,#2b2630); }
+    .card-content { display:flex; flex:1; flex-direction:column; padding:25px; }
+    .card-meta { display:flex; align-items:center; flex-wrap:wrap; gap:9px; margin-bottom:13px; }
+    .tag { padding:4px 10px; border-radius:7px; background:rgba(133,169,246,.12); color:#a9c5ff; font-size:.73rem; font-weight:700; }
+    .tag-alt { background:rgba(111,222,200,.1); color:#83e6d3; }
+    h3 { margin:0 0 9px; font-size:1.26rem; line-height:1.4; }
+    .card-content p { margin:0 0 23px; color:var(--muted); font-size:.91rem; flex:1; }
+    .card-link { display:inline-flex; align-items:center; gap:8px; width:fit-content; color:#b1ccff; font-weight:700; text-decoration:none; font-size:.93rem; }
+    .card-link:hover { color:#fff; }
+    .card-link span { transition:transform .2s; }
+    .card-link:hover span { transform:translate(3px,-3px); }
+    .footer { display:flex; align-items:center; justify-content:space-between; gap:15px; flex-wrap:wrap; padding:28px 0 35px; border-top:1px solid var(--line); color:var(--muted); font-size:.85rem; }
+    .footer p { margin:0; }
+    :focus-visible { outline:3px solid #9bd9ff; outline-offset:4px; }
+    @media (max-width:700px) { .hero { padding:64px 0 65px; } .grid { grid-template-columns:1fr; } .preview { height:190px; } .section-heading { align-items:start; } .footer { flex-direction:column; align-items:start; } }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; } }
   </style>
 </head>
 <body>
-  <div id="app">
-    <div class="container">
-      <h1 class="text-center mb-4">專案作品</h1>
-      
-      <!-- 六壬趣味算命系統 -->
-      <div class="result-box">
-        <h2>六壬趣味算命系統</h2>
-        <div class="mb-3">
-          <p>
-            WEB展示網址：<a href="https://maymoss.github.io/test.github.io/liurenpro.html" target="_blank" class="btn btn-outline-primary">
-              https://maymoss.github.io/test.github.io/liurenpro.html
-            </a>
-          </p>
-          <p>
-            安卓展示：<a href="https://maymoss.github.io/test.github.io/quweishensuanliuren.html" target="_blank" class="btn btn-outline-primary">
-              https://maymoss.github.io/test.github.io/quweishensuanliuren.html
-            </a>
-          </p>
+  <div class="container">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Brooks 作品集首頁"><span class="brand-mark" aria-hidden="true">B</span><span>BROOKS<span style="color:#89e4d4">.</span></span></a>
+      <nav aria-label="主選單"><a class="nav-link" href="#projects">探索作品 ↗</a></nav>
+    </header>
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="eyebrow"><span class="dot" aria-hidden="true"></span> WEB &amp; APP PROJECTS</div>
+        <h1 id="hero-title">將想法化為<br><span class="gradient-text">真正可體驗的作品。</span></h1>
+        <p>歡迎來到我的專案作品集。這裡收錄互動式網頁、趣味應用，以及企業官方網站的開發案例。每一個專案，都可以直接點擊體驗。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">瀏覽專案 <span aria-hidden="true">↓</span></a>
+          <a class="btn btn-outline" href="https://maymoss.github.io/test.github.io/liurenpro.html" target="_blank" rel="noopener noreferrer">體驗最新作品 <span aria-hidden="true">↗</span></a>
         </div>
-      </div>
-
-      <!-- 網站 -->
-      <div class="result-box">
-        <h2>官方網站</h2>
-        <div class="mb-3">
-          <p>
-            知達工藝會館：<a href="https://www.booking-wise0.com.tw/zhida/zida/" target="_blank" class="btn btn-outline-primary">
-              https://www.booking-wise0.com.tw/zhida/zida/
-            </a>
-          </p>
-          <p>
-            治鼎科技營造：<a href="https://jimdandy.com.tw/jdhome/" target="_blank" class="btn btn-outline-primary">
-              https://jimdandy.com.tw/jdhome/
-            </a>
-          </p>
+      </section>
+      <section id="projects" class="project-section" aria-labelledby="projects-title">
+        <div class="section-heading">
+          <div><p class="section-kicker">Selected Projects</p><h2 id="projects-title">精選專案作品</h2></div>
+          <p class="section-description">共 4 個作品 · 點擊即可開啟展示頁面</p>
         </div>
-      </div>
-      
+        <div class="grid">
+          <article class="project-card">
+            <div class="preview preview-blue" aria-hidden="true"><div class="preview-icon">☯</div></div>
+            <div class="card-content"><div class="card-meta"><span class="tag">互動網頁</span><span class="tag tag-alt">WEB</span></div><h3>六壬趣味算命系統</h3><p>以網頁形式呈現的六壬趣味互動體驗，開啟瀏覽器即可使用。</p><a class="card-link" href="https://maymoss.github.io/test.github.io/liurenpro.html" target="_blank" rel="noopener noreferrer" aria-label="開啟六壬趣味算命系統網頁展示">查看網頁展示 <span aria-hidden="true">↗</span></a></div>
+          </article>
+          <article class="project-card">
+            <div class="preview preview-violet" aria-hidden="true"><div class="preview-icon">▣</div></div>
+            <div class="card-content"><div class="card-meta"><span class="tag">趣味應用</span><span class="tag tag-alt">ANDROID 展示</span></div><h3>六壬趣味算命・安卓展示</h3><p>六壬趣味算命系統的 Android 版本展示頁，了解行動端作品。</p><a class="card-link" href="https://maymoss.github.io/test.github.io/quweishensuanliuren.html" target="_blank" rel="noopener noreferrer" aria-label="開啟六壬趣味算命安卓展示">查看安卓展示 <span aria-hidden="true">↗</span></a></div>
+          </article>
+          <article class="project-card">
+            <div class="preview preview-green" aria-hidden="true"><div class="preview-icon">⌂</div></div>
+            <div class="card-content"><div class="card-meta"><span class="tag">官方網站</span><span class="tag tag-alt">企業形象</span></div><h3>知達工藝會館</h3><p>知達工藝會館官方網站案例，呈現品牌資訊與網站服務入口。</p><a class="card-link" href="https://www.booking-wise0.com.tw/zhida/zida/" target="_blank" rel="noopener noreferrer" aria-label="開啟知達工藝會館官方網站">前往官方網站 <span aria-hidden="true">↗</span></a></div>
+          </article>
+          <article class="project-card">
+            <div class="preview preview-amber" aria-hidden="true"><div class="preview-icon">▥</div></div>
+            <div class="card-content"><div class="card-meta"><span class="tag">官方網站</span><span class="tag tag-alt">企業形象</span></div><h3>治鼎科技營造</h3><p>治鼎科技營造官方網站案例，展示企業品牌與對外資訊。</p><a class="card-link" href="https://jimdandy.com.tw/jdhome/" target="_blank" rel="noopener noreferrer" aria-label="開啟治鼎科技營造官方網站">前往官方網站 <span aria-hidden="true">↗</span></a></div>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><p>© <span id="year">2026</span> <strong>Brooks</strong>. All rights reserved.</p><p>用程式，讓創意成真。</p></footer>
   </div>
-
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
-<footer>
-  <div class="container my-auto">
-    <div class="text-center my-auto copyright">
-      <p>© <span>Copyright 2025</span> <strong class="px-1 sitename">Brooks</strong> <span>All Rights Reserved</span></p>
-    </div>
-  </div>
-</footer>
 </html>
