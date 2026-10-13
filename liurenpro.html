@@ -7,6 +7,7 @@
 		<title>中六壬排盤系統</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<style>
 			body { 
 				font-family: '微軟正黑體', 'Microsoft JhengHei', sans-serif; 
@@ -57,7 +58,7 @@
 	<body>
 		<div id="app">
 			<div class="container">
-				<h1 class="text-center mb-4">中六壬排盤系統</h1>
+				<h1 class="text-center mb-4">中六壬排盤系統AA</h1>
 				<div class="result-box">
 					<h2>專案說明</h2>
 					<div class="mb-3">
@@ -277,8 +278,84 @@
 				</template>
 			</div>
 		</div>
-
 		<script>
+      (function() {
+        var __raw = '{html_app_can_load_employees}';
+        //alert("A?{html_app_can_load_employees}"+__raw);
+        // If template wasn't rendered, the placeholder will remain unchanged or be empty.
+        if (!__raw && __raw === '{html_app_can_load_employees}') {
+          window.APP_CAN_LOAD_EMPLOYEES = undefined;
+          return;
+        }
+        //alert("?");
+        try {
+          //alert("B?");
+          // Accept common truthy renderings: '1', 'true', 'TRUE'
+          var norm = String(__raw).trim().toLowerCase();
+          window.APP_CAN_LOAD_EMPLOYEES = (norm === '1' || norm === 'true');
+        } catch (e) {
+          window.APP_CAN_LOAD_EMPLOYEES = undefined;
+        }
+      })();
+
+      // ------- 通用函式 (SweetAlert2) ---
+      function showAlterConfirm(titleText, bodyText, onConfirmCallback, confirmText = '確認', iconType = 'warning', onCancelCallback = null) {
+        Swal.fire({
+            title: titleText,
+            text: bodyText,
+            icon: iconType,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: confirmText,
+            cancelButtonText: '取消'
+        }).then(function(result) {
+          if (result.isConfirmed && typeof onConfirmCallback === 'function') {
+            onConfirmCallback(); // 點擊確認時執行
+          } else if (result.isDismissed && typeof onCancelCallback === 'function') {
+            onCancelCallback();  // 點擊取消時執行 (如果有傳入這個參數的話)
+          }
+        });
+      }
+
+      // ---- 通用函式 (SweetAlert2) ----
+      function showAlert(titleText, bodyText, iconType = 'info', confirmText = '關閉') {
+        Swal.fire({
+          title: titleText,
+          text: bodyText,
+          icon: iconType,
+          confirmButtonText: confirmText,
+          customClass: {
+            htmlContainer: 'swal-pre-line'
+          }
+        });
+      }
+      
+      // --- 通用函式 (SweetAlert2) ---
+      function showMessage(message, type = 'success') {
+        // 將舊版的 'danger' 轉換為 Swal 支援的 'error'
+        const iconType = (type === 'danger') ? 'error' : type;
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',         // 顯示位置：右上角
+          showConfirmButton: false,    // 不顯示「確認」按鈕
+          showCloseButton: true,       // ⭐ 顯示右上角的「關閉(X)」按鈕
+          timer: 5000,                 // 5秒後自動消失
+          timerProgressBar: true,      // 顯示倒數進度條
+          didOpen: (toast) => {
+            // 滑鼠移過去時暫停倒數，移開繼續倒數
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        });
+
+        Toast.fire({
+          icon: iconType,
+          title: message
+        });
+      }
+
 		const { createApp, ref, computed, watch } = Vue;
 
 		createApp({
