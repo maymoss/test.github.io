@@ -1,114 +1,592 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b1220">
-  <meta name="description" content="Brooks 專案作品集，展示六壬趣味算命系統、Android 展示及官方網站開發案例。">
-  <link rel="icon" type="image/x-icon" href="https://lanjiji.zapto.org/9ghfo-83t22-001.ico?v=2">
-  <link rel="shortcut icon" type="image/x-icon" href="https://lanjiji.zapto.org/9ghfo-83t22-001.ico?v=2">
-  <title>專案作品集 | Brooks</title>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="#f7fafc" name="theme-color"/>
+  <meta content="Brooks 專案作品集，展示六壬趣味算命系統、Android 展示及官方網站開發案例。" name="description"/>
+  <link href="https://lanjiji.zapto.org/9ghfo-83t22-001.ico?v=2" rel="icon" type="image/x-icon"/>
+  <title>
+   專案作品集 | Brooks
+  </title>
   <style>
-    :root { color-scheme: dark; --bg:#080e1b; --panel:#111c30; --line:rgba(170,194,228,.14); --text:#f0f5ff; --muted:#a4b4cd; --accent:#7ba8ff; --teal:#67dfc9; }
-    * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body { margin:0; font-family:"Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif; color:var(--text); background:radial-gradient(ellipse 65% 34% at 78% 0%,rgba(69,103,202,.23),transparent 70%),radial-gradient(ellipse 45% 30% at 5% 36%,rgba(37,170,154,.11),transparent 75%),var(--bg); line-height:1.7; }
-    a { color:inherit; }
-    .container { width:min(1120px,calc(100% - 44px)); margin-inline:auto; }
-    .topbar { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:26px 0; }
-    .brand { display:flex; align-items:center; gap:11px; text-decoration:none; font-weight:800; letter-spacing:.05em; }
-    .brand-mark { display:grid; place-items:center; width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg,#89adff,#64e1c9); color:#071427; font-weight:900; }
-    .nav-link { font-size:.9rem; color:var(--muted); text-decoration:none; transition:color .2s; }
-    .nav-link:hover,.nav-link:focus-visible { color:#fff; }
-    .hero { padding:91px 0 84px; max-width:810px; }
-    .eyebrow { display:inline-flex; align-items:center; gap:9px; padding:7px 13px; border:1px solid rgba(111,223,201,.26); border-radius:99px; background:rgba(84,207,191,.07); color:#8fe7d8; font-size:.82rem; letter-spacing:.12em; font-weight:700; }
-    .dot { width:7px; height:7px; border-radius:50%; background:#6ee7c9; box-shadow:0 0 12px #6ee7c9; }
-    h1 { margin:22px 0 19px; font-size:clamp(2.55rem,6vw,4.8rem); line-height:1.22; letter-spacing:-.055em; }
-    .gradient-text { background:linear-gradient(105deg,#9dbaff 8%,#8cf0db 94%); color:transparent; background-clip:text; -webkit-background-clip:text; }
-    .hero p { max-width:630px; margin:0; color:var(--muted); font-size:1.08rem; }
-    .hero-actions { display:flex; flex-wrap:wrap; gap:13px; margin-top:33px; }
-    .btn { display:inline-flex; align-items:center; justify-content:center; gap:9px; min-height:47px; padding:10px 20px; border-radius:11px; text-decoration:none; font-size:.94rem; font-weight:700; transition:transform .2s,background .2s,border-color .2s; }
-    .btn:hover { transform:translateY(-2px); }
-    .btn-primary { color:#091528; background:linear-gradient(120deg,#98b7ff,#82e6d5); }
-    .btn-outline { border:1px solid rgba(169,192,228,.3); background:rgba(255,255,255,.035); }
-    .btn-outline:hover { border-color:#a1c2f9; background:rgba(255,255,255,.075); }
-    .section-heading { display:flex; justify-content:space-between; align-items:end; flex-wrap:wrap; gap:16px; margin-bottom:25px; }
-    .section-kicker { margin:0 0 6px; color:var(--teal); font-size:.78rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
-    h2 { margin:0; font-size:clamp(1.55rem,3vw,2.1rem); letter-spacing:-.025em; }
-    .section-description { margin:0; color:var(--muted); font-size:.92rem; }
-    .project-section { padding:16px 0 70px; }
-    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
-    .project-card { display:flex; flex-direction:column; overflow:hidden; border:1px solid var(--line); border-radius:20px; background:linear-gradient(145deg,rgba(23,37,62,.92),rgba(12,22,39,.96)); box-shadow:0 18px 48px rgba(0,0,0,.13); transition:transform .25s,border-color .25s,box-shadow .25s; }
-    .project-card:hover { transform:translateY(-5px); border-color:rgba(138,180,248,.4); box-shadow:0 24px 55px rgba(0,0,0,.24); }
-    .preview { position:relative; display:flex; align-items:center; justify-content:center; height:208px; overflow:hidden; }
-    .preview::before { content:""; position:absolute; width:250px; height:250px; border:1px solid rgba(255,255,255,.15); border-radius:50%; box-shadow:0 0 0 35px rgba(255,255,255,.035),0 0 0 75px rgba(255,255,255,.025); }
-    .preview::after { content:""; position:absolute; inset:auto 0 0; height:70px; background:linear-gradient(transparent,rgba(10,18,31,.18)); }
-    .preview-icon { position:relative; z-index:1; display:grid; place-items:center; width:92px; height:92px; border-radius:24px; background:rgba(255,255,255,.11); border:1px solid rgba(255,255,255,.2); box-shadow:0 12px 30px rgba(0,0,0,.15); font-size:2.8rem; }
-    .preview-blue { background:radial-gradient(circle at 28% 26%,#385ab2,#152849 64%,#101c35); }
-    .preview-violet { background:radial-gradient(circle at 28% 26%,#6751b2,#302657 64%,#17172f); }
-    .preview-green { background:radial-gradient(circle at 28% 26%,#267e85,#153e4c 64%,#112733); }
-    .preview-amber { background:radial-gradient(circle at 28% 26%,#997344,#493a31 64%,#2b2630); }
-    .card-content { display:flex; flex:1; flex-direction:column; padding:25px; }
-    .card-meta { display:flex; align-items:center; flex-wrap:wrap; gap:9px; margin-bottom:13px; }
-    .tag { padding:4px 10px; border-radius:7px; background:rgba(133,169,246,.12); color:#a9c5ff; font-size:.73rem; font-weight:700; }
-    .tag-alt { background:rgba(111,222,200,.1); color:#83e6d3; }
-    h3 { margin:0 0 9px; font-size:1.26rem; line-height:1.4; }
-    .card-content p { margin:0 0 23px; color:var(--muted); font-size:.91rem; flex:1; }
-    .card-link { display:inline-flex; align-items:center; gap:8px; width:fit-content; color:#b1ccff; font-weight:700; text-decoration:none; font-size:.93rem; }
-    .card-link:hover { color:#fff; }
-    .card-link span { transition:transform .2s; }
-    .card-link:hover span { transform:translate(3px,-3px); }
-    .footer { display:flex; align-items:center; justify-content:space-between; gap:15px; flex-wrap:wrap; padding:28px 0 35px; border-top:1px solid var(--line); color:var(--muted); font-size:.85rem; }
-    .footer p { margin:0; }
-    :focus-visible { outline:3px solid #9bd9ff; outline-offset:4px; }
-    @media (max-width:700px) { .hero { padding:64px 0 65px; } .grid { grid-template-columns:1fr; } .preview { height:190px; } .section-heading { align-items:start; } .footer { flex-direction:column; align-items:start; } }
-    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; } }
+   
+    :root {
+        color-scheme:light;
+        --bg:#f7f9fc;
+        --paper:#fff;
+        --ink:#203049;
+        --muted:#69788c;
+        --line:#e4eaf1;
+        --primary:#3d719c;
+        --primary-light:#e9f2f9;
+        --mint:#eaf6f1;
+        --shadow:0 10px 35px rgba(30,59,88,.055)
+    }
+    * {
+        box-sizing:border-box
+    }
+    html {
+        scroll-behavior:smooth
+    }
+    body {
+        margin:0;
+        background:var(--bg);
+        color:var(--ink);
+        font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+        line-height:1.7
+    }
+    a {
+        color:inherit
+    }
+    .container {
+        width:min(1120px,calc(100% - 40px));
+        margin:auto
+    }
+    .site-header {
+        background:rgba(255,255,255,.94);
+        border-bottom:1px solid var(--line)
+    }
+    .topbar {
+        min-height:78px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:20px
+    }
+    .brand {
+        display:flex;
+        align-items:center;
+        gap:12px;
+        text-decoration:none;
+        font-weight:800;
+        font-size:1.16rem;
+        letter-spacing:.02em
+    }
+    .brand-mark {
+        width:39px;
+        height:39px;
+        display:grid;
+        place-items:center;
+        border-radius:12px;
+        background:#e7f1f8;
+        color:#366b94;
+        font-size:1.25rem
+    }
+    .nav-link {
+        text-decoration:none;
+        font-size:.91rem;
+        font-weight:650;
+        color:#56697e
+    }
+    .nav-link:hover {
+        color:var(--primary)
+    }
+    .hero {
+        padding:74px 0 62px;
+        display:grid;
+        grid-template-columns:1.4fr .6fr;
+        align-items:center;
+        gap:35px
+    }
+    .eyebrow {
+        color:#4d829c;
+        font-weight:800;
+        letter-spacing:.11em;
+        font-size:.77rem
+    }
+    .hero h1 {
+        font-size:clamp(2.15rem,4.8vw,3.6rem);
+        line-height:1.28;
+        letter-spacing:-.045em;
+        margin:16px 0 20px
+    }
+    .hero h1 span {
+        color:#487ea3
+    }
+    .hero p {
+        color:var(--muted);
+        font-size:1.02rem;
+        max-width:600px;
+        margin:0
+    }
+    .hero-actions {
+        display:flex;
+        gap:12px;
+        flex-wrap:wrap;
+        margin-top:27px
+    }
+    .btn {
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:9px;
+        min-height:45px;
+        padding:9px 19px;
+        border-radius:10px;
+        font-weight:700;
+        font-size:.92rem;
+        text-decoration:none;
+        transition:background .18s,transform .18s
+    }
+    .btn:hover {
+        transform:translateY(-2px)
+    }
+    .btn-primary {
+        background:#447b9e;
+        color:white
+    }
+    .btn-primary:hover {
+        background:#356a8d
+    }
+    .btn-outline {
+        background:#fff;
+        color:#3e617e;
+        border:1px solid #cfdce7
+    }
+    .btn-outline:hover {
+        background:#f0f6fa
+    }
+    .hero-art {
+        height:244px;
+        position:relative;
+        border-radius:26px;
+        background:linear-gradient(145deg,#e6f1f7,#e8f6ef);
+        border:1px solid #dceae9;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        overflow:hidden
+    }
+    .hero-art:before,.hero-art:after {
+        content:"";
+        position:absolute;
+        border:1px solid rgba(77,127,155,.15);
+        border-radius:50%;
+        width:280px;
+        height:280px
+    }
+    .hero-art:after {
+        width:185px;
+        height:185px
+    }
+    .art-window {
+        position:relative;
+        z-index:1;
+        width:190px;
+        padding:18px;
+        border-radius:17px;
+        background:white;
+        box-shadow:0 20px 35px rgba(57,106,139,.13);
+        transform:rotate(-7deg)
+    }
+    .art-dots {
+        display:flex;
+        gap:5px;
+        margin-bottom:15px
+    }
+    .art-dots i {
+        width:7px;
+        height:7px;
+        border-radius:50%;
+        background:#bfd7e5
+    }
+    .art-line {
+        height:9px;
+        background:#e5edf4;
+        border-radius:8px;
+        margin:9px 0
+    }
+    .art-line:nth-child(3) {
+        width:78%
+    }
+    .art-line:nth-child(4) {
+        width:55%;
+        background:#d6eadf
+    }
+    .section {
+        padding:14px 0 76px
+    }
+    .section-heading {
+        display:flex;
+        align-items:end;
+        justify-content:space-between;
+        gap:16px;
+        margin-bottom:24px
+    }
+    .section-kicker {
+        font-size:.77rem;
+        font-weight:800;
+        color:#5b8f91;
+        letter-spacing:.1em;
+        margin:0 0 4px
+    }
+    .section h2 {
+        font-size:clamp(1.5rem,3vw,2rem);
+        margin:0;
+        letter-spacing:-.03em
+    }
+    .section-description {
+        font-size:.89rem;
+        color:var(--muted);
+        margin:0
+    }
+    .grid {
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:20px
+    }
+    .project-card {
+        background:var(--paper);
+        border:1px solid var(--line);
+        border-radius:17px;
+        overflow:hidden;
+        box-shadow:var(--shadow);
+        display:flex;
+        flex-direction:column;
+        transition:transform .2s,box-shadow .2s
+    }
+    .project-card:hover {
+        transform:translateY(-3px);
+        box-shadow:0 18px 40px rgba(30,59,88,.095)
+    }
+    .preview {
+        height:157px;
+        display:flex;
+        align-items:center;
+        justify-content:center
+    }
+    .preview-blue {
+        background:#e9f1fc
+    }
+    .preview-violet {
+        background:#f0edfa
+    }
+    .preview-green {
+        background:#e8f5f0
+    }
+    .preview-amber {
+        background:#faf2e6
+    }
+    .preview-icon {
+        width:70px;
+        height:70px;
+        display:grid;
+        place-items:center;
+        background:rgba(255,255,255,.75);
+        border:1px solid rgba(255,255,255,.9);
+        border-radius:18px;
+        font-size:2rem;
+        box-shadow:0 10px 22px rgba(48,70,94,.06)
+    }
+    .card-content {
+        padding:23px 25px 24px;
+        display:flex;
+        flex-direction:column;
+        flex:1
+    }
+    .card-meta {
+        display:flex;
+        gap:7px;
+        margin-bottom:11px;
+        flex-wrap:wrap
+    }
+    .tag {
+        font-size:.72rem;
+        padding:3px 9px;
+        background:#eef4fa;
+        border-radius:6px;
+        color:#537895;
+        font-weight:700
+    }
+    .tag-alt {
+        background:#eef7f3;
+        color:#558c77
+    }
+    .project-card h3 {
+        font-size:1.17rem;
+        line-height:1.4;
+        margin:0 0 9px
+    }
+    .project-card p {
+        color:var(--muted);
+        font-size:.91rem;
+        margin:0 0 21px;
+        flex:1
+    }
+    .card-link {
+        font-weight:750;
+        color:#417a9c;
+        text-decoration:none;
+        font-size:.91rem;
+        display:inline-flex;
+        gap:8px;
+        align-items:center;
+        width:fit-content
+    }
+    .card-link:hover {
+        text-decoration:underline
+    }
+    .footer {
+        border-top:1px solid var(--line);
+        padding:27px 0 34px;
+        display:flex;
+        justify-content:space-between;
+        flex-wrap:wrap;
+        gap:10px;
+        color:var(--muted);
+        font-size:.84rem
+    }
+    .footer p {
+        margin:0
+    }
+    :focus-visible {
+        outline:3px solid #83b6d9;
+        outline-offset:3px
+    }
+    @media(max-width:760px) {
+        .hero {
+            grid-template-columns:1fr;
+            padding:50px 0 42px
+        }
+        .hero-art {
+            height:170px
+        }
+        .art-window {
+            transform:rotate(-4deg) scale(.8)
+        }
+        .grid {
+            grid-template-columns:1fr
+        }
+        .section-heading {
+            align-items:start;
+            flex-direction:column
+        }
+        .preview {
+            height:145px
+        }
+    }
+    @media(prefers-reduced-motion:reduce) {
+        html {
+            scroll-behavior:auto
+        }
+        *,*:before,*:after {
+            transition:none!important
+        }
+    }
+  
   </style>
-</head>
-<body>
-  <div class="container">
-    <header class="topbar">
-      <img src="https://lanjiji.zapto.org/9ghfo-83t22-001.ico" alt="APP說明圖片" class="img-fluid">
-      <a class="brand" href="#top" aria-label="Brooks 作品集首頁"><span class="brand-mark" aria-hidden="true">B</span><span>Brooks99<span style="color:#89e4d4">.</span></span></a>
-      <nav aria-label="主選單"><a class="nav-link" href="#projects">探索作品 ↗</a></nav>
-    </header>
-    <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="eyebrow"><span class="dot" aria-hidden="true"></span> WEB &amp; APP PROJECTS</div>
-        <h1 id="hero-title">將想法化為<br><span class="gradient-text">真正可體驗的作品。</span></h1>
-        <p>歡迎來到我的專案作品集。這裡收錄互動式網頁、趣味應用，以及企業官方網站的開發案例。每一個專案，都可以直接點擊體驗。</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#projects">瀏覽專案 <span aria-hidden="true">↓</span></a>
-          <a class="btn btn-outline" href="https://lanjiji.zapto.org/liurenpro.html" target="_blank" rel="noopener noreferrer">體驗最新作品 <span aria-hidden="true">↗</span></a>
-        </div>
-      </section>
-      <section id="projects" class="project-section" aria-labelledby="projects-title">
-        <div class="section-heading">
-          <div><p class="section-kicker">Selected Projects</p><h2 id="projects-title">精選專案作品</h2></div>
-          <p class="section-description">共 4 個作品 · 點擊即可開啟展示頁面</p>
-        </div>
-        <div class="grid">
-          <article class="project-card">
-            <div class="preview preview-blue" aria-hidden="true"><div class="preview-icon">☯</div></div>
-            <div class="card-content"><div class="card-meta"><span class="tag">互動網頁</span><span class="tag tag-alt">WEB</span></div><h3>六壬趣味算命系統</h3><p>以網頁形式呈現的六壬趣味互動體驗，開啟瀏覽器即可使用。</p><a class="card-link" href="https://lanjiji.zapto.org/liurenpro.html" target="_blank" rel="noopener noreferrer" aria-label="開啟六壬趣味算命系統網頁展示">查看網頁展示 <span aria-hidden="true">↗</span></a></div>
-          </article>
-          <article class="project-card">
-            <div class="preview preview-violet" aria-hidden="true"><div class="preview-icon">▣</div></div>
-            <div class="card-content"><div class="card-meta"><span class="tag">趣味應用</span><span class="tag tag-alt">ANDROID 展示</span></div><h3>六壬趣味算命・安卓展示</h3><p>六壬趣味算命系統的 Android 版本展示頁，了解行動端作品。</p><a class="card-link" href="https://lanjiji.zapto.org/quweishensuanliuren.html" target="_blank" rel="noopener noreferrer" aria-label="開啟六壬趣味算命安卓展示">查看安卓展示 <span aria-hidden="true">↗</span></a></div>
-          </article>
-          <article class="project-card">
-            <div class="preview preview-green" aria-hidden="true"><div class="preview-icon">⌂</div></div>
-            <div class="card-content"><div class="card-meta"><span class="tag">官方網站</span><span class="tag tag-alt">企業形象</span></div><h3>知達工藝會館</h3><p>知達工藝會館官方網站案例，呈現品牌資訊與網站服務入口。</p><a class="card-link" href="https://www.booking-wise0.com.tw/zhida/zida/" target="_blank" rel="noopener noreferrer" aria-label="開啟知達工藝會館官方網站">前往官方網站 <span aria-hidden="true">↗</span></a></div>
-          </article>
-          <article class="project-card">
-            <div class="preview preview-amber" aria-hidden="true"><div class="preview-icon">▥</div></div>
-            <div class="card-content"><div class="card-meta"><span class="tag">官方網站</span><span class="tag tag-alt">企業形象</span></div><h3>治鼎科技營造</h3><p>治鼎科技營造官方網站案例，展示企業品牌與對外資訊。</p><a class="card-link" href="https://jimdandy.com.tw/jdhome/" target="_blank" rel="noopener noreferrer" aria-label="開啟治鼎科技營造官方網站">前往官方網站 <span aria-hidden="true">↗</span></a></div>
-          </article>
-        </div>
-      </section>
-    </main>
-    <footer class="footer"><p>© <span id="year">2026</span> <strong>Brooks</strong>. All rights reserved.</p><p>用程式，讓創意成真。</p></footer>
-  </div>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-</body>
+ </head>
+ <body>
+  <header class="site-header">
+   <div class="container topbar">
+    <a class="brand" href="#top">
+     <span aria-hidden="true" class="brand-mark">
+      B
+     </span>
+     <span>
+      Brooks
+      <span style="color:#74a69a">
+       .
+      </span>
+     </span>
+    </a>
+    <nav aria-label="主選單">
+     <a class="nav-link" href="#projects">
+      專案作品 ↓
+     </a>
+    </nav>
+   </div>
+  </header>
+  <main class="container" id="top">
+   <section aria-labelledby="hero-title" class="hero">
+    <div>
+     <div class="eyebrow">
+      WEB &amp; APP PORTFOLIO
+     </div>
+     <h1 id="hero-title">
+      讓每個想法，
+      <br/>
+      <span>
+       成為真正能使用的作品。
+      </span>
+     </h1>
+     <p>
+      這裡整理了我的互動網頁、Android 應用展示，以及企業官方網站。簡單瀏覽，點選作品即可了解更多。
+     </p>
+     <div class="hero-actions">
+      <a class="btn btn-primary" href="#projects">
+       瀏覽作品
+       <span aria-hidden="true">
+        ↓
+       </span>
+      </a>
+      <a class="btn btn-outline" href="https://lanjiji.zapto.org/liurenpro.html" rel="noopener noreferrer" target="_blank">
+       體驗最新作品 ↗
+      </a>
+     </div>
+    </div>
+    <div aria-hidden="true" class="hero-art">
+     <div class="art-window">
+      <div class="art-dots">
+       <i>
+       </i>
+       <i>
+       </i>
+       <i>
+       </i>
+      </div>
+      <div class="art-line">
+      </div>
+      <div class="art-line">
+      </div>
+      <div class="art-line">
+      </div>
+      <div class="art-line">
+      </div>
+     </div>
+    </div>
+   </section>
+   <section aria-labelledby="projects-title" class="section" id="projects">
+    <div class="section-heading">
+     <div>
+      <p class="section-kicker">
+       SELECTED WORKS
+      </p>
+      <h2 id="projects-title">
+       精選專案
+      </h2>
+     </div>
+     <p class="section-description">
+      4 個作品 · 點選卡片連結即可前往
+     </p>
+    </div>
+    <div class="grid">
+     <article class="project-card">
+      <div aria-hidden="true" class="preview preview-blue">
+       <div class="preview-icon">
+        ☯
+       </div>
+      </div>
+      <div class="card-content">
+       <div class="card-meta">
+        <span class="tag">
+         互動網頁
+        </span>
+        <span class="tag tag-alt">
+         WEB
+        </span>
+       </div>
+       <h3>
+        六壬趣味算命系統
+       </h3>
+       <p>
+        以網頁形式呈現六壬趣味互動體驗，開啟瀏覽器即可直接使用。
+       </p>
+       <a class="card-link" href="https://lanjiji.zapto.org/liurenpro.html" rel="noopener noreferrer" target="_blank">
+        查看網頁展示 ↗
+       </a>
+      </div>
+     </article>
+     <article class="project-card">
+      <div aria-hidden="true" class="preview preview-violet">
+       <div class="preview-icon">
+        ▣
+       </div>
+      </div>
+      <div class="card-content">
+       <div class="card-meta">
+        <span class="tag">
+         趣味應用
+        </span>
+        <span class="tag tag-alt">
+         ANDROID 展示
+        </span>
+       </div>
+       <h3>
+        六壬趣味算命・安卓展示
+       </h3>
+       <p>
+        六壬趣味算命系統的 Android 版本展示頁，了解行動端作品。
+       </p>
+       <a class="card-link" href="https://lanjiji.zapto.org/quweishensuanliuren.html" rel="noopener noreferrer" target="_blank">
+        查看安卓展示 ↗
+       </a>
+      </div>
+     </article>
+     <article class="project-card">
+      <div aria-hidden="true" class="preview preview-green">
+       <div class="preview-icon">
+        ⌂
+       </div>
+      </div>
+      <div class="card-content">
+       <div class="card-meta">
+        <span class="tag">
+         官方網站
+        </span>
+        <span class="tag tag-alt">
+         企業形象
+        </span>
+       </div>
+       <h3>
+        知達工藝會館
+       </h3>
+       <p>
+        知達工藝會館官方網站案例，呈現品牌資訊與網站服務入口。
+       </p>
+       <a class="card-link" href="https://www.booking-wise0.com.tw/zhida/zida/" rel="noopener noreferrer" target="_blank">
+        前往官方網站 ↗
+       </a>
+      </div>
+     </article>
+     <article class="project-card">
+      <div aria-hidden="true" class="preview preview-amber">
+       <div class="preview-icon">
+        ▥
+       </div>
+      </div>
+      <div class="card-content">
+       <div class="card-meta">
+        <span class="tag">
+         官方網站
+        </span>
+        <span class="tag tag-alt">
+         企業形象
+        </span>
+       </div>
+       <h3>
+        治鼎科技營造
+       </h3>
+       <p>
+        治鼎科技營造官方網站案例，展示企業品牌與對外資訊。
+       </p>
+       <a class="card-link" href="https://jimdandy.com.tw/jdhome/" rel="noopener noreferrer" target="_blank">
+        前往官方網站 ↗
+       </a>
+      </div>
+     </article>
+    </div>
+   </section>
+  </main>
+  <footer class="container footer">
+   <p>
+    ©
+    <span id="year">
+     2026
+    </span>
+    <strong>
+     Brooks
+    </strong>
+    . All rights reserved.
+   </p>
+   <p>
+    用程式，讓創意成真。
+   </p>
+  </footer>
+  <script>
+   document.getElementById('year').textContent=new Date().getFullYear();
+  </script>
+ </body>
 </html>
+
