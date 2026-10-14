@@ -1,8 +1,910 @@
 <!DOCTYPE html>
-<html>
-  <head></head>
-  <header></header>
-  <body>
-    
-  </body>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook</title>
+  <!-- 載入 Font Awesome 向量圖示庫 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-color: #1877f2;
+      --primary-hover: #166fe5;
+      --bg-color: #f0f2f5;
+      --card-bg: #ffffff;
+      --text-main: #050505;
+      --text-sub: #65676b;
+      --divider-color: #ced0d4;
+      --hover-bg: #e4e6eb;
+      --active-icon-bg: #e7f3ff;
+      --online-green: #31a24c;
+      --nav-height: 56px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      overflow-x: hidden;
+    }
+
+    /* ================= 頂部導覽列 (Navbar) ================= */
+    .fb-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      background: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 320px;
+    }
+
+    .nav-left .logo {
+      color: var(--primary-color);
+      font-size: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box {
+      background: var(--bg-color);
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 50px;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 15px;
+      width: 100%;
+    }
+
+    .nav-middle {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      flex: 2;
+    }
+
+    .nav-tab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 110px;
+      height: 100%;
+      cursor: pointer;
+      color: var(--text-sub);
+      font-size: 22px;
+      position: relative;
+      transition: background 0.2s;
+    }
+
+    .nav-tab:hover {
+      background: var(--hover-bg);
+      border-radius: 8px;
+    }
+
+    .nav-tab.active {
+      color: var(--primary-color);
+    }
+
+    .nav-tab.active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--primary-color);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      justify-content: flex-end;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--hover-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      font-size: 16px;
+      transition: filter 0.2s;
+    }
+
+    .icon-btn:hover {
+      filter: brightness(0.95);
+    }
+
+    .badge-count {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: #e41e3f;
+      color: #fff;
+      font-size: 11px;
+      font-weight: bold;
+      border-radius: 10px;
+      padding: 2px 5px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    /* ================= 頁面三欄主版面 ================= */
+    .fb-main {
+      margin-top: var(--nav-height);
+      display: grid;
+      grid-template-columns: 280px 1fr 280px;
+      height: calc(100vh - var(--nav-height));
+    }
+
+    @media (max-width: 1100px) {
+      .fb-main {
+        grid-template-columns: 240px 1fr 0px;
+      }
+      .right-sidebar {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .fb-main {
+        grid-template-columns: 1fr;
+      }
+      .left-sidebar {
+        display: none;
+      }
+      .nav-middle {
+        display: none;
+      }
+    }
+
+    /* ================= 左右側邊欄 ================= */
+    .left-sidebar, .right-sidebar {
+      padding: 16px 8px;
+      overflow-y: auto;
+      height: 100%;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .menu-item:hover {
+      background: var(--hover-bg);
+    }
+
+    .menu-icon {
+      font-size: 24px;
+      width: 32px;
+      text-align: center;
+      color: var(--primary-color);
+    }
+
+    .contact-item {
+      position: relative;
+    }
+
+    .online-indicator {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 10px;
+      height: 10px;
+      background: var(--online-green);
+      border-radius: 50%;
+      border: 2px solid #fff;
+    }
+
+    .sidebar-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-sub);
+      padding: 8px;
+    }
+
+    /* ================= 中間動態牆 ================= */
+    .news-feed {
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+    }
+
+    .feed-container {
+      width: 100%;
+      max-width: 590px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* 限時動態 Stories */
+    .stories-container {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .stories-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .story-card {
+      min-width: 110px;
+      height: 190px;
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+
+    .story-card:hover {
+      transform: scale(1.02);
+    }
+
+    .story-avatar {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      border: 3px solid var(--primary-color);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+    }
+
+    .story-author {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      right: 8px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+    }
+
+    /* 發布貼文區塊 (Create Post) */
+    .card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      padding: 12px 16px;
+    }
+
+    .create-post-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--divider-color);
+    }
+
+    .create-input-btn {
+      flex: 1;
+      background: var(--bg-color);
+      border-radius: 20px;
+      padding: 10px 14px;
+      font-size: 15px;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .create-input-btn:hover {
+      background: var(--hover-bg);
+    }
+
+    .create-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-sub);
+      transition: background 0.2s;
+    }
+
+    .action-btn:hover {
+      background: var(--hover-bg);
+    }
+
+    /* 貼文動態卡片 (Post Card) */
+    .post-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .post-author-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .author-name {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .post-time {
+      font-size: 12px;
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .post-content {
+      font-size: 15px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .post-media {
+      margin: 0 -16px 12px -16px;
+    }
+
+    .post-media img {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .post-stats {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 8px;
+      color: var(--text-sub);
+      font-size: 14px;
+      border-bottom: 1px solid var(--divider-color);
+    }
+
+    .post-stats-left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .reaction-icon {
+      background: var(--primary-color);
+      color: #fff;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+
+    .post-interact-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+    }
+
+    .interact-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px;
+      color: var(--text-sub);
+      font-weight: 600;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .interact-btn:hover {
+      background: var(--hover-bg);
+    }
+
+    .interact-btn.liked {
+      color: var(--primary-color);
+    }
+
+    /* 留言區域 */
+    .comments-area {
+      display: none;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--divider-color);
+    }
+
+    .comment-item {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .comment-bubble {
+      background: var(--hover-bg);
+      border-radius: 16px;
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    .comment-bubble strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* 簡易 Modal 彈窗 */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 8px;
+      width: 500px;
+      max-width: 90vw;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+
+    .modal-header {
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--divider-color);
+    }
+
+    .modal-header h3 {
+      font-size: 18px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .close-btn {
+      background: var(--hover-bg);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .modal-body {
+      padding: 16px;
+    }
+
+    .modal-textarea {
+      width: 100%;
+      height: 120px;
+      border: none;
+      resize: none;
+      outline: none;
+      font-size: 18px;
+    }
+
+    .post-submit-btn {
+      width: 100%;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: background 0.2s;
+    }
+
+    .post-submit-btn:hover {
+      background: var(--primary-hover);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部導覽列 (Navbar) -->
+  <header class="fb-header">
+    <div class="nav-left">
+      <div class="logo"><i class="fa-brands fa-facebook"></i></div>
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass" style="color: var(--text-sub);"></i>
+        <input type="text" placeholder="搜尋 Facebook">
+      </div>
+    </div>
+
+    <div class="nav-middle">
+      <div class="nav-tab active" title="首頁"><i class="fa-solid fa-house"></i></div>
+      <div class="nav-tab" title="影片"><i class="fa-solid fa-tv"></i></div>
+      <div class="nav-tab" title="Marketplace"><i class="fa-solid fa-store"></i></div>
+      <div class="nav-tab" title="社團"><i class="fa-solid fa-users"></i></div>
+      <div class="nav-tab" title="遊戲"><i class="fa-solid fa-gamepad"></i></div>
+    </div>
+
+    <div class="nav-right">
+      <div class="icon-btn" title="選單"><i class="fa-solid fa-bars"></i></div>
+      <div class="icon-btn" title="Messenger">
+        <i class="fa-brands fa-facebook-messenger"></i>
+        <span class="badge-count">3</span>
+      </div>
+      <div class="icon-btn" title="通知">
+        <i class="fa-solid fa-bell"></i>
+        <span class="badge-count">5</span>
+      </div>
+      <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" class="avatar" alt="個人頭像" title="個人檔案">
+    </div>
+  </header>
+
+  <!-- 主佈局容器 (三欄式) -->
+  <main class="fb-main">
+
+    <!-- 左側選單 -->
+    <aside class="left-sidebar">
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" class="avatar" style="width: 32px; height: 32px;" alt="用戶">
+        <span>Brooks99</span>
+      </div>
+      <div class="menu-item"><i class="fa-solid fa-user-group menu-icon"></i> 朋友</div>
+      <div class="menu-item"><i class="fa-solid fa-clock-rotate-left menu-icon"></i> 動態回顧</div>
+      <div class="menu-item"><i class="fa-solid fa-bookmark menu-icon" style="color: #a033ff;"></i> 我的珍藏</div>
+      <div class="menu-item"><i class="fa-solid fa-users menu-icon"></i> 社團</div>
+      <div class="menu-item"><i class="fa-solid fa-tv menu-icon"></i> 影音</div>
+      <div class="menu-item"><i class="fa-solid fa-chevron-down menu-icon" style="font-size: 16px; color: var(--text-sub);"></i> 顯示更多</div>
+    </aside>
+
+    <!-- 中間動態牆 (Feed) -->
+    <section class="news-feed">
+      <div class="feed-container">
+
+        <!-- 限時動態 (Stories) -->
+        <div class="stories-container">
+          <div class="story-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200');">
+            <span class="story-author">建立限時動態</span>
+          </div>
+          <div class="story-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=200');">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" class="story-avatar" alt="頭像">
+            <span class="story-author">Emily Wang</span>
+          </div>
+          <div class="story-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=200');">
+            <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100" class="story-avatar" alt="頭像">
+            <span class="story-author">David Lee</span>
+          </div>
+          <div class="story-card" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=200');">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" class="story-avatar" alt="頭像">
+            <span class="story-author">Sarah Lin</span>
+          </div>
+        </div>
+
+        <!-- 發文輸入框 -->
+        <div class="card">
+          <div class="create-post-top">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" class="avatar" alt="頭像">
+            <div class="create-input-btn" id="openPostModal">Alex，在想些什麼？</div>
+          </div>
+          <div class="create-actions">
+            <div class="action-btn"><i class="fa-solid fa-video" style="color: #f3425f;"></i> 直播視訊</div>
+            <div class="action-btn"><i class="fa-solid fa-images" style="color: #45bd62;"></i> 相片／影片</div>
+            <div class="action-btn"><i class="fa-regular fa-face-smile" style="color: #f7b125;"></i> 感受／活動</div>
+          </div>
+        </div>
+
+        <!-- 貼文清單容器 -->
+        <div id="postsList" style="display: flex; flex-direction: column; gap: 16px;">
+
+          <!-- 貼文範例卡片 -->
+          <article class="card">
+            <div class="post-header">
+              <div class="post-author-info">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" class="avatar" alt="頭像">
+                <div>
+                  <div class="author-name">Emily Wang</div>
+                  <div class="post-time">2 小時前 · <i class="fa-solid fa-earth-americas"></i></div>
+                </div>
+              </div>
+              <div class="icon-btn" style="background: transparent;"><i class="fa-solid fa-ellipsis"></i></div>
+            </div>
+
+            <div class="post-content">
+              今天天氣非常好，跟朋友一起去海邊散步！🌊☀️ 分享一下隨手拍下的美景～
+            </div>
+
+            <div class="post-media">
+              <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="貼文照片">
+            </div>
+
+            <div class="post-stats">
+              <div class="post-stats-left">
+                <span class="reaction-icon"><i class="fa-solid fa-thumbs-up"></i></span>
+                <span class="like-counter">128</span>
+              </div>
+              <div class="post-stats-right">
+                <span>15 則留言 · 4 次分享</span>
+              </div>
+            </div>
+
+            <div class="post-interact-buttons">
+              <div class="interact-btn like-btn" onclick="toggleLike(this)">
+                <i class="fa-regular fa-thumbs-up"></i> 讚
+              </div>
+              <div class="interact-btn" onclick="toggleComments(this)">
+                <i class="fa-regular fa-message"></i> 留言
+              </div>
+              <div class="interact-btn">
+                <i class="fa-solid fa-share"></i> 分享
+              </div>
+            </div>
+
+            <!-- 留言展開區塊 -->
+            <div class="comments-area">
+              <div class="comment-item">
+                <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100" class="avatar" style="width: 28px; height: 28px;" alt="頭像">
+                <div class="comment-bubble">
+                  <strong>David Lee</strong>
+                  風景太漂亮了！下次也想去！
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 右側邊欄 (贊助、聯絡人) -->
+    <aside class="right-sidebar">
+      <div class="sidebar-title">贊助</div>
+      <div class="menu-item" style="gap: 12px;">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=150" style="width: 80px; height: 60px; border-radius: 6px; object-fit: cover;" alt="AD">
+        <div>
+          <div style="font-size: 13px; font-weight: 600;">現代化雲端協作方案</div>
+          <div style="font-size: 11px; color: var(--text-sub);">cloud-solution.example.com</div>
+        </div>
+      </div>
+
+      <hr style="border: 0; border-top: 1px solid var(--divider-color); margin: 12px 8px;">
+
+      <div class="sidebar-title" style="display: flex; justify-content: space-between; align-items: center;">
+        <span>聯絡人</span>
+        <div style="display: flex; gap: 8px; font-size: 14px;">
+          <i class="fa-solid fa-video"></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <i class="fa-solid fa-ellipsis"></i>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div class="contact-item">
+          <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100" class="avatar" style="width: 32px; height: 32px;" alt="頭像">
+          <span class="online-indicator"></span>
+        </div>
+        <span>David Lee</span>
+      </div>
+
+      <div class="menu-item">
+        <div class="contact-item">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" class="avatar" style="width: 32px; height: 32px;" alt="頭像">
+          <span class="online-indicator"></span>
+        </div>
+        <span>Sarah Lin</span>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- 建立貼文彈窗 (Modal) -->
+  <div class="modal-overlay" id="postModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>建立貼文</h3>
+        <button class="close-btn" id="closePostModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" class="avatar" alt="頭像">
+          <div>
+            <div class="author-name">Brooks99</div>
+            <div style="font-size: 12px; background: var(--hover-bg); padding: 2px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">
+              <i class="fa-solid fa-earth-americas"></i> 公開
+            </div>
+          </div>
+        </div>
+        <textarea class="modal-textarea" id="postTextarea" placeholder="Alex，在想些什麼？"></textarea>
+        <button class="post-submit-btn" id="submitPostBtn">發佈</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 前端互動邏輯腳本 -->
+  <script>
+    // 點讚切換
+    function toggleLike(btn) {
+      const isLiked = btn.classList.toggle('liked');
+      const icon = btn.querySelector('i');
+      const card = btn.closest('.card');
+      const counter = card.querySelector('.like-counter');
+      let count = parseInt(counter.textContent, 10);
+
+      if (isLiked) {
+        icon.classList.remove('fa-regular');
+        icon.classList.add('fa-solid');
+        counter.textContent = count + 1;
+      } else {
+        icon.classList.remove('fa-solid');
+        icon.classList.add('fa-regular');
+        counter.textContent = count - 1;
+      }
+    }
+
+    // 展開 / 收合留言
+    function toggleComments(btn) {
+      const card = btn.closest('.card');
+      const commentArea = card.querySelector('.comments-area');
+      if (commentArea.style.display === 'block') {
+        commentArea.style.display = 'none';
+      } else {
+        commentArea.style.display = 'block';
+      }
+    }
+
+    // 發文 Modal 控制
+    const modal = document.getElementById('postModal');
+    const openBtn = document.getElementById('openPostModal');
+    const closeBtn = document.getElementById('closePostModal');
+    const submitBtn = document.getElementById('submitPostBtn');
+    const postTextarea = document.getElementById('postTextarea');
+    const postsList = document.getElementById('postsList');
+
+    openBtn.addEventListener('click', () => {
+      modal.style.display = 'flex';
+      postTextarea.focus();
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) modal.style.display = 'none';
+    });
+
+    // 動態新增貼文卡片
+    submitBtn.addEventListener('click', () => {
+      const text = postTextarea.value.trim();
+      if (!text) return;
+
+      const newPost = document.createElement('article');
+      newPost.className = 'card';
+      newPost.innerHTML = `
+        <div class="post-header">
+          <div class="post-author-info">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" class="avatar" alt="頭像">
+            <div>
+              <div class="author-name">Brooks99</div>
+              <div class="post-time">剛剛 · <i class="fa-solid fa-earth-americas"></i></div>
+            </div>
+          </div>
+          <div class="icon-btn" style="background: transparent;"><i class="fa-solid fa-ellipsis"></i></div>
+        </div>
+        <div class="post-content">${escapeHTML(text)}</div>
+        <div class="post-stats">
+          <div class="post-stats-left">
+            <span class="reaction-icon"><i class="fa-solid fa-thumbs-up"></i></span>
+            <span class="like-counter">0</span>
+          </div>
+          <div class="post-stats-right">
+            <span>0 則留言</span>
+          </div>
+        </div>
+        <div class="post-interact-buttons">
+          <div class="interact-btn like-btn" onclick="toggleLike(this)">
+            <i class="fa-regular fa-thumbs-up"></i> 讚
+          </div>
+          <div class="interact-btn" onclick="toggleComments(this)">
+            <i class="fa-regular fa-message"></i> 留言
+          </div>
+          <div class="interact-btn">
+            <i class="fa-solid fa-share"></i> 分享
+          </div>
+        </div>
+        <div class="comments-area"></div>
+      `;
+
+      postsList.prepend(newPost);
+      postTextarea.value = '';
+      modal.style.display = 'none';
+    });
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[tag] || tag)
+      );
+    }
+  </script>
+</body>
 </html>
