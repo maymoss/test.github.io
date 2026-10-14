@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
+    /* 定義全域變數 */
     :root {
       --primary-color: #2d88ff;
       --primary-hover: #1b74e4;
@@ -22,6 +23,14 @@
       --nav-height: 56px;
     }
 
+    /* 
+    使用全域選取器 * 設定 「所有 HTML 標籤元素」（包含 <div>、<p>、<h1>、<ul>、<button> 等等） 
+    使用預設 UI 字體 
+     macOS / iOS 系統（使用 San Francisco 字體）：-apple-system, BlinkMacSystemFont
+     Windows 系統：Segoe UI
+     Android 與 ChromeOS 預設字體：Roboto
+     舊版系統或未比對到上述字體時的無襯線安全後備字體：Helvetica, Arial, sans-serif
+    */
     * {
       box-sizing: border-box;
       margin: 0;
