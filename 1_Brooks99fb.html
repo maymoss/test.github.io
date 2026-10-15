@@ -3,32 +3,718 @@
 <head>
   <meta charset="en">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- 使用cdnjs套件 -->
   <title>Facebook_Brooks99</title>
 </head>
+
 <style>
-  /* ================= 頂部導覽列 (Navbar) ================= */
-  #fb-header{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 56px;
-    background: #242526;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 16px;
-    border-bottom: 1px solid #393a3b;
-    z-index: 1000;
+  body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #18191a;
+  color: #e4e6eb;
+  overflow: hidden;
+}
+
+/* 側邊欄捲軸樣式 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 4px;
+}
+body:hover::-webkit-scrollbar-thumb {
+  background-color: #4e4f50;
+}
+
+/* ================= 頂部導覽列 (Navbar) ================= */
+#navbermain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: #242526;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-bottom: 1px solid #393a3b;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+#nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  max-width: 320px;
+}
+
+#nav-left #logo {
+  color: #0866ff;
+  font-size: 42px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+#search-box {
+  background: #3a3b3c;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  height: 40px;
+  border-radius: 50px;
+  gap: 10px;
+  width: 100%;
+  max-width: 240px;
+  box-sizing: border-box;
+}
+
+#search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 15px;
+  width: 100%;
+  color: #e4e6eb;
+}
+
+#search-box input::placeholder {
+  color: #b0b3b8;
+}
+
+.nav-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex: 2;
+  max-width: 680px;
+  gap: 6px;
+}
+
+.nav-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  max-width: 112px;
+  min-width: 50px;
+  height: 100%;
+  cursor: pointer;
+  color: #b0b3b8;
+  position: relative;
+  transition: color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.nav-tab .icon-btn {
+  background: transparent;
+  width: 100%;
+  height: calc(100% - 8px);
+  margin: 4px 0;
+  border-radius: 8px;
+  color: inherit;
+  transition: background-color 0.15s ease;
+}
+
+.nav-tab:hover .icon-btn {
+  background: #3a3b3c;
+}
+
+.nav-tab svg {
+  width: 28px;
+  height: 28px;
+}
+
+.nav-tab.active {
+  color: #0866ff;
+}
+
+.nav-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #0866ff;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+#nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #3a3b3c;
+  color: #e4e6eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  outline: none;
+  transition: background-color 0.15s ease, filter 0.15s ease;
+  box-sizing: border-box;
+}
+
+.icon-btn:hover {
+  background: #4e4f50;
+}
+
+#nav-right .icon-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.icon-btn img,
+.icon-btn image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ================= 主版面配置 (Main 三欄版型) ================= */
+#main {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: 360px 1fr 360px;
+  height: calc(100vh - 56px);
+  width: 100vw;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+#main-left, 
+#main-right {
+  padding: 16px 8px 32px 8px;
+  overflow-y: auto;
+  height: 100%;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+#main-center {
+  padding: 16px;
+  overflow-y: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* ================= 左側邊欄細節 ================= */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  color: #e4e6eb;
+  transition: background-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.menu-item:hover {
+  background-color: #3a3b3c;
+}
+
+.menu-item:active {
+  background-color: #4e4f50;
+}
+
+.menu-item img {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.menu-item img.avatar {
+  border-radius: 50%;
+}
+
+.menu-item i[data-visualcompletion="css-img"] {
+  flex-shrink: 0;
+}
+
+.menu-item span {
+  font-size: 15px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.menu-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #3a3b3c;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+#main-left hr {
+  border: none;
+  border-top: 1px solid #393a3b;
+  margin: 12px 10px;
+}
+
+#main-left h3 {
+  margin: 0;
+  padding: 8px 10px 4px 10px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #b0b3b8;
+  box-sizing: border-box;
+}
+
+#main-left footer {
+  padding: 16px 10px 0 10px;
+  font-size: 13px;
+  color: #b0b3b8;
+  box-sizing: border-box;
+}
+
+#main-left footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 4px;
+}
+
+#main-left footer li {
+  display: inline-flex;
+  align-items: center;
+}
+
+#main-left footer a {
+  color: #b0b3b8;
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+#main-left footer a:hover,
+#main-left footer div[role="button"]:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ================= 響應式斷點 (RWD) ================= */
+@media (max-width: 1100px) {
+  #main {
+    grid-template-columns: 300px 1fr;
   }
+  #main-right {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  #search-box {
+    width: 40px;
+    padding: 0;
+    justify-content: center;
+    background: #3a3b3c;
+  }
+  #search-box input {
+    display: none;
+  }
+  .nav-center {
+    gap: 2px;
+  }
+}
+
+@media (max-width: 768px) {
+  #main {
+    grid-template-columns: 1fr;
+  }
+  #main-left {
+    display: none;
+  }
+  .nav-center {
+    display: none;
+  }
+  #nav-left {
+    max-width: fit-content;
+  }
+}
 </style>
 <body>
-  <header id="fb-header">
 
-  </header>
+  <!-- 置頂導覽列 -->
+  <navber id="navbermain">
+
+    <!-- 左欄 -->
+    <div id="nav-left">
+      <div id="logo"><i class="fa-brands fa-facebook"></i></div>
+      <div id="search-box">
+        <i class="fa-solid fa-magnifying-glass" style="color: #b0b3b8;"></i>
+        <input type="text" placeholder="搜尋 Facebook">
+      </div>
+    </div>
+
+    <!-- 中欄 -->
+    <div class="nav-center">
+      <div class="nav-tab active" title="首頁">
+        <!-- icon -->
+        <div class="icon-btn">
+          <span>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="--x-color:#0866ff;">
+              <path d="M9.464 1.286C10.294.803 11.092.5 12 .5c.908 0 1.707.303 2.537.786.795.462 1.7 1.142 2.815 1.977l2.232 1.675c1.391 1.042 2.359 1.766 2.888 2.826.53 1.059.53 2.268.528 4.006v4.3c0 1.355 0 2.471-.119 3.355-.124.928-.396 1.747-1.052 2.403-.657.657-1.476.928-2.404 1.053-.884.119-2 .119-3.354.119H7.93c-1.354 0-2.471 0-3.355-.119-.928-.125-1.747-.396-2.403-1.053-.656-.656-.928-1.475-1.053-2.403C1 18.541 1 17.425 1 16.07v-4.3c0-1.738-.002-2.947.528-4.006.53-1.06 1.497-1.784 2.888-2.826L6.65 3.263c1.114-.835 2.02-1.515 2.815-1.977zM10.5 13A1.5 1.5 0 0 0 9 14.5V21h6v-6.5a1.5 1.5 0 0 0-1.5-1.5h-3z"></path>
+            </svg>
+          </span>
+        </div>
+      </div>
+      <div class="nav-tab" title="Reel">
+        <!-- icon -->
+        <div class="icon-btn">
+          <span >
+            <svg viewBox="0 0 24 24" fill="currentColor" style="--x-color:#b0b3b8;">
+              <path d="M10.996 12.132A1 1 0 0 0 9.5 13v4a1 1 0 0 0 1.496.868l3.5-2a1 1 0 0 0 0-1.736l-3.5-2z"></path>
+              <path d="M12.075 1h-.15C9.632 1 7.81 1 6.38 1.192c-1.472.198-2.674.616-3.623 1.565-.949.95-1.367 2.15-1.565 3.623C1 7.81 1 9.632 1 11.925v.15c0 2.293 0 4.116.192 5.545.198 1.472.616 2.674 1.565 3.623.95.949 2.15 1.367 3.623 1.565C7.81 23 9.632 23 11.925 23h.15c2.293 0 4.116 0 5.545-.192 1.472-.198 2.674-.616 3.623-1.565.949-.95 1.367-2.15 1.565-3.623.192-1.43.192-3.252.192-5.545v-.15c0-2.293 0-4.116-.192-5.545-.198-1.472-.616-2.674-1.565-3.623-.95-.949-2.15-1.367-3.623-1.565C16.19 1 14.368 1 12.075 1zM4.172 4.172c.515-.516 1.224-.83 2.475-.998l.183-.023L8.113 7H3.132c.013-.121.027-.239.042-.353.168-1.25.482-1.96.998-2.475zM10.22 7 8.895 3.023C9.778 3 10.801 3 12 3c.642 0 1.234 0 1.78.004L15.114 7H10.22zm6.253 2h4.507c.02.86.02 1.848.02 3 0 2.385-.002 4.074-.174 5.353-.168 1.25-.482 1.96-.998 2.475-.515.516-1.224.83-2.475.998-1.28.172-2.968.174-5.353.174s-4.074-.002-5.353-.174c-1.25-.168-1.96-.482-2.475-.998-.516-.515-.83-1.224-.998-2.475C3.002 16.073 3 14.385 3 12c0-1.152 0-2.14.02-3h13.454zm.747-2-1.316-3.949c.537.026 1.016.065 1.448.123 1.25.168 1.96.482 2.475.998.516.515.83 1.224.998 2.475.015.114.03.232.042.353H17.22z"></path>
+            </svg>
+          </span>
+        </div>
+      </div>
+      <div class="nav-tab" title="朋友">
+        <!-- icon -->
+        <div class="icon-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="--x-color:#b0b3b8;">
+            <path d="M12.496 5a4 4 0 1 1 8 0 4 4 0 0 1-8 0zm4-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-9 2.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm-2 4a2 2 0 1 1 4 0 2 2 0 0 1-4 0zM5.5 15a5 5 0 0 0-5 5 3 3 0 0 0 3 3h8.006a3 3 0 0 0 3-3 5 5 0 0 0-5-5H5.5zm-3 5a3 3 0 0 1 3-3h4.006a3 3 0 0 1 3 3 1 1 0 0 1-1 1H3.5a1 1 0 0 1-1-1zm12-9.5a5.04 5.04 0 0 0-.37.014 1 1 0 0 0 .146 1.994c.074-.005.149-.008.224-.008h4.006a3 3 0 0 1 3 3 1 1 0 0 1-1 1h-3.398a1 1 0 1 0 0 2h3.398a3 3 0 0 0 3-3 5 5 0 0 0-5-5H14.5z"></path>
+          </svg>
+        </div>
+      </div>
+      <div class="nav-tab" title="Marketplace">
+        <!-- icon -->
+        <div class="icon-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="--x-color:#b0b3b8;">
+            <path d="M1.588 3.227A3.125 3.125 0 0 1 4.58 1h14.84c1.38 0 2.597.905 2.993 2.227l.816 2.719a6.47 6.47 0 0 1 .272 1.854A5.183 5.183 0 0 1 22 11.455v4.615c0 1.355 0 2.471-.119 3.355-.125.928-.396 1.747-1.053 2.403-.656.657-1.475.928-2.403 1.053-.884.12-2 .119-3.354.119H8.929c-1.354 0-2.47 0-3.354-.119-.928-.125-1.747-.396-2.403-1.053-.657-.656-.929-1.475-1.053-2.403-.12-.884-.119-2-.119-3.354V11.5l.001-.045A5.184 5.184 0 0 1 .5 7.8c0-.628.092-1.252.272-1.854l.816-2.719zM10 21h4v-3.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5V21zm6-.002c.918-.005 1.608-.025 2.159-.099.706-.095 1.033-.262 1.255-.485.223-.222.39-.55.485-1.255.099-.735.101-1.716.101-3.159v-3.284a5.195 5.195 0 0 1-1.7.284 5.18 5.18 0 0 1-3.15-1.062A5.18 5.18 0 0 1 12 13a5.18 5.18 0 0 1-3.15-1.062A5.18 5.18 0 0 1 5.7 13a5.2 5.2 0 0 1-1.7-.284V16c0 1.442.002 2.424.1 3.159.096.706.263 1.033.486 1.255.222.223.55.39 1.255.485.551.074 1.24.094 2.159.1V17.5a2.5 2.5 0 0 1 2.5-2.5h3a2.5 2.5 0 0 1 2.5 2.5v3.498zM4.581 3c-.497 0-.935.326-1.078.802l-.815 2.72A4.45 4.45 0 0 0 2.5 7.8a3.2 3.2 0 0 0 5.6 2.117 1 1 0 0 1 1.5 0A3.19 3.19 0 0 0 12 11a3.19 3.19 0 0 0 2.4-1.083 1 1 0 0 1 1.5 0A3.2 3.2 0 0 0 21.5 7.8c0-.434-.063-.865-.188-1.28l-.816-2.72A1.125 1.125 0 0 0 19.42 3H4.58z"></path>
+          </svg>
+        </div>
+      </div>
+      <div class="nav-tab" title="社團">
+        <!-- icon -->
+        <div class="icon-btn">
+          <span class="x1n2onr6">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="--x-color:#b0b3b8;">
+              <path d="M.5 12c0 6.351 5.149 11.5 11.5 11.5S23.5 18.351 23.5 12 18.351.5 12 .5.5 5.649.5 12zm2 0c0-.682.072-1.348.209-1.99a2 2 0 0 1 0 3.98A9.539 9.539 0 0 1 2.5 12zm.84-3.912A9.502 9.502 0 0 1 12 2.5a9.502 9.502 0 0 1 8.66 5.588 4.001 4.001 0 0 0 0 7.824 9.514 9.514 0 0 1-1.755 2.613A5.002 5.002 0 0 0 14 14.5h-4a5.002 5.002 0 0 0-4.905 4.025 9.515 9.515 0 0 1-1.755-2.613 4.001 4.001 0 0 0 0-7.824zM12 5a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm-2 4a2 2 0 1 0 4 0 2 2 0 0 0-4 0zm11.291 1.01a9.538 9.538 0 0 1 0 3.98 2 2 0 0 1 0-3.98zM16.99 20.087A9.455 9.455 0 0 1 12 21.5c-1.83 0-3.54-.517-4.99-1.414a1.004 1.004 0 0 1-.01-.148V19.5a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v.438a1 1 0 0 1-.01.148z"></path>
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右欄 -->
+    <div id="nav-right">
+      <div id="nav-R-A" title="Facebook 功能表">
+        <!-- icon -->
+        <div class="icon-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="--x-color: #e4e6eb;">
+            <path d="M18.5 1A1.5 1.5 0 0 0 17 2.5v3A1.5 1.5 0 0 0 18.5 7h3A1.5 1.5 0 0 0 23 5.5v-3A1.5 1.5 0 0 0 21.5 1h-3zm0 8a1.5 1.5 0 0 0-1.5 1.5v3a1.5 1.5 0 0 0 1.5 1.5h3a1.5 1.5 0 0 0 1.5-1.5v-3A1.5 1.5 0 0 0 21.5 9h-3zm-16 8A1.5 1.5 0 0 0 1 18.5v3A1.5 1.5 0 0 0 2.5 23h3A1.5 1.5 0 0 0 7 21.5v-3A1.5 1.5 0 0 0 5.5 17h-3zm8 0A1.5 1.5 0 0 0 9 18.5v3a1.5 1.5 0 0 0 1.5 1.5h3a1.5 1.5 0 0 0 1.5-1.5v-3a1.5 1.5 0 0 0-1.5-1.5h-3zm8 0a1.5 1.5 0 0 0-1.5 1.5v3a1.5 1.5 0 0 0 1.5 1.5h3a1.5 1.5 0 0 0 1.5-1.5v-3a1.5 1.5 0 0 0-1.5-1.5h-3zm-16-8A1.5 1.5 0 0 0 1 10.5v3A1.5 1.5 0 0 0 2.5 15h3A1.5 1.5 0 0 0 7 13.5v-3A1.5 1.5 0 0 0 5.5 9h-3zm0-8A1.5 1.5 0 0 0 1 2.5v3A1.5 1.5 0 0 0 2.5 7h3A1.5 1.5 0 0 0 7 5.5v-3A1.5 1.5 0 0 0 5.5 1h-3zm8 0A1.5 1.5 0 0 0 9 2.5v3A1.5 1.5 0 0 0 10.5 7h3A1.5 1.5 0 0 0 15 5.5v-3A1.5 1.5 0 0 0 13.5 1h-3zm0 8A1.5 1.5 0 0 0 9 10.5v3a1.5 1.5 0 0 0 1.5 1.5h3a1.5 1.5 0 0 0 1.5-1.5v-3A1.5 1.5 0 0 0 13.5 9h-3z"></path>
+          </svg>
+        </div>
+      </div>
+      <div id="nav-R-B" title="Messenger">
+        <!-- icon -->
+        <div class="icon-btn">
+          <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" style="--x-color:#e4e6eb;">
+            <g stroke="none" stroke-width="1" fill-rule="evenodd">
+              <path d="m106.868 921.248-1.892 2.925a.32.32 0 0 1-.443.094l-1.753-1.134a.2.2 0 0 0-.222.003l-1.976 1.363c-.288.199-.64-.143-.45-.437l1.892-2.925a.32.32 0 0 1 .443-.095l1.753 1.134a.2.2 0 0 0 .222-.003l1.976-1.363c.288-.198.64.144.45.438m-3.368-4.251c-3.323 0-5.83 2.432-5.83 5.658 0 1.642.652 3.128 1.834 4.186a.331.331 0 0 1 .111.234l.03 1.01a.583.583 0 0 0 .82.519l1.13-.5a.32.32 0 0 1 .22-.015c.541.148 1.108.223 1.685.223 3.323 0 5.83-2.432 5.83-5.657 0-3.226-2.507-5.658-5.83-5.658" transform="translate(-450 -1073.5) translate(352.5 156.845)"></path>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div id="nav-R-C" title="通知">
+        <!-- icon -->
+        <div class="icon-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="x14rh7hd x1lliihq x1tzjh5l x1k90msu x2h7rmj x1qfuztq" style="--x-color:var#e4e6eb;">
+            <path d="M3 9.5a9 9 0 1 1 18 0v2.927c0 1.69.475 3.345 1.37 4.778a1.5 1.5 0 0 1-1.272 2.295h-4.625a4.5 4.5 0 0 1-8.946 0H2.902a1.5 1.5 0 0 1-1.272-2.295A9.01 9.01 0 0 0 3 12.43V9.5zm6.55 10a2.5 2.5 0 0 0 4.9 0h-4.9z"></path>
+          </svg>
+          
+        </div>
+      </div>
+      <div id="nav-R-D" title="帳號">
+        <!-- icon -->
+        <div class="icon-btn">
+          <image x="0" y="0" height="100%" preserveAspectRatio="xMidYMid slice" width="100%" src="https://lanjiji.zapto.org/9ghfo-83t22-001.ico"></image>
+        </div>
+      </div>
+    </div>
+
+  </navber>
+
+  <!-- 主版面配置(三攔) -->
+  <main id="main">
+
+    <!-- 左攔 -->
+    <div id="main-left">
+      <div class="menu-item">
+        <img src="https://lanjiji.zapto.org/img/99-removebg-preview.png" class="avatar" style="width: 36px; height: 36px;" alt="用戶">
+        <span style="font-weight: 600;">Brooks99</span>
+      </div>
+
+      <div class="menu-item">
+        <i data-visualcompletion="css-img" class="" style="background-image:url('https://static.xx.fbcdn.net/rsrc.php/yh/r/O6kbKaQT1nm.webp');background-position:0 0;background-size:auto;width:36px;height:36px;background-repeat:no-repeat;display:inline-block"></i>
+        <span style="font-weight: 600;">Meta AI</span>
+      </div>
+
+      <div class="menu-item">
+        <i data-visualcompletion="css-img" class="" style="background-image:url('https://static.xx.fbcdn.net/rsrc.php/yz/r/wZBdW_qnLOB.webp');background-position:0 -851px;background-size:auto;width:36px;height:36px;background-repeat:no-repeat;display:inline-block"></i>
+        <span style="font-weight: 600;">朋友</span>
+      </div>
+  
+      <div class="menu-item">
+        <i data-visualcompletion="css-img" class="" style="background-image:url('https://static.xx.fbcdn.net/rsrc.php/yz/r/wZBdW_qnLOB.webp');background-position:0 -1221px;background-size:auto;width:36px;height:36px;background-repeat:no-repeat;display:inline-block"></i>
+        <span style="font-weight: 600;">動態回顧</span>
+      </div>
+  
+      <div class="menu-item">
+        <i data-visualcompletion="css-img" class="" style="background-image:url('https://static.xx.fbcdn.net/rsrc.php/yz/r/wZBdW_qnLOB.webp');background-position:0 -518px;background-size:auto;width:36px;height:36px;background-repeat:no-repeat;display:inline-block"></i>
+        <span style="font-weight: 600;">我的珍藏</span>
+      </div>
+  
+      <div class="menu-item">
+        <i data-visualcompletion="css-img" class="" style="background-image:url('https://static.xx.fbcdn.net/rsrc.php/yz/r/wZBdW_qnLOB.webp');background-position:0 -185px;background-size:auto;width:36px;height:36px;background-repeat:no-repeat;display:inline-block"></i>
+        <span style="font-weight: 600;">社團</span>
+      </div>
+  
+      <div class="menu-item">
+        <i data-visualcompletion="css-img" class="" style="background-image:url('https://static.xx.fbcdn.net/rsrc.php/yz/r/wZBdW_qnLOB.webp');background-position:0 -111px;background-size:auto;width:36px;height:36px;background-repeat:no-repeat;display:inline-block"></i>
+        <span style="font-weight: 600;">Reel</span>
+      </div>
+  
+      <div class="menu-item">
+        <i data-visualcompletion="css-img" class="" style="background-image:url('https://static.xx.fbcdn.net/rsrc.php/yz/r/wZBdW_qnLOB.webp');background-position:0 -999px;background-size:auto;width:36px;height:36px;background-repeat:no-repeat;display:inline-block"></i>
+        <span style="font-weight: 600;">Marketplace</span>
+      </div>
+  
+      <div class="menu-item main-left-menuitem-shownano">
+        <i data-visualcompletion="css-img" class="" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/yL/r/_1B5IH4MpiR.webp&quot;); background-position: 0px 0px; background-size: auto; width: 36px; height: 36px; background-repeat: no-repeat; display: inline-block;"></i>
+        <span style="font-weight: 600;">生日</span>
+      </div>
+  
+      <div class="menu-item main-left-menuitem-shownano">
+        <img draggable="false" height="36" width="36" class="xz74otr" alt="" referrerpolicy="origin-when-cross-origin" src="https://static.xx.fbcdn.net/rsrc.php/y-/r/ITvoZIONvPL.webp">
+        <span style="font-weight: 600;">你的動態廣告</span>
+      </div>
+  
+      <div class="menu-item main-left-menuitem-shownano">
+        <i data-visualcompletion="css-img" class="" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/yz/r/wZBdW_qnLOB.webp&quot;); background-position: 0px -259px; background-size: auto; width: 36px; height: 36px; background-repeat: no-repeat; display: inline-block;"></i>
+        <span style="font-weight: 600;">玩遊戲</span>
+      </div>
+  
+      <div class="menu-item main-left-menuitem-shownano">
+        <i data-visualcompletion="css-img" class="" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/yz/r/wZBdW_qnLOB.webp&quot;); background-position: 0px -666px; background-size: auto; width: 36px; height: 36px; background-repeat: no-repeat; display: inline-block;"></i>
+        <span style="font-weight: 600;">活動</span>
+      </div>
+  
+      <div class="menu-item main-left-menuitem-shownano">
+        <img draggable="false" height="36" width="36" class="xz74otr" alt="" referrerpolicy="origin-when-cross-origin" src="https://static.xx.fbcdn.net/rsrc.php/y_/r/R4eauTzM8dl.webp">
+        <span style="font-weight: 600;">訂單和付款</span>
+      </div>
+  
+      <div class="menu-item main-left-menuitem-shownano">
+        <i data-visualcompletion="css-img" class="" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/yz/r/wZBdW_qnLOB.webp&quot;); background-position: 0px -333px; background-size: auto; width: 36px; height: 36px; background-repeat: no-repeat; display: inline-block;"></i>
+        <span style="font-weight: 600;">粉絲專業</span>
+      </div>
+  
+      <div class="menu-item main-left-menuitem-shownano">
+        <img draggable="false" height="36" width="36" class="xz74otr" alt="" referrerpolicy="origin-when-cross-origin" src="https://static.xx.fbcdn.net/rsrc.php/yd/r/6H6EFrx5Jjl.webp">
+        <span style="font-weight: 600;">動態消息</span>
+      </div>
+  
+      <div class="menu-item main-left-menuitem-shownano">
+        <img draggable="false" height="36" width="36" class="xz74otr" alt="" referrerpolicy="origin-when-cross-origin" src="https://static.xx.fbcdn.net/rsrc.php/yT/r/JYr05Vf7xjV.webp">
+        <span style="font-weight: 600;">電玩遊戲影片</span>
+      </div>
+  
+      <div class="menu-item main-left-menuitem-shownano">
+        <i data-visualcompletion="css-img" class="" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/yz/r/wZBdW_qnLOB.webp&quot;); background-position: 0px -407px; background-size: auto; width: 36px; height: 36px; background-repeat: no-repeat; display: inline-block;"></i>
+        <span style="font-weight: 600;">廣告管理員</span>
+      </div>
+  
+      <div class="menu-item main-left-menuitem-shownano">
+        <i data-visualcompletion="css-img" class="" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/yi/r/WpTWG2qXKfN.webp&quot;); background-position: 0px 0px; background-size: auto; width: 36px; height: 36px; background-repeat: no-repeat; display: inline-block;"></i>
+        <span style="font-weight: 600;">Messenger</span>
+      </div>
+  
+      <div class="menu-item main-left-menuitem-shownano">
+        <img draggable="false" height="36" width="36" class="xz74otr" alt="" referrerpolicy="origin-when-cross-origin" src="https://static.xx.fbcdn.net/rsrc.php/ys/r/p20rsJMTZBx.webp">
+        <span style="font-weight: 600;">Messenger Kids</span>
+      </div>
+  
+      <div class="menu-item" id="main-left-menu-showlittle">
+        <div class="menu-icon-wrap" style="background: #3a3b3c;">
+          <!-- <svg  viewBox="0 0 20 20" width="20" height="20" fill="currentColor" aria-hidden="true" class="x14rh7hd x1lliihq x1tzjh5l x1k90msu x2h7rmj x1qfuztq" style="--x-color: var(--primary-icon);"><path d="M8.586 7.5a2 2 0 0 1 2.828 0l2.543 2.543a1 1 0 0 1-1.414 1.414L10 8.914l-2.543 2.543a1 1 0 1 1-1.414-1.414L8.586 7.5z"></path></svg> -->
+          <i class="fa-solid fa-chevron-up" style="font-size: 14px; color: #e4e6eb;"></i>
+        </div>
+        <span style="font-weight: 600;">顯示較少</span>
+      </div>
+
+      <div class="menu-item" id="main-left-menu-showmore">
+        <div class="menu-icon-wrap" style="background: #3a3b3c;"><i class="fa-solid fa-chevron-down" style="font-size: 14px; color: #e4e6eb;"></i></div>
+        <span>顯示更多</span>
+      </div>
+
+       <hr/>
+
+      <h3>
+        <span>
+          <span style="-webkit-box-orient:vertical;-webkit-line-clamp:2;display:-webkit-box">你的捷徑</span>
+        </span>
+      </h3>
+
+      <div class="menu-item">
+        <img src="https://scontent.ftpe7-1.fna.fbcdn.net/v/t39.30808-6/453737550_7888794144523250_486969220746071031_n.jpg?stp=c259.0.442.442a_cp0_dst-jpg_tt6&cstp=mx442x442&ctp=s50x50&_nc_cat=105&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=1760b9&_nc_ohc=HslthUzVyQ8Q7kNvwFAYVIj&_nc_oc=AdoHuSEioMQj9XsZp27R9VCD96JkTKBFhDgoqjsMYJOud7UcWj31oujL63ZXjykJjtw&_nc_zt=23&_nc_ht=scontent.ftpe7-1.fna&_nc_gid=i2GLtku7_iV8-tasjnvoYw&_nc_ss=782a8&oh=00_AQPvJoxFSDZhPlE9hjRGwYaPfVaQBQVhpE8aHDOu4ilh2A&oe=6AD623CD" >
+        <span>「小編嚴選 」團購網</span>
+      </div>
+
+      <div class="menu-item">
+        <img src="https://scontent.ftpe7-4.fna.fbcdn.net/v/t39.2081-6/562394381_785113571106420_1666483663876292277_n.jpg?stp=c6.6.31.31a_dst-jpg_p36x36_tt6&_nc_cat=105&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=ed3f67&_nc_ohc=lbNHdDCRJ3wQ7kNvwH7Kk-M&_nc_oc=AdokGXuys_kl395BikSdNPt9sviS0fto4-HYk4ZZKbhuiNydPm6BB81NVHHOc3aL7tc&_nc_zt=14&_nc_ht=scontent.ftpe7-4.fna&_nc_gid=i2GLtku7_iV8-tasjnvoYw&_nc_ss=782a8&oh=00_AQMggP3pheZN7oyRwjay-NmCFaH_N0Opnog5SrXyYYXQ_w&oe=6AD6322D" >
+        <span>Tank Battle</span>
+      </div>
+
+      <div>
+        <footer aria-label="Facebook" role="contentinfo">
+          <span dir="auto">
+            <ul >
+              <li >
+                <a href="/privacy/policy/?entry_point=comet_dropdown" role="link" tabindex="0" target="_self">隱私政策</a>
+                <span>
+                  <span>&nbsp;</span>
+                  <span aria-hidden="true"> · </span>
+                </span>
+              </li>
+              <li>
+                <a href="/policies?ref=pf" role="link" tabindex="0" target="_self">服務條款</a>
+                <span>
+                  <span>&nbsp;</span>
+                  <span aria-hidden="true"> · </span>
+                </span>
+              </li>
+              <li>
+                <a href="/business/" role="link" tabindex="0" target="_self">廣告</a>
+                <span>
+                  <span>&nbsp;</span>
+                  <span aria-hidden="true"> · </span>
+                </span>
+              </li>
+              <li>
+                <a href="/help/568137493302217" role="link" tabindex="0" target="_self">
+                  <span class="xuxw1ft">Ad Choices<!-- --> 
+                    <span class="x1rg5ohu x1n2onr6 xs7f9wi">
+                      <svg viewBox="0 0 12 12" width="12" height="12" fill="currentColor" aria-hidden="true" style="--x-color:var(--secondary-icon)">
+                        <path d="M10.063 5.892a.125.125 0 0 1 0 .216L5.63 8.668V7a.625.625 0 1 0-1.25 0v1.884c0 .866.937 1.407 1.687.974l4.62-2.667a1.375 1.375 0 0 0 0-2.382L3.188.48a1.375 1.375 0 0 0-2.062 1.19v8.66a1.375 1.375 0 0 0 2.063 1.191l.398-.23a.625.625 0 0 0-.625-1.082l-.398.23a.125.125 0 0 1-.188-.109V1.67c0-.096.104-.156.188-.108l7.5 4.33z"></path>
+                        <path d="M5 5.75A.625.625 0 1 0 5 4.5a.625.625 0 0 0 0 1.25z"></path>
+                      </svg>
+                    </span>
+                  </span>
+                </a>
+                <span>
+                  <span>&nbsp;</span>
+                  <span aria-hidden="true"> · </span>
+                </span>
+              </li>
+              <li>
+                <a href="/policies/cookies/" role="link" tabindex="0" target="_self">Cookie</a>
+                <span>
+                  <span class="xzpqnlu xjm9jq1 x6ikm8r x10wlt62 x10l6tqk x1i1rx1s">&nbsp;</span>
+                  <span aria-hidden="true"> · </span>
+                </span>
+              </li>
+              <li class="xt0psk2">
+                <div aria-expanded="false" aria-haspopup="menu" aria-label="更多頁尾連結" role="button" tabindex="0">
+                  <span class="x193iq5w xeuugli x13faqbe x1vvkbs x1xmvt09 x1nxh6w3 x1sibtaa x1s688f xi81zsa">更多</span>
+                </div>
+              </li>
+            </ul>
+          </span>
+        </footer>
+      </div>
+
+    </div>
+
+    <!-- 中欄 -->
+    <div id="main-center">
+
+    </div>
+
+    <!-- 右欄 -->
+    <div id="main-right">
+
+    </div>
+  </main>
 
 </body>
-<script>
 
+<script>
+  document.addEventListener('DOMContentLoaded',function (){
+    const nanoItems = document.querySelectorAll('.main-left-menuitem-shownano');
+    const btnmain_left_menu_showlittle = document.getElementById('main-left-menu-showlittle');
+    const btnmain_left_menu_showmore = document.getElementById('main-left-menu-showmore');
+
+    // 1. 預設狀態：隱藏 nano 項目與「顯示較少」按鈕
+    nanoItems.forEach(item => {
+      item.style.display = 'none';
+    });
+    if (btnmain_left_menu_showlittle) btnmain_left_menu_showlittle.style.display = 'none';
+
+    // 2. 點擊「顯示更多」：顯示項目，並切換按鈕顯示狀態
+    btnmain_left_menu_showmore.addEventListener('click', function () {
+      nanoItems.forEach(item => {
+        // 依你的項目版型決定，通常 FB 選單項目為 'flex' 或 'block'
+        item.style.display = 'flex';
+      });
+      btnmain_left_menu_showmore.style.display = 'none';
+      btnmain_left_menu_showlittle.style.display = 'flex';
+    });
+
+    // 3. 點擊「顯示較少」：隱藏項目，並切換按鈕顯示狀態
+    btnmain_left_menu_showlittle.addEventListener('click', function () {
+      nanoItems.forEach(item => {
+        item.style.display = 'none';
+      });
+      btnmain_left_menu_showlittle.style.display = 'none';
+      btnmain_left_menu_showmore.style.display = 'flex';
+    });
+  });
 </script>
+
 </html>
