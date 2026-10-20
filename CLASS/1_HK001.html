@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>float挑戰題</title>
+  <style>
+    body {
+      /* background-color: bisque; */
+      margin: 0;
+      width: 100vw;
+      height: calc(100vh - 10vh);
+      padding-top: 10vh;
+    }
+    .all {
+      /* background-color: #ff80c0; */
+      width: 80vw;
+      height: 80vh;
+      margin: auto;
+    }
+    .box1 {
+      width: 100%;
+      height: calc(100% / 3); 
+    }
+    .box-L,.box-btmL,.box-mid,.box-R,.box-btmR{
+      width: 40%;
+      height: 100%;
+    }
+    .box-L,.box-btmL {
+      float: left;
+    }
+    .box-R,.box-btmR {
+      float: right;
+    }
+    .box-L {
+      background-color: rgb(255, 0, 242);      
+    }
+    .box-R {
+      background-color: rgba(255, 0, 242, 0.404);
+    }
+    .box-mid {
+      background-color: rgba(230, 192, 69, 0.404);
+      margin: auto;
+    }
+    .box-btmL {
+      background-color: rgba(59, 72, 194, 0.404);
+    }
+    .box-btmR {
+      background-color: rgba(59, 194, 66, 0.404);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="all">
+    <div class="box1">
+      <div class="box-L"></div>
+      <div class="box-R"></div>
+    </div>
+    <div class="box1">
+      <div class="box-mid"></div>
+    </div>
+    <div class="box1">
+      <div class="box-btmL"></div>
+      <div class="box-btmR"></div>
+    </div>
+  </div>
+</body>
+
+</html>

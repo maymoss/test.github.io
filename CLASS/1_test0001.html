@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3-parallax-simple-class版本</title>
+  <style>
+    body {
+      height: 100%;
+      margin: 0;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.8;
+      font-family: "Lato", sans-serif;
+      color: #777;
+    }
+
+    .banner {
+      width: 100%;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      opacity: 0.6;
+      position: relative;
+    }
+
+    .banner-1-4 {
+      height: 100vh;
+      background-image: url(./img/img_parallax.jpg);
+    }
+
+    .banner-2 {
+      height: 45vh;
+      background-image: url(./img/img_parallax2.jpg);
+    }
+
+    .banner-3 {
+      height: 45vh;
+      background-image: url(./img/img_parallax3.jpg);
+    }
+
+    .btn {
+      font-size: 30px;
+      padding: 10px 20px;
+      letter-spacing: 10px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .btn-1-4 {
+      background-color: rgb(0, 0, 0);
+      color: rgb(252, 245, 245);
+    }
+
+    .btn-2-3 {
+      background-color: transparent;
+      color: rgb(252, 245, 245);
+    }
+
+    .content {
+      width: auto;
+      padding: 70px;
+    }
+
+    .content-1 {
+      background-color:white;
+      color: #777;
+    }
+
+    .content-2-3 {
+      background-color: rgb(0, 0, 0);
+      color: rgb(252, 245, 245);
+    }
+
+    .title-1 {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .text {
+      text-align: justify;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="all">
+
+    <!-- img_parallax.jpg -->
+    <div class="banner banner-1-4">
+      <div class="btn btn-1-4">SCROLL DOWN</div>
+    </div>
+    <div class="content content-1">
+      <h3 class="title-1">Parallax Demo</h3>
+      <div class="text">
+        Parallax scrolling is a web site trend where the background content is moved at a different speed
+        than the foreground content while scrolling. Nascetur per nec posuere turpis, lectus nec libero turpis nunc at,
+        sed posuere mollis ullamcorper libero ante lectus, blandit pellentesque a, magna turpis est sapien duis blandit
+        dignissim. Viverra interdum mi magna mi, morbi sociis. Condimentum dui ipsum consequat morbi, curabitur aliquam
+        pede, nullam vitae eu placerat eget et vehicula. Varius quisque non molestie dolor, nunc nisl dapibus vestibulum
+        at, sodales tincidunt mauris ullamcorper, dapibus pulvinar, in in neque risus odio. Accumsan fringilla vulputate
+        at quibusdam sociis eleifend, aenean maecenas vulputate, non id vehicula lorem mattis, ratione interdum sociis
+        ornare. Suscipit proin magna cras vel, non sit platea sit, maecenas ante augue etiam maecenas, porta porttitor
+        placerat leo
+      </div>
+    </div>
+
+    <!-- img_parallax2.jpg) -->
+    <div class="banner banner-2">
+      <div class="btn btn-2-3">LESS HEIGHT</div>
+    </div>
+    <div class="content content-2-3">
+      <div class="text">Scroll up and down to really get the feeling of how Parallax Scrolling works.</div>
+    </div>
+
+    <!-- img_parallax3.jpg -->
+    <div class="banner banner-3">
+      <div class="btn btn-2-3">SCROLL UP</div>
+    </div>
+    <div class="content content-2-3">
+      <div class="text">Scroll up and down to really get the feeling of how Parallax Scrolling works.</div>
+    </div>
+
+    <!-- img_parallax.jpg -->
+    <div class="banner banner-1-4">
+      <div class="btn btn-1-4">COOL!</div>
+    </div>
+  </div>
+</body>
+</html>

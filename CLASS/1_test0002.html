@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    .nav {
+      background-color: aqua;
+      width: calc(80% - 20px*2);
+      height: calc(100px - 10px*2);
+      padding: 10px 20px;
+
+      position: fixed;
+      top: 0;
+      left: 10%
+    }
+
+    .logo {
+      background-color: rgb(253, 253, 255);
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-image: url('https://lanjiji.zapto.org/9ghfo-83t22-001.ico');
+      background-size: cover;
+      transition: 3s;
+      float: left;
+    }
+
+    .logo:hover {
+      transform: scale(2);
+      transform: rotate(180deg);
+      transform: scale(2) rotate(180deg);
+    }
+
+    .nav-btn-all {
+      float: right;
+      margin-top: calc((80px - 50px)/2);
+    }
+
+    .nav-btn {
+      background-color: pink;
+      width: 100px;
+      height: 50px;
+      font-size: 32px;
+      line-height: 50px;
+      text-align: center;
+      float: left;
+      margin-left: 10px;
+    }
+    .nav-btn:hover,.nav-a:hover { /*滑鼠移動變色*/
+      background-color: rgb(30, 33, 210);
+      color: aliceblue;
+    }
+
+    .nav-btn:active,.nav-a:active { /*滑樹按住變色*/
+      background-color: rgb(240, 98, 98);
+    }
+
+    .container {
+      background-color: pink;
+      width: 80%;
+      margin: auto;
+    }
+
+    .banner {
+      background-color: lightblue;
+      width: 100%;
+      height: 50vh;
+      padding-top: 50vh;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    .banner-1 {
+      background-image: url('https://scontent-tpe1-1.xx.fbcdn.net/v/t39.30808-6/494630706_23900759526196811_9030931317917197887_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x970&ctp=s960x960&_nc_cat=109&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=LLLxwj9e3QYQ7kNvwG53chf&_nc_oc=AdoWmW_TxRjh8iE2WeeAIVXmSu8DHpNX3f6tv_4sv7rUKj4hYkveX_bU5IpoieHV7xg&_nc_zt=23&_nc_ht=scontent-tpe1-1.xx&_nc_gid=P0UU5bcYiGZUhUgUdcbKhw&_nc_ss=7b2a8&oh=00_AQPOvV_cziz6QdDjrv7cGjsZrpHFXPspv4DnKlxrJirRZA&oe=6ADB9140');
+    }
+
+    .banner-2 {
+      background-image: url('https://images.unsplash.com/photo-1789349062001-cf5c014bbff0?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D');
+    }
+
+    .banner-3 {
+      background-image: url('https://plus.unsplash.com/premium_photo-1784206743607-218281a1aac6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D');
+    }
+
+    .mask {
+      background-color: black;
+      width: 100%;
+      height: 50vh;
+      opacity: 0.5;
+      position: relative;
+    }
+
+    .btn {
+      background-color: white;
+      font-size: 48px;
+      padding: 10px;
+      border-radius: 10px;
+
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    a{
+      text-decoration: none;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="nav">
+    <div class="logo"></div>
+    <div class="nav-btn-all">
+      <div class="nav-btn nav-btn-1"><a href="#banner-1" class="nav-a">一區</a></div>
+      <div class="nav-btn nav-btn-2"><a href="#banner-2" class="nav-a">二區</a></div>
+      <div class="nav-btn nav-btn-3"><a href="#banner-3" class="nav-a">三區</a></div>
+    </div>
+
+  </div>
+  <div class="container">
+    <div class="banner banner-1" id="banner-1">
+      <div class="mask">
+        <div class="btn btn-1"><a href="https://lanjiji.zapto.org/" class="nav-a">GO github</a></div>
+      </div>
+    </div>
+    <div class="banner banner-2" id="banner-2">
+      <div class="mask">
+        <div class="btn btn-2"><a href="https://www.facebook.com/?locale=zh_TW" class="nav-a">GO FB</a></div>
+      </div>
+    </div>
+    <div class="banner banner-3" id="banner-3">
+      <div class="mask">
+        <div class="btn btn-3">三區</div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
