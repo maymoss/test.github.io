@@ -6,6 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
+    /* 點擊跳轉時平滑滾動 */
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
     }
@@ -18,7 +23,8 @@
 
       position: fixed;
       top: 0;
-      left: 10%
+      left: 10%;
+      z-index: 100;
     }
 
     .logo {
@@ -33,8 +39,6 @@
     }
 
     .logo:hover {
-      transform: scale(2);
-      transform: rotate(180deg);
       transform: scale(2) rotate(180deg);
     }
 
@@ -53,13 +57,17 @@
       float: left;
       margin-left: 10px;
     }
-    .nav-btn:hover,.nav-a:hover { /*滑鼠移動變色*/
+
+    .nav-btn:hover,
+    .nav-a:hover { /*滑鼠移動變色*/
       background-color: rgb(30, 33, 210);
       color: aliceblue;
     }
 
-    .nav-btn:active,.nav-a:active { /*滑樹按住變色*/
+    .nav-btn:active,
+    .nav-a:active { /*滑鼠按住變色*/
       background-color: rgb(240, 98, 98);
+      color: rgb(48, 243, 9);
     }
 
     .container {
@@ -109,14 +117,44 @@
       transform: translate(-50%, -50%);
     }
 
-    a{
+    a {
       text-decoration: none;
+    }
+
+    /* GOTOP 圓形按鈕樣式 */
+    .gotop-btn {
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      width: 60px;
+      height: 60px;
+      background-color: #333;
+      color: #fff;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 60px;
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .gotop-btn:hover {
+      background-color: rgb(30, 33, 210);
+      color: #fff;
+      transform: translateY(-4px);
+    }
+
+    .gotop-btn:active {
+      background-color: rgb(240, 98, 98);
+      transform: translateY(0);
     }
   </style>
 
 </head>
 
-<body>
+<body id="top">
   <div class="nav">
     <div class="logo"></div>
     <div class="nav-btn-all">
@@ -124,8 +162,8 @@
       <div class="nav-btn nav-btn-2"><a href="#banner-2" class="nav-a">二區</a></div>
       <div class="nav-btn nav-btn-3"><a href="#banner-3" class="nav-a">三區</a></div>
     </div>
-
   </div>
+
   <div class="container">
     <div class="banner banner-1" id="banner-1">
       <div class="mask">
@@ -143,6 +181,9 @@
       </div>
     </div>
   </div>
+
+  <!-- GOTOP 圓形按鈕 -->
+  <a href="#top" class="gotop-btn">TOP</a>
 </body>
 
 </html>
