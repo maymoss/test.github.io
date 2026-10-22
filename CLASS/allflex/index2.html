@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文藝活力版</title>
+
+  <!-- 引入兼具人文與幾何現代感的 Google 字型 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/index.css">
+
+
+</head>
+
+<body>
+  <div class="app-container">
+
+    <!-- 左側 / 頂部導覽列 -->
+    <aside class="menu">
+
+      <!-- 手機版漢堡按鈕 -->
+      <button class="hamburger-btn" id="hamburgerBtn" type="button" aria-label="切換導覽選單" aria-controls="navLinks" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- 去背並等比例縮放的 Logo 區塊 -->
+      <div class="logo-box" title="品牌識別 Logo"></div>
+
+      <!-- 導覽區塊（純超連結按鈕） -->
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li>
+            <a href="https://www.yahoo.com.tw" target="_blank" rel="noopener noreferrer">
+              YAHOO
+            </a>
+          </li>
+          <li>
+            <a href="https://google.com" target="_blank" rel="noopener noreferrer">
+              GOOGLE
+            </a>
+          </li>
+          <li>
+            <a href="https://www.cwa.gov.tw/V8/C/" target="_blank" rel="noopener noreferrer">
+              中央氣象局
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+    </aside>
+
+    <!-- 右側 / 下方主內容（水平垂直置中） -->
+    <main class="main-wrapper">
+
+      <div class="cards-container">
+        <div class="card card-x"><span class="card-label">X</span></div>
+        <div class="card card-y"><span class="card-label">Y</span></div>
+        <div class="card card-z"><span class="card-label">Z</span></div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    // 手機版漢堡按鈕點擊開關
+    hamburgerBtn.addEventListener('click', () => {
+      const isActive = navLinks.classList.toggle('active');
+      hamburgerBtn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+    });
+
+    // 螢幕寬度放大回電腦/平板時，自動收合手機版選單
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 576) {
+        navLinks.classList.remove('active');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  </script>
+</body>
+</html>

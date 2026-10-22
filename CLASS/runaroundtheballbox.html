@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background-color: #0b0f19;
+    }
+
+    .big-box {
+      background-color: #80ffff;
+      background-image: url('https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Earth_in_True_Color_from_Himawari_9.png/330px-Earth_in_True_Color_from_Himawari_9.png?utm_source=zh.wikipedia.org&utm_campaign=imageinfo&utm_content=thumbnail');
+      background-size: cover;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .box {
+      background-color: #ff80f4;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      /* 1. 先固定在地球的正中心 (150px, 150px) */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+
+      /* 2. 套用旋轉動畫 */
+      animation: orbit 5s linear infinite;
+    }
+
+    @keyframes orbit {
+      from {
+        /* 
+           - translate(-50%, -50%): 修正自身中心點對齊地球中心
+           - rotate(0deg): 初始角度
+           - translateY(-175px): 往外推 175px（地球半徑 150px + 小球半徑 25px）
+        */
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-175px);
+      }
+      to {
+        transform: translate(-50%, -50%) rotate(360deg) translateY(-175px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="big-box">
+    <div class="box">^︿^</div>
+  </div>
+</body>
+</html>

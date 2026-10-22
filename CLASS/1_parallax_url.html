@@ -16,7 +16,7 @@
     }
 
     .nav {
-      background-color: aqua;
+      /* background-color: aqua; */
       width: calc(80% - 20px*2);
       height: calc(100px - 10px*2);
       padding: 10px 20px;
@@ -48,7 +48,7 @@
     }
 
     .nav-btn {
-      background-color: pink;
+      background-color: rgba(221, 136, 57, 0.623);
       width: 100px;
       height: 50px;
       font-size: 32px;
@@ -58,16 +58,27 @@
       margin-left: 10px;
     }
 
-    .nav-btn:hover,
-    .nav-a:hover { /*滑鼠移動變色*/
+    .nav-a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      color: #000; /* 預設文字顏色 */
+    }
+    
+    /* 整顆按鈕 hover 時背景與文字同時變色 */
+    .nav-btn:hover {
       background-color: rgb(30, 33, 210);
-      color: aliceblue;
+    }
+    .nav-btn:hover .nav-a {
+      color: rgb(239, 243, 236);
     }
 
-    .nav-btn:active,
-    .nav-a:active { /*滑鼠按住變色*/
-      background-color: rgb(240, 98, 98);
-      color: rgb(48, 243, 9);
+    /* 整顆按鈕 active 時背景與文字同時變色 */
+    .nav-btn:active {
+      background-color: rgba(240, 98, 98, 0.644);
+    }
+    .nav-btn:active .nav-a {
+      color: rgb(198, 247, 189);
     }
 
     .container {
@@ -157,8 +168,8 @@
 <body id="top">
   <div class="nav">
     <div class="logo"></div>
-    <div class="nav-btn-all">
-      <div class="nav-btn nav-btn-1"><a href="#banner-1" class="nav-a">一區</a></div>
+    <div class="nav-btn-all ">
+      <div class="nav-btn nav-btn-1"><a href="#banner-1" class="nav-a ">一區</a></div>
       <div class="nav-btn nav-btn-2"><a href="#banner-2" class="nav-a">二區</a></div>
       <div class="nav-btn nav-btn-3"><a href="#banner-3" class="nav-a">三區</a></div>
     </div>

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{html_lang_title}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://lanjiji.zapto.org/9ghfo-83t22-001.ico?v=2" rel="icon" type="image/x-icon"/>
+</head>
+  
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+  :root {
+  --sun-yellow: #ffb703;
+  --sun-orange: #00a2ff;
+  --sky-blue: #0284c7;
+  --sky-light: #e0f2fe;
+  --fresh-green: #10b981;
+  --bg-cream: #fffdfa;
+  --card-bg: #ffffff;
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --nav-height: 64px;
+  --sidebar-width: 270px;
+}
+
+/* 修正萬用選擇器 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "PingFang TC", "Microsoft JhengHei", system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background-color: var(--bg-cream);
+  color: var(--text-dark);
+  min-height: 100vh;
+  display: flex;
+  margin: 0;
+  flex-direction: column;
+}
+
+/* ================= navbanner (置頂導覽列) ================= */
+navbanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-height);
+  background: linear-gradient(135deg, #0075fb 0%, #16b5d1 100%);
+  color: #ffffff;
+  padding: 0 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 117, 251, 0.25);
+}
+
+/* 漢堡選單按鈕 (預設桌機隱藏) */
+.sidebar-toggle-btn {
+  display: none;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.2s ease;
+}
+
+.sidebar-toggle-btn:hover {
+  background: #ffffff;
+  color: var(--sun-orange);
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.brand-logo i {
+  font-size: 26px;
+  color: #fff;
+  animation: spinSun 20s linear infinite;
+}
+
+@keyframes spinSun {
+  100% { transform: rotate(360deg); }
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-user-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6px 14px;
+  border-radius: 30px;
+  backdrop-filter: blur(5px);
+}
+
+.nav-user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.nav-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.nav-btn:hover {
+  background: #ffffff;
+  color: var(--sun-orange);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.nav-btn.logout:hover {
+  color: #ef4444;
+}
+
+/* ================= 系統主版面容器 ================= */
+.app-container {
+  display: flex;
+  flex: 1;
+  margin-top: 64px; /* 對齊 navbanner 高度 */
+  margin-top: var(--nav-height);
+  position: relative;
+}
+
+/* ================= menu (左邊功能導覽列) ================= */
+aside.menu {
+  width: var(--sidebar-width);
+  background: var(--card-bg);
+  border-right: 1px solid #e2e8f0;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: var(--nav-height);
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  z-index: 950;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 平滑滑入/滑出動畫 */
+}
+
+/* 使用者資訊卡片 */
+.user-profile-box {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 1px solid #bae6fd;
+  padding: 18px 16px;
+  border-radius: 16px;
+  text-align: center;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 6px rgba(0, 162, 255, 0.05);
+}
+
+.profile-img-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.profile-img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid var(--sun-yellow);
+  object-fit: cover;
+}
+
+.online-badge {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 14px;
+  height: 14px;
+  background: var(--fresh-green);
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+
+.profile-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.profile-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.profile-meta strong {
+  color: var(--sun-orange);
+}
+
+/* 左側選單列表 */
+.menu-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.menu-link i {
+  font-size: 18px;
+  width: 22px;
+  text-align: center;
+}
+
+.menu-link:hover {
+  background: #f0f9ff;
+  color: var(--sun-orange);
+  transform: translateX(4px);
+}
+
+.menu-link.active {
+  background: linear-gradient(90deg, #e0f2fe 0%, #f0f9ff 100%);
+  color: var(--sun-orange);
+  border-left: 4px solid var(--sun-orange);
+}
+
+.menu-link.danger-link:hover {
+  background: #fef2f2;
+  color: #ef4444;
+}
+
+/* ================= main (主要內容區) ================= */
+main {
+  margin-left: var(--sidebar-width);
+  padding: 30px;
+  flex: 1;
+  min-width: 0;
+  width: calc(100% - var(--sidebar-width));
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  transition: margin-left 0.3s ease;
+}
+
+.welcome-card {
+  background: linear-gradient(120deg, #dbeafe 0%, #fed7aa 100%);
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 117, 251, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-card h2 {
+  font-size: 26px;
+  color: #0c4a6e;
+  margin-bottom: 8px;
+}
+
+.welcome-card p {
+  color: #0369a1;
+  font-size: 15px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid #fee2e2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.stat-icon.card-icon {
+  background: #e0f2fe;
+  color: var(--sky-blue);
+}
+
+.stat-icon.sun-icon {
+  background: #ffedd5;
+  color: var(--sun-orange);
+}
+
+.stat-icon.activity-icon {
+  background: #dcfce7;
+  color: var(--fresh-green);
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.content-box {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.box-header h3 {
+  font-size: 18px;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.box-header h3 i {
+  color: var(--sun-orange);
+}
+
+.action-btn {
+  background: linear-gradient(135deg, var(--sun-orange) 0%, var(--sun-yellow) 100%);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 10px rgba(0, 162, 255, 0.25);
+  transition: opacity 0.2s;
+}
+
+.action-btn:hover {
+  opacity: 0.9;
+}
+
+/* ⭐ 完美置中 Footer 樣式：放入 main 內部或跟隨 main 寬度 */
+.app-footer {
+  width: 100%;
+  text-align: center;
+  padding: 24px 16px;
+  margin-top: auto; /* 自動推至內容最底部 */
+  border-top: 1px solid #fee2e2;
+  background-color: transparent;
+  color: #64748b;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+/* ================= 遮罩樣式 (Backdrop) ================= */
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 920;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-backdrop.active {
+  display: block;
+  opacity: 1;
+}
+
+footer {
+  background: #ffffff;
+  border-top: 1px solid #fee2e2;
+  text-align: center;
+  padding: 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-left: var(--sidebar-width);
+}
+
+/* ================= RWD 斷點設定 (小於 992px 擠壓時) ================= */
+@media (max-width: 992px) {
+  /* 顯示漢堡選單切換按鈕 */
+  .sidebar-toggle-btn {
+    display: inline-flex;
+  }
+
+  footer {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  /* menu 預設滑出到視窗外隱藏 */
+  aside.menu {
+    transform: translateX(-100%);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+  /* 當加入 .show-menu 類別時展開 */
+  aside.menu.show-menu {
+    transform: translateX(0);
+  }
+
+  /* main 撐滿寬度，不再留左側邊距 */
+  main {
+    margin-left: 0;
+    width: 100%;
+    padding: 20px 16px;
+  }
+
+  /* 縮小手機版頂部字樣以防過度擁擠 */
+  .nav-btn .btn-text,
+  .nav-user-preview .nav-user-name {
+    display: none;
+  }
+}
+@media (max-width: 768px) {
+  aside.menu {
+    transform: translateX(-100%);
+  }
+  main, footer {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+</style>
+<script>
+  // ------- 通用函式 (SweetAlert2) ---
+  function showAlterConfirm(titleText, bodyText, onConfirmCallback, confirmText = '{html_lang_confirm}', iconType = 'warning', onCancelCallback = null) {
+    Swal.fire({
+        title: titleText,
+        text: bodyText,
+        icon: iconType,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: confirmText,
+        cancelButtonText: '{html_lang_cancel}'
+    }).then(function(result) {
+      if (result.isConfirmed && typeof onConfirmCallback === 'function') {
+        onConfirmCallback(); // 點擊確認時執行
+      } else if (result.isDismissed && typeof onCancelCallback === 'function') {
+        onCancelCallback();  // 點擊取消時執行 (如果有傳入這個參數的話)
+      }
+    });
+  }
+
+  // ---- 通用函式 (SweetAlert2) ----
+  function showAlert(titleText, bodyText, iconType = 'info', confirmText = '{html_lang_close}') {
+    Swal.fire({
+      title: titleText,
+      text: bodyText,
+      icon: iconType,
+      confirmButtonText: confirmText,
+      customClass: {
+        htmlContainer: 'swal-pre-line'
+      }
+    });
+  }
+  
+  // --- 通用函式 (SweetAlert2) ---
+  function showMessage(message, type = 'success') {
+    // 將舊版的 'danger' 轉換為 Swal 支援的 'error'
+    const iconType = (type === 'danger') ? 'error' : type;
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',         // 顯示位置：右上角
+      showConfirmButton: false,    // 不顯示「確認」按鈕
+      showCloseButton: true,       // ⭐ 顯示右上角的「關閉(X)」按鈕
+      timer: 5000,                 // 5秒後自動消失
+      timerProgressBar: true,      // 顯示倒數進度條
+      didOpen: (toast) => {
+        // 滑鼠移過去時暫停倒數，移開繼續倒數
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    });
+
+    Toast.fire({
+      icon: iconType,
+      title: message
+    });
+  }
+</script>
+
+<body>
+  
+    <!-- 置頂導覽列 (navbanner) -->
+  <navbanner>
+    <!-- ⭐ RWD 漢堡選單切換按鈕 (手機版顯示，桌機版隱藏) -->
+    <button type="button" class="sidebar-toggle-btn" id="menuToggleBtn" title="切換選單">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="brand-logo">
+      <i class="fa-solid fa-sun"></i>
+      <span>{html_lang_title}</span>
+    </div>
+
+    <div class="nav-actions">
+      <a href="#settings" class="nav-btn" title="偏好設定">
+        <i class="fa-solid fa-gear"></i>
+        <span>設定</span>
+      </a>
+      <a href="login.html" class="nav-btn logout" title="登出系統">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <span>登出</span>
+      </a>
+    </div>
+  </navbanner>
+  <!-- ⭐ 手機版展開選單時的背景半透明遮罩 -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- 系統本體版面 -->
+  <div class="app-container">
+    <!-- 左邊功能導覽列 (menu) -->
+  <aside class="menu">
+    <!-- 目前登入者與最後登入時間資訊 -->
+    <div class="user-profile-box">
+      <!-- <div class="profile-img-wrap">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120" class="profile-img" alt="頭像">
+        <span class="online-indicator online-badge" title="在線中"></span>
+      </div> -->
+      <div class="profile-name">{html_username}</div>
+      <div class="profile-meta">
+        最後登入時間：<br>
+        <strong>{html_lastlogintime}</strong>
+      </div>
+    </div>
+
+    <!-- 功能項目列表 -->
+    <ul class="menu-list">
+      <li>
+        <a href="index.html" class="menu-link active">
+          <i class="fa-solid fa-house-chimney-window"></i>
+          <span>首頁</span>
+        </a>
+      </li>
+    <ul class="menu-list">
+      <li>
+        <a href="#cards" class="menu-link">
+          <i class="fa-solid fa-address-card"></i>
+          <span>名片管理功能</span>
+        </a>
+      </li>
+      <li>
+        <a href="settings.html" class="menu-link">
+          <i class="fa-solid fa-sliders"></i>
+          <span>系統設定功能</span>
+        </a>
+      </li>
+      <li style="margin-top: auto;">
+        <a href="loginout.html" class="menu-link danger-link">
+          <i class="fa-solid fa-power-off"></i>
+          <span>登出功能</span>
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+
+    <!-- 中間主要內容區 (main) -->
+    <main>
+      <div class="settings-container">
+
+        <!-- 頁面標題及搜尋 -->
+        <div class="settings-page-header">
+          <div class="settings-title-group">
+            <div class="settings-title-icon">
+              <i class="fa-solid fa-sliders"></i>
+            </div>
+
+            <div>
+              <h4 class="settings-page-title">系統參數與設定</h4>
+              <p class="settings-page-description">
+                管理系統運作參數，調整後可單筆儲存
+              </p>
+            </div>
+          </div>
+
+          <!-- 快速搜尋 -->
+          <div class="settings-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input
+              type="text"
+              id="settingSearchInput"
+              class="form-control"
+              placeholder="搜尋參數名稱或設定值..."
+              autocomplete="off"
+              aria-label="搜尋系統參數"
+            >
+          </div>
+        </div>
+
+        <!-- 操作說明 -->
+        <div class="settings-notice">
+          <i class="fa-solid fa-circle-info"></i>
+          <div>
+            <strong>設定修改說明</strong>
+            <div>
+              序號與參數名稱為系統識別資訊，不可修改。
+              僅能調整設定值，修改後請點擊該筆「儲存」按鈕。
+            </div>
+          </div>
+        </div>
+
+        <!-- 操作結果提示 -->
+        <div class="settings-feedback" id="settingsFeedback" role="status"></div>
+
+        <!-- 設定清單 -->
+        <div class="settings-panel">
+          <div class="settings-panel-header">
+            <h6 class="settings-panel-title">
+              <i class="fa-solid fa-list-ul me-2 text-warning"></i>
+              既有設定清單
+            </h6>
+
+            <span class="settings-count" id="rowCountBadge">
+              計算中...
+            </span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table settings-table" id="settingsTable">
+              <colgroup>
+                <col style="width: 80px;">
+                <col style="width: 32%;">
+                <col>
+                <col style="width: 120px;">
+              </colgroup>
+
+              <thead>
+                <tr>
+                  <th class="text-center">序號</th>
+                  <th>參數名稱 (NAME)</th>
+                  <th>設定值 (VAL)</th>
+                  <th class="text-center">操作</th>
+                </tr>
+              </thead>
+
+              <tbody id="settingsTableBody">
+
+                <!-- BEGIN_ROW -->
+                {html_rows}
+                <!-- END_ROW -->
+
+                <!-- 搜尋無結果 -->
+                <tr id="noResultRow" style="display: none;">
+                  <td colspan="4" class="settings-empty">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    找不到符合搜尋條件的設定項目
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+</body>
+
+<footer>
+  <div>© 2026 All Rights Reserved By Brooks99</div>
+</footer>
+</html>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggleBtn = document.getElementById('menuToggleBtn');
+    const menuAside = document.querySelector('aside.menu');
+    const backdrop = document.getElementById('sidebarBackdrop');
+
+    function openMenu() {
+      menuAside.classList.add('show-menu');
+      backdrop.classList.add('active');
+    }
+
+    function closeMenu() {
+      menuAside.classList.remove('show-menu');
+      backdrop.classList.remove('active');
+    }
+
+    // 1. 點擊漢堡按鈕切換
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (menuAside.classList.contains('show-menu')) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+    }
+
+    // 2. 點擊外部暗色遮罩關閉選單
+    if (backdrop) {
+      backdrop.addEventListener('click', closeMenu);
+    }
+
+    // 3. 點擊側邊欄內的連結時自動關閉 (適用於單頁 SPA 跳轉)
+    const menuLinks = document.querySelectorAll('.menu-link');
+    menuLinks.forEach(function (link) {
+      link.addEventListener('click', function () {
+        if (window.innerWidth <= 992) {
+          closeMenu();
+        }
+      });
+    });
+
+    // 4. 視窗尺寸改變時重設
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 992) {
+        closeMenu();
+      }
+    });
+
+    // 取得當前頁面的檔案名稱 (例如: settings.html)，排除路徑與 ?status=success 等參數
+    var currentPath = window.location.pathname.split('/').pop();
+
+    // 若為根目錄首頁可預設指向 index.html 或 dashboard.html
+    if (!currentPath || currentPath === '') {
+      currentPath = 'index.html';
+    }
+
+    // 取得選單內的所有連結
+    var menuLinks2 = document.querySelectorAll('.menu-list .menu-link');
+
+    menuLinks2.forEach(function (link) {
+      var href = link.getAttribute('href');
+      if (!href) return;
+
+      // 取出 href 的檔名部分（排除 # 或 ?）
+      var linkFile = href.split('?')[0].split('#')[0];
+
+      // 先清除所有 active
+      link.classList.remove('active');
+
+      // 比對當前網址與選單 href 是否一致
+      if (linkFile === currentPath) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>

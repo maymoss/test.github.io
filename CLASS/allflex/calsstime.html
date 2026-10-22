@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>國立中興大學 委外職前訓練 - 課程行事曆 (含下課時間標記)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Phosphor Icons CDN -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- Google Fonts Inter & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      .print-only { display: block !important; }
+      body { background: white !important; color: black !important; }
+      .card-shadow { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col font-sans">
+
+  <!-- 頂部導航列 -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm backdrop-blur-md bg-white/95">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 shrink-0">
+          <i class="ph ph-calendar-check text-2xl"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">第02期</span>
+            <span class="text-xs text-slate-500">民國115-116年 / 2026-2027</span>
+          </div>
+          <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">國立中興大學 委外職前訓練：UI/UX與前端網頁框架開發技術</h1>
+        </div>
+      </div>
+
+      <!-- 快捷操作區 -->
+      <div class="flex items-center gap-2.5 no-print">
+        <button id="bellScheduleBtn" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium rounded-lg text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 transition-colors">
+          <i class="ph ph-clock text-base"></i>
+          <span>節次作息表</span>
+        </button>
+        <button id="exportIcsBtn" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium rounded-lg text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors">
+          <i class="ph ph-download-simple text-base"></i>
+          <span>匯出行事曆 (.ics)</span>
+        </button>
+        <button onclick="window.print()" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium rounded-lg text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors">
+          <i class="ph ph-printer text-base"></i>
+          <span>列印課表</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要內容區 -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full flex flex-col gap-6">
+
+    <!-- 快速提醒橫幅：每日下課時間顏色指標 -->
+    <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 no-print">
+      <div class="space-y-1">
+        <div class="flex items-center gap-2 text-sm font-bold text-amber-300">
+          <i class="ph ph-bell-ringing text-lg"></i>
+          每日下課時間標記說明
+        </div>
+        <p class="text-xs text-slate-300">
+          依當日總節次不同，日曆直接醒目標示每日準確下課時間，點擊任一日可查看節次清單與中午/下課休息時間！
+        </p>
+      </div>
+      <!-- 下課時間顏色圖例 -->
+      <div class="flex flex-wrap items-center gap-2 text-xs shrink-0">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-semibold">
+          <i class="ph ph-clock-afternoon"></i> 14:00 下課 (4節 / 結訓日)
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-semibold">
+          <i class="ph ph-clock-afternoon"></i> 16:00 下課 (6節)
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 font-semibold">
+          <i class="ph ph-clock-afternoon"></i> 17:00 下課 (7節滿堂)
+        </span>
+      </div>
+    </div>
+
+    <!-- 儀表與控制卡片 -->
+    <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm flex flex-col gap-4 no-print">
+      
+      <!-- 第一排：月份選擇器與檢視切換 -->
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <!-- 月份標籤切換 -->
+        <div class="flex items-center bg-slate-100 p-1 rounded-xl gap-1 overflow-x-auto max-w-full">
+          <button class="month-tab px-3.5 py-1.5 text-xs sm:text-sm font-semibold rounded-lg transition-all" data-month="2026-10">2026年 10月</button>
+          <button class="month-tab px-3.5 py-1.5 text-xs sm:text-sm font-semibold rounded-lg transition-all" data-month="2026-11">2026年 11月</button>
+          <button class="month-tab px-3.5 py-1.5 text-xs sm:text-sm font-semibold rounded-lg transition-all" data-month="2026-12">2026年 12月</button>
+          <button class="month-tab px-3.5 py-1.5 text-xs sm:text-sm font-semibold rounded-lg transition-all" data-month="2027-01">2027年 01月</button>
+        </div>
+
+        <!-- 檢視切換 (日曆 vs 清單) -->
+        <div class="flex items-center bg-slate-100 p-1 rounded-xl">
+          <button id="viewMonthBtn" class="flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg bg-white text-slate-900 shadow-sm transition-all">
+            <i class="ph ph-calendar text-base"></i>
+            <span>月日曆</span>
+          </button>
+          <button id="viewListBtn" class="flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 transition-all">
+            <i class="ph ph-list-dashes text-base"></i>
+            <span>詳細日程清單</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 第二排：過濾篩選器 (關鍵字、講師、類別、下課時間篩選) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2 border-t border-slate-100 text-sm">
+        <!-- 關鍵字搜尋 -->
+        <div class="relative">
+          <i class="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-base"></i>
+          <input type="text" id="searchInput" placeholder="搜尋課程、內容、教室..." class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white text-xs sm:text-sm transition-all">
+        </div>
+
+        <!-- 講師過濾 -->
+        <div class="relative">
+          <select id="teacherFilter" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm transition-all appearance-none cursor-pointer">
+            <option value="ALL">全部講師 (不拘)</option>
+            <option value="盧祥驊">盧祥驊 老師 (前端基底/CSS/RWD)</option>
+            <option value="黃宇廷">黃宇廷 老師 (平面設計軟體)</option>
+            <option value="蔡彰祐">蔡彰祐 老師 (JS核心/Vue Router/版控)</option>
+            <option value="葉昱澤">葉昱澤 老師 (Vue框架/電商整合/專案)</option>
+            <option value="謝笠好">謝笠好 老師 (UI/UX設計/Figma)</option>
+            <option value="詹介珉">詹介珉 老師 (通訊應用/主機概論)</option>
+            <option value="江政彥">江政彥 老師 (求職技巧/人際職場)</option>
+            <option value="李育嫻">李育嫻 老師 (性別平等)</option>
+          </select>
+          <i class="ph ph-caret-down absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+        </div>
+
+        <!-- 下課時間過濾 (新增) -->
+        <div class="relative">
+          <select id="dismissalFilter" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm transition-all appearance-none cursor-pointer">
+            <option value="ALL">全部下課時間 (不拘)</option>
+            <option value="17:00">🔴 17:00 下課 (7節課)</option>
+            <option value="16:00">🟡 16:00 下課 (6節課)</option>
+            <option value="14:00">🟢 14:00 下課 (4節課)</option>
+          </select>
+          <i class="ph ph-caret-down absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+        </div>
+
+        <!-- 圖例統計與重置按鈕 -->
+        <div class="flex items-center justify-between sm:justify-end gap-2">
+          <span id="filteredCountBadge" class="text-xs text-slate-500">顯示中: 0 天</span>
+          <button id="resetFilterBtn" class="px-2.5 py-1.5 text-xs font-medium text-slate-600 hover:text-red-600 rounded-lg hover:bg-slate-100 transition-colors">
+            清除條件
+          </button>
+        </div>
+      </div>
+
+      <!-- 分類色彩標籤圖例 -->
+      <div class="flex flex-wrap items-center gap-3 text-xs pt-1">
+        <span class="text-slate-400">科目分類：</span>
+        <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>網頁前端基礎</span>
+        <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>JS核心 & Vue框架</span>
+        <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-violet-600"></span>UI/UX 與視覺設計</span>
+        <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>專案整合與成果發表</span>
+        <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>職場素養/共通課程</span>
+      </div>
+    </div>
+
+    <!-- 檢視模式 1: 月曆模式 (Calendar View) -->
+    <div id="calendarViewContainer" class="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col">
+      <!-- 月份標題列 -->
+      <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/60">
+        <h2 id="calendarMonthTitle" class="text-lg font-bold text-slate-900 tracking-tight">2026年 10月</h2>
+        <div class="flex items-center gap-2">
+          <button id="prevMonthBtn" class="p-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 text-slate-600 transition-colors" title="上個月">
+            <i class="ph ph-caret-left text-base"></i>
+          </button>
+          <button id="nextMonthBtn" class="p-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 text-slate-600 transition-colors" title="下個月">
+            <i class="ph ph-caret-right text-base"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- 星期表頭 -->
+      <div class="grid grid-cols-7 border-b border-slate-200 text-center bg-slate-50 font-semibold text-xs sm:text-sm text-slate-600">
+        <div class="py-2.5 text-rose-500">日</div>
+        <div class="py-2.5">一</div>
+        <div class="py-2.5">二</div>
+        <div class="py-2.5">三</div>
+        <div class="py-2.5">四</div>
+        <div class="py-2.5">五</div>
+        <div class="py-2.5 text-rose-500">六</div>
+      </div>
+
+      <!-- 日曆主格子 (動態渲染) -->
+      <div id="calendarGrid" class="grid grid-cols-7 auto-rows-fr divide-x divide-y divide-slate-100 bg-slate-100">
+        <!-- 由 JavaScript 生成 -->
+      </div>
+    </div>
+
+    <!-- 檢視模式 2: 日程列表模式 (List / Agenda View) -->
+    <div id="listViewContainer" class="hidden space-y-3">
+      <div class="flex items-center justify-between mb-2">
+        <h2 id="listMonthTitle" class="text-base font-bold text-slate-900">2026年 10月 課表日程</h2>
+        <span class="text-xs text-slate-500">依日期序排列</span>
+      </div>
+      <div id="listItemsWrapper" class="space-y-3">
+        <!-- 由 JavaScript 生成 -->
+      </div>
+    </div>
+
+    <!-- 班別基本資訊備註卡 -->
+    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/70 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs sm:text-sm text-slate-700">
+      <div class="space-y-1">
+        <div class="font-bold text-slate-900 flex items-center gap-2">
+          <i class="ph ph-info text-blue-600 text-base"></i>
+          培訓班基本資訊與教室指引
+        </div>
+        <p class="text-slate-600">
+          上課地點：中興大學 綜合大樓教室 <strong class="text-blue-900">723 / 809</strong> ｜ 
+          專任工作人員：<strong class="text-blue-900">朱祐勳</strong> ｜ 
+          助教：<strong class="text-blue-900">蕭兆凱</strong>
+        </p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="openBellScheduleModal()" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs transition-colors inline-flex items-center gap-1.5 shadow-sm">
+          <i class="ph ph-clock"></i> 查看完整每日作息時間表
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- 課程詳情 Modal 彈窗 -->
+  <div id="courseModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-200">
+    <div id="modalBox" class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden transform scale-95 transition-all duration-200 border border-slate-100 flex flex-col max-h-[92vh]">
+      <!-- 彈窗頂部 -->
+      <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span id="modalDateBadge" class="px-2.5 py-0.5 rounded-md text-xs font-bold bg-blue-600 text-white tracking-wide">10/13 (二)</span>
+          <span id="modalDayOfWeek" class="text-xs text-slate-300">民國115年</span>
+        </div>
+        <button id="modalCloseBtn" class="text-slate-400 hover:text-white p-1 rounded-lg transition-colors">
+          <i class="ph ph-x text-xl"></i>
+        </button>
+      </div>
+
+      <!-- 醒目標註：下課時間與總節數橫幅 -->
+      <div id="modalDismissalBanner" class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+        <!-- JS 動態填入 -->
+      </div>
+
+      <!-- 彈窗內容：節次排程與休息間隔詳細清單 -->
+      <div class="p-6 overflow-y-auto space-y-3 flex-1" id="modalPeriodList">
+        <!-- 動態塞入該日各節次資料及休息區塊 -->
+      </div>
+
+      <!-- 彈窗底部快捷 -->
+      <div class="p-4 bg-slate-50 border-t border-slate-200 flex justify-between items-center text-xs">
+        <div class="text-slate-500" id="modalAssistantInfo">
+          助教：蕭兆凱 ｜ 專任工作人員：朱祐勳
+        </div>
+        <button id="modalAddToCalendarBtn" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium flex items-center gap-1.5 shadow-sm transition-colors">
+          <i class="ph ph-calendar-plus text-sm"></i>
+          <span>加入 Google 日曆</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 節次作息時間表 Modal -->
+  <div id="bellModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-200">
+    <div id="bellModalBox" class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden transform scale-95 transition-all duration-200 border border-slate-100 flex flex-col">
+      <div class="px-5 py-4 bg-amber-600 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2 font-bold text-sm sm:text-base">
+          <i class="ph ph-clock-countdown text-xl"></i>
+          培訓班每日節次與作息時間表
+        </div>
+        <button id="bellModalCloseBtn" class="text-amber-100 hover:text-white p-1 rounded-lg transition-colors">
+          <i class="ph ph-x text-xl"></i>
+        </button>
+      </div>
+      <div class="p-5 space-y-2.5 text-xs sm:text-sm">
+        <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+          <div class="font-bold text-slate-800">第 1 節</div>
+          <div class="font-mono text-slate-600 font-semibold">09:10 - 10:00</div>
+          <span class="text-[11px] text-slate-400">下課休息 10分</span>
+        </div>
+        <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+          <div class="font-bold text-slate-800">第 2 節</div>
+          <div class="font-mono text-slate-600 font-semibold">10:10 - 11:00</div>
+          <span class="text-[11px] text-slate-400">下課休息 10分</span>
+        </div>
+        <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+          <div class="font-bold text-slate-800">第 3 節</div>
+          <div class="font-mono text-slate-600 font-semibold">11:10 - 12:00</div>
+          <span class="text-[11px] text-amber-600 font-bold">午休 70分</span>
+        </div>
+        <div class="p-2.5 bg-amber-50/70 rounded-xl border border-amber-200 flex justify-between items-center text-amber-800">
+          <div class="font-bold flex items-center gap-1.5"><i class="ph ph-fork-knife"></i> 中午用餐與休息</div>
+          <div class="font-mono font-bold">12:00 - 13:10</div>
+          <span class="text-[11px]">70 分鐘</span>
+        </div>
+        <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+          <div class="font-bold text-slate-800">第 4 節</div>
+          <div class="font-mono text-slate-600 font-semibold">13:10 - 14:00</div>
+          <span class="text-[11px] text-emerald-600 font-bold">🟢 14:00 (結訓日放學)</span>
+        </div>
+        <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+          <div class="font-bold text-slate-800">第 5 節</div>
+          <div class="font-mono text-slate-600 font-semibold">14:10 - 15:00</div>
+          <span class="text-[11px] text-slate-400">下課休息 10分</span>
+        </div>
+        <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+          <div class="font-bold text-slate-800">第 6 節</div>
+          <div class="font-mono text-slate-600 font-semibold">15:10 - 16:00</div>
+          <span class="text-[11px] text-amber-600 font-bold">🟡 16:00 (6節日放學)</span>
+        </div>
+        <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+          <div class="font-bold text-slate-800">第 7 節</div>
+          <div class="font-mono text-slate-600 font-semibold">16:10 - 17:00</div>
+          <span class="text-[11px] text-rose-600 font-bold">🔴 17:00 (滿堂日放學)</span>
+        </div>
+      </div>
+      <div class="p-4 bg-slate-50 border-t border-slate-200 text-center">
+        <button onclick="closeBellScheduleModal()" class="w-full py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs sm:text-sm font-semibold transition-colors">
+          關閉作息表
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500 no-print">
+    國立中興大學 委外職前訓練 課程行事曆 ｜ 培訓期間：115/10/13 - 116/01/12
+  </footer>
+
+  <!-- 核心資料與互動邏輯 Script -->
+  <script>
+    // 節次時間表定義與休息間隔說明
+    const PERIOD_TIMES = {
+      1: { name: '第1節', time: '09:10-10:00', start: '09:10', end: '10:00', breakDesc: '課間休息 10 分鐘' },
+      2: { name: '第2節', time: '10:10-11:00', start: '10:10', end: '11:00', breakDesc: '課間休息 10 分鐘' },
+      3: { name: '第3節', time: '11:10-12:00', start: '11:10', end: '12:00', breakDesc: '中午午休 70 分鐘 (12:00 - 13:10)' },
+      4: { name: '第4節', time: '13:10-14:00', start: '13:10', end: '14:00', breakDesc: '課間休息 10 分鐘' },
+      5: { name: '第5節', time: '14:10-15:00', start: '14:10', end: '15:00', breakDesc: '課間休息 10 分鐘' },
+      6: { name: '第6節', time: '15:10-16:00', start: '15:10', end: '16:00', breakDesc: '課間休息 10 分鐘' },
+      7: { name: '第7節', time: '16:10-17:00', start: '16:10', end: '17:00', breakDesc: '本日課程結束 放學下課' },
+    };
+
+    // 完整的 6 頁課表所有日程資料結構
+    const COURSE_SCHEDULE = [
+      // ====== 2026 年 10 月 ======
+      {
+        date: '2026-10-13', rocDate: '115/10/13', weekday: '二', room: '723',
+        segments: [
+          { periods: [2, 3, 4, 5, 6, 7], title: '開發工具使用', teacher: '盧祥驊', room: '723', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-10-14', rocDate: '115/10/14', weekday: '三', room: '723',
+        segments: [
+          { periods: [1, 2, 3], title: '前端工具鏈', teacher: '盧祥驊', room: '723', category: 'frontend' },
+          { periods: [4, 5, 6, 7], title: 'HTML基礎理論與實作練習', teacher: '盧祥驊', room: '723', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-10-15', rocDate: '115/10/15', weekday: '四', room: '723',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'HTML基礎理論與實作練習', teacher: '盧祥驊', room: '723', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-10-16', rocDate: '115/10/16', weekday: '五', room: '723',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'HTML基礎理論與實作練習', teacher: '盧祥驊', room: '723', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-10-19', rocDate: '115/10/19', weekday: '一', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'CSS基礎理論、實作練習及預處理器', teacher: '盧祥驊', room: '809', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-10-20', rocDate: '115/10/20', weekday: '二', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'CSS基礎理論、實作練習及預處理器', teacher: '盧祥驊', room: '809', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-10-21', rocDate: '115/10/21', weekday: '三', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'CSS基礎理論、實作練習及預處理器', teacher: '盧祥驊', room: '809', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-10-22', rocDate: '115/10/22', weekday: '四', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '網頁切版實作', teacher: '盧祥驊', room: '809', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-10-23', rocDate: '115/10/23', weekday: '五', room: '809',
+        segments: [
+          { periods: [1, 2], title: '就業市場分析', teacher: '詹介珉', room: '809', category: 'career' },
+          { periods: [3, 4, 5], title: '資訊及通訊科技平台應用', teacher: '詹介珉', room: '809', category: 'career' },
+          { periods: [6, 7], title: '職場課稅之實際案例', teacher: '詹介珉', room: '809', category: 'career' }
+        ]
+      },
+      {
+        date: '2026-10-27', rocDate: '115/10/27', weekday: '二', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '響應式網頁設計原理與製作', teacher: '盧祥驊', room: '809', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-10-28', rocDate: '115/10/28', weekday: '三', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '響應式網頁設計原理與製作', teacher: '盧祥驊', room: '809', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-10-29', rocDate: '115/10/29', weekday: '四', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '響應式網頁設計原理與製作', teacher: '盧祥驊', room: '809', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-10-30', rocDate: '115/10/30', weekday: '五', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '響應式網頁設計原理與製作', teacher: '盧祥驊', room: '809', category: 'frontend' }
+        ]
+      },
+
+      // ====== 2026 年 11 月 ======
+      {
+        date: '2026-11-02', rocDate: '115/11/02', weekday: '一', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: '平面設計軟體應用理論與實作', teacher: '黃宇廷', room: '809', category: 'uiux' }
+        ]
+      },
+      {
+        date: '2026-11-03', rocDate: '115/11/03', weekday: '二', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: '平面設計軟體應用理論與實作', teacher: '黃宇廷', room: '809', category: 'uiux' }
+        ]
+      },
+      {
+        date: '2026-11-04', rocDate: '115/11/04', weekday: '三', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '網頁開發概論', teacher: '葉昱澤', room: '809', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-11-05', rocDate: '115/11/05', weekday: '四', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'JavaScript核心概念與實作', teacher: '蔡彰祐', room: '809', category: 'vuejs' }
+        ]
+      },
+      {
+        date: '2026-11-06', rocDate: '115/11/06', weekday: '五', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'JavaScript核心概念與實作', teacher: '蔡彰祐', room: '809', category: 'vuejs' }
+        ]
+      },
+      {
+        date: '2026-11-09', rocDate: '115/11/09', weekday: '一', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: '平面設計軟體應用理論與實作', teacher: '黃宇廷', room: '809', category: 'uiux' }
+        ]
+      },
+      {
+        date: '2026-11-10', rocDate: '115/11/10', weekday: '二', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: '平面設計軟體應用理論與實作', teacher: '黃宇廷', room: '809', category: 'uiux' }
+        ]
+      },
+      {
+        date: '2026-11-11', rocDate: '115/11/11', weekday: '三', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'JavaScript核心概念與實作', teacher: '蔡彰祐', room: '809', category: 'vuejs' }
+        ]
+      },
+      {
+        date: '2026-11-12', rocDate: '115/11/12', weekday: '四', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'JavaScript核心概念與實作', teacher: '蔡彰祐', room: '809', category: 'vuejs' }
+        ]
+      },
+      {
+        date: '2026-11-13', rocDate: '115/11/13', weekday: '五', room: '809',
+        segments: [
+          { periods: [1, 2], title: '平面設計軟體應用理論與實作', teacher: '黃宇廷', room: '809', category: 'uiux' },
+          { periods: [3, 4, 5, 6, 7], title: '平面設計基礎理論', teacher: '謝笠好', room: '809', category: 'uiux' }
+        ]
+      },
+      {
+        date: '2026-11-16', rocDate: '115/11/16', weekday: '一', room: '809',
+        segments: [
+          { periods: [1], title: '平面設計基礎理論', teacher: '謝笠好', room: '809', category: 'uiux' },
+          { periods: [2, 3, 4, 5, 6, 7], title: '品牌識別設計理論', teacher: '謝笠好', room: '809', category: 'uiux' }
+        ]
+      },
+      {
+        date: '2026-11-17', rocDate: '115/11/17', weekday: '二', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'JavaScript核心概念與實作', teacher: '蔡彰祐', room: '809', category: 'vuejs' }
+        ]
+      },
+      {
+        date: '2026-11-18', rocDate: '115/11/18', weekday: '三', room: '809',
+        segments: [
+          { periods: [1], title: 'JavaScript核心概念與實作', teacher: '蔡彰祐', room: '809', category: 'vuejs' },
+          { periods: [2, 3, 4], title: 'API 串接與實作', teacher: '蔡彰祐', room: '809', category: 'vuejs' },
+          { periods: [5, 6, 7], title: '證照考試準備', teacher: '蔡彰祐', room: '809', category: 'career' }
+        ]
+      },
+      {
+        date: '2026-11-19', rocDate: '115/11/19', weekday: '四', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '網站部署', teacher: '蔡彰祐', room: '809', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-11-20', rocDate: '115/11/20', weekday: '五', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '介面設計概論', teacher: '謝笠好', room: '809', category: 'uiux' }
+        ]
+      },
+      {
+        date: '2026-11-23', rocDate: '115/11/23', weekday: '一', room: '809',
+        segments: [
+          { periods: [1, 2, 3], title: '印刷與數位媒體', teacher: '謝笠好', room: '809', category: 'uiux' },
+          { periods: [4, 5, 6], title: '專案管理與協作', teacher: '謝笠好', room: '809', category: 'project' }
+        ]
+      },
+      {
+        date: '2026-11-24', rocDate: '115/11/24', weekday: '二', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '版本控制系統 (Git)', teacher: '蔡彰祐', room: '809', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-11-25', rocDate: '115/11/25', weekday: '三', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: 'AI 網頁設計工具介紹及實作', teacher: '蔡彰祐', room: '809', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-11-26', rocDate: '115/11/26', weekday: '四', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'Vue.js框架概論及基礎實作', teacher: '葉昱澤', room: '809', category: 'vuejs' }
+        ]
+      },
+      {
+        date: '2026-11-27', rocDate: '115/11/27', weekday: '五', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'Figma設計概念及應用實作', teacher: '謝笠好', room: '809', category: 'uiux' }
+        ]
+      },
+      {
+        date: '2026-11-30', rocDate: '115/11/30', weekday: '一', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'Figma設計概念及應用實作', teacher: '謝笠好', room: '809', category: 'uiux' }
+        ]
+      },
+
+      // ====== 2026 年 12 月 ======
+      {
+        date: '2026-12-01', rocDate: '115/12/01', weekday: '二', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'Vue.js框架概論及基礎實作', teacher: '葉昱澤', room: '809', category: 'vuejs' }
+        ]
+      },
+      {
+        date: '2026-12-02', rocDate: '115/12/02', weekday: '三', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'Vue.js框架概論及基礎實作', teacher: '葉昱澤', room: '809', category: 'vuejs' }
+        ]
+      },
+      {
+        date: '2026-12-03', rocDate: '115/12/03', weekday: '四', room: '809',
+        segments: [
+          { periods: [1, 2, 3], title: 'Vue.js框架概論及基礎實作', teacher: '葉昱澤', room: '809', category: 'vuejs' },
+          { periods: [4, 5, 6, 7], title: 'Vue.js進階概論與元件開發', teacher: '葉昱澤', room: '809', category: 'vuejs' }
+        ]
+      },
+      {
+        date: '2026-12-04', rocDate: '115/12/04', weekday: '五', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: 'UI / UX 設計實作', teacher: '謝笠好', room: '809', category: 'uiux' },
+          { periods: [7], title: '班會', teacher: '程琬茜', room: '809', category: 'career' }
+        ]
+      },
+      {
+        date: '2026-12-08', rocDate: '115/12/08', weekday: '二', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'UI / UX 設計實作', teacher: '謝笠好', room: '809', category: 'uiux' }
+        ]
+      },
+      {
+        date: '2026-12-09', rocDate: '115/12/09', weekday: '三', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: 'Vue.js進階概論與元件開發', teacher: '葉昱澤', room: '809', category: 'vuejs' }
+        ]
+      },
+      {
+        date: '2026-12-10', rocDate: '115/12/10', weekday: '四', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4], title: 'Vue.js進階概論與元件開發', teacher: '葉昱澤', room: '809', category: 'vuejs' },
+          { periods: [5, 6, 7], title: 'Vue Router 路由管理', teacher: '蔡彰祐', room: '809', category: 'vuejs' }
+        ]
+      },
+      {
+        date: '2026-12-11', rocDate: '115/12/11', weekday: '五', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5], title: 'UI / UX 設計實作', teacher: '謝笠好', room: '809', category: 'uiux' },
+          { periods: [6, 7], title: '求職技巧', teacher: '江政彥', room: '809', category: 'career' }
+        ]
+      },
+      {
+        date: '2026-12-14', rocDate: '115/12/14', weekday: '一', room: '809',
+        segments: [
+          { periods: [1, 2, 3], title: '職場身心安全', teacher: '江政彥', room: '809', category: 'career' },
+          { periods: [4, 5, 6], title: '人際溝通', teacher: '江政彥', room: '809', category: 'career' }
+        ]
+      },
+      {
+        date: '2026-12-15', rocDate: '115/12/15', weekday: '二', room: '809',
+        segments: [
+          { periods: [1, 2, 3], title: 'Vue Router 路由管理', teacher: '蔡彰祐', room: '809', category: 'vuejs' },
+          { periods: [4, 5, 6], title: 'Vuex / Pinia 狀態管理', teacher: '葉昱澤', room: '809', category: 'vuejs' }
+        ]
+      },
+      {
+        date: '2026-12-17', rocDate: '115/12/17', weekday: '四', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: '電商視覺與功能整合', teacher: '葉昱澤', room: '809', category: 'project' }
+        ]
+      },
+      {
+        date: '2026-12-18', rocDate: '115/12/18', weekday: '五', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '專題規劃與設計 (期中報告)', teacher: '謝笠好', room: '809', category: 'project' }
+        ]
+      },
+      {
+        date: '2026-12-21', rocDate: '115/12/21', weekday: '一', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '專題規劃與設計 (期中報告)', teacher: '謝笠好', room: '809', category: 'project' }
+        ]
+      },
+      {
+        date: '2026-12-22', rocDate: '115/12/22', weekday: '二', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: '電商視覺與功能整合', teacher: '葉昱澤', room: '809', category: 'project' }
+        ]
+      },
+      {
+        date: '2026-12-23', rocDate: '115/12/23', weekday: '三', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: '電商視覺與功能整合', teacher: '葉昱澤', room: '809', category: 'project' }
+        ]
+      },
+      {
+        date: '2026-12-24', rocDate: '115/12/24', weekday: '四', room: '809',
+        segments: [
+          { periods: [1, 2, 3], title: '電商視覺與功能整合', teacher: '葉昱澤', room: '809', category: 'project' },
+          { periods: [4, 5, 6], title: '網頁無障礙設計', teacher: '葉昱澤', room: '809', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-12-28', rocDate: '115/12/28', weekday: '一', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '網域名稱與虛擬主機概論', teacher: '詹介珉', room: '809', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2026-12-29', rocDate: '115/12/29', weekday: '二', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: '品牌網站專案', teacher: '葉昱澤', room: '809', category: 'project' }
+        ]
+      },
+      {
+        date: '2026-12-30', rocDate: '115/12/30', weekday: '三', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: '品牌網站專案', teacher: '葉昱澤', room: '809', category: 'project' }
+        ]
+      },
+      {
+        date: '2026-12-31', rocDate: '115/12/31', weekday: '四', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6, 7], title: '品牌網站專案', teacher: '葉昱澤', room: '809', category: 'project' }
+        ]
+      },
+
+      // ====== 2027 年 01 月 ======
+      {
+        date: '2027-01-04', rocDate: '116/01/04', weekday: '一', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '品牌網站專案', teacher: '葉昱澤', room: '809', category: 'project' }
+        ]
+      },
+      {
+        date: '2027-01-05', rocDate: '116/01/05', weekday: '二', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '網站效能優化 (實習指導)', teacher: '葉昱澤', room: '809', category: 'frontend' }
+        ]
+      },
+      {
+        date: '2027-01-06', rocDate: '116/01/06', weekday: '三', room: '809',
+        segments: [
+          { periods: [1, 2, 3], title: '網路安全基礎', teacher: '葉昱澤', room: '809', category: 'frontend' },
+          { periods: [4, 5, 6], title: '性別平等', teacher: '李育嫻', room: '809', category: 'career' }
+        ]
+      },
+      {
+        date: '2027-01-07', rocDate: '116/01/07', weekday: '四', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '品牌網站專案', teacher: '葉昱澤', room: '809', category: 'project' }
+        ]
+      },
+      {
+        date: '2027-01-08', rocDate: '116/01/08', weekday: '五', room: '809',
+        segments: [
+          { periods: [1, 2, 3], title: '品牌網站專案', teacher: '葉昱澤', room: '809', category: 'project' },
+          { periods: [4, 5, 6], title: '專題發表與優化', teacher: '葉昱澤', room: '809', category: 'project' }
+        ]
+      },
+      {
+        date: '2027-01-11', rocDate: '116/01/11', weekday: '一', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4, 5, 6], title: '專題發表與優化', teacher: '葉昱澤', room: '809', category: 'project' }
+        ]
+      },
+      {
+        date: '2027-01-12', rocDate: '116/01/12', weekday: '二', room: '809',
+        segments: [
+          { periods: [1, 2, 3, 4], title: '專題發表與優化 (結訓評量)', teacher: '葉昱澤', room: '809', category: 'project' }
+        ]
+      }
+    ];
+
+    // 計算當日最後一節與下課時間
+    function getDayDismissalInfo(dayData) {
+      let maxPeriod = 0;
+      let minPeriod = 7;
+      let totalPeriodsCount = 0;
+      dayData.segments.forEach(seg => {
+        seg.periods.forEach(p => {
+          if (p > maxPeriod) maxPeriod = p;
+          if (p < minPeriod) minPeriod = p;
+          totalPeriodsCount++;
+        });
+      });
+
+      const endTime = PERIOD_TIMES[maxPeriod]?.end || '17:00';
+      const startTime = PERIOD_TIMES[minPeriod]?.start || '09:10';
+
+      // 根據下課時間定義顏色與樣式
+      let badgeStyle = {
+        bg: 'bg-rose-50 text-rose-700 border-rose-200',
+        pill: 'bg-rose-600 text-white',
+        text: 'text-rose-600',
+        dot: 'bg-rose-500',
+        label: '17:00 下課',
+        desc: '7節滿堂'
+      };
+
+      if (endTime === '16:00') {
+        badgeStyle = {
+          bg: 'bg-amber-50 text-amber-700 border-amber-200',
+          pill: 'bg-amber-500 text-white',
+          text: 'text-amber-600',
+          dot: 'bg-amber-500',
+          label: '16:00 下課',
+          desc: '6節課'
+        };
+      } else if (endTime === '14:00') {
+        badgeStyle = {
+          bg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+          pill: 'bg-emerald-600 text-white',
+          text: 'text-emerald-600',
+          dot: 'bg-emerald-500',
+          label: '14:00 下課',
+          desc: '4節 (結訓日)'
+        };
+      }
+
+      return {
+        startTime,
+        endTime,
+        maxPeriod,
+        minPeriod,
+        totalPeriodsCount,
+        style: badgeStyle
+      };
+    }
+
+    // 類別樣式映射
+    const CATEGORY_STYLES = {
+      frontend: {
+        badgeBg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+        dotBg: 'bg-emerald-500',
+        cardBg: 'bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-900 border-emerald-300/60',
+        name: '網頁前端'
+      },
+      vuejs: {
+        badgeBg: 'bg-blue-50 text-blue-700 border-blue-200',
+        dotBg: 'bg-blue-600',
+        cardBg: 'bg-blue-600/10 hover:bg-blue-600/20 text-blue-900 border-blue-300/60',
+        name: 'JS & Vue'
+      },
+      uiux: {
+        badgeBg: 'bg-purple-50 text-purple-700 border-purple-200',
+        dotBg: 'bg-purple-600',
+        cardBg: 'bg-purple-600/10 hover:bg-purple-600/20 text-purple-900 border-purple-300/60',
+        name: 'UI/UX設計'
+      },
+      project: {
+        badgeBg: 'bg-amber-50 text-amber-800 border-amber-200',
+        dotBg: 'bg-amber-500',
+        cardBg: 'bg-amber-500/15 hover:bg-amber-500/25 text-amber-950 border-amber-300/60',
+        name: '專案實作'
+      },
+      career: {
+        badgeBg: 'bg-rose-50 text-rose-700 border-rose-200',
+        dotBg: 'bg-rose-500',
+        cardBg: 'bg-rose-500/10 hover:bg-rose-500/20 text-rose-900 border-rose-300/60',
+        name: '職涯共通'
+      }
+    };
+
+    // 狀態變數
+    let currentMonth = '2026-10';
+    let currentView = 'month';
+    let filterTeacher = 'ALL';
+    let filterCategory = 'ALL';
+    let filterDismissal = 'ALL';
+    let searchQuery = '';
+
+    // 初始化
+    window.addEventListener('DOMContentLoaded', () => {
+      initEventListeners();
+      renderApp();
+    });
+
+    function initEventListeners() {
+      // 月份 Tab 切換
+      document.querySelectorAll('.month-tab').forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          currentMonth = e.currentTarget.dataset.month;
+          renderApp();
+        });
+      });
+
+      // 左右切換月份按鈕
+      document.getElementById('prevMonthBtn').addEventListener('click', () => {
+        const months = ['2026-10', '2026-11', '2026-12', '2027-01'];
+        const idx = months.indexOf(currentMonth);
+        if (idx > 0) {
+          currentMonth = months[idx - 1];
+          renderApp();
+        }
+      });
+
+      document.getElementById('nextMonthBtn').addEventListener('click', () => {
+        const months = ['2026-10', '2026-11', '2026-12', '2027-01'];
+        const idx = months.indexOf(currentMonth);
+        if (idx < months.length - 1) {
+          currentMonth = months[idx + 1];
+          renderApp();
+        }
+      });
+
+      // 檢視模式切換
+      const viewMonthBtn = document.getElementById('viewMonthBtn');
+      const viewListBtn = document.getElementById('viewListBtn');
+
+      viewMonthBtn.addEventListener('click', () => {
+        currentView = 'month';
+        updateViewTabs();
+      });
+
+      viewListBtn.addEventListener('click', () => {
+        currentView = 'list';
+        updateViewTabs();
+      });
+
+      // 篩選與搜尋
+      document.getElementById('searchInput').addEventListener('input', (e) => {
+        searchQuery = e.target.value.trim().toLowerCase();
+        renderApp();
+      });
+
+      document.getElementById('teacherFilter').addEventListener('change', (e) => {
+        filterTeacher = e.target.value;
+        renderApp();
+      });
+
+      document.getElementById('dismissalFilter').addEventListener('change', (e) => {
+        filterDismissal = e.target.value;
+        renderApp();
+      });
+
+      document.getElementById('resetFilterBtn').addEventListener('click', () => {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('teacherFilter').value = 'ALL';
+        document.getElementById('dismissalFilter').value = 'ALL';
+        searchQuery = '';
+        filterTeacher = 'ALL';
+        filterDismissal = 'ALL';
+        renderApp();
+      });
+
+      // Modal 關閉
+      document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+      document.getElementById('courseModal').addEventListener('click', (e) => {
+        if (e.target.id === 'courseModal') closeModal();
+      });
+
+      // 作息表 Modal
+      document.getElementById('bellScheduleBtn').addEventListener('click', openBellScheduleModal);
+      document.getElementById('bellModalCloseBtn').addEventListener('click', closeBellScheduleModal);
+      document.getElementById('bellModal').addEventListener('click', (e) => {
+        if (e.target.id === 'bellModal') closeBellScheduleModal();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeModal();
+          closeBellScheduleModal();
+        }
+      });
+
+      // 匯出 ICS
+      document.getElementById('exportIcsBtn').addEventListener('click', exportIcsSchedule);
+    }
+
+    function openBellScheduleModal() {
+      const modal = document.getElementById('bellModal');
+      const box = document.getElementById('bellModalBox');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      box.classList.remove('scale-95');
+      box.classList.add('scale-100');
+    }
+
+    function closeBellScheduleModal() {
+      const modal = document.getElementById('bellModal');
+      const box = document.getElementById('bellModalBox');
+      box.classList.remove('scale-100');
+      box.classList.add('scale-95');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    function updateViewTabs() {
+      const viewMonthBtn = document.getElementById('viewMonthBtn');
+      const viewListBtn = document.getElementById('viewListBtn');
+      const calContainer = document.getElementById('calendarViewContainer');
+      const listContainer = document.getElementById('listViewContainer');
+
+      if (currentView === 'month') {
+        viewMonthBtn.className = 'flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg bg-white text-slate-900 shadow-sm transition-all';
+        viewListBtn.className = 'flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 transition-all';
+        calContainer.classList.remove('hidden');
+        listContainer.classList.add('hidden');
+      } else {
+        viewListBtn.className = 'flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg bg-white text-slate-900 shadow-sm transition-all';
+        viewMonthBtn.className = 'flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 transition-all';
+        calContainer.classList.add('hidden');
+        listContainer.classList.remove('hidden');
+      }
+    }
+
+    // 核心渲染
+    function renderApp() {
+      // 1. 月份 Tab 樣式
+      document.querySelectorAll('.month-tab').forEach(tab => {
+        if (tab.dataset.month === currentMonth) {
+          tab.className = 'month-tab px-3.5 py-1.5 text-xs sm:text-sm font-semibold rounded-lg bg-white text-blue-600 shadow-sm transition-all';
+        } else {
+          tab.className = 'month-tab px-3.5 py-1.5 text-xs sm:text-sm font-semibold rounded-lg text-slate-600 hover:text-slate-900 transition-all';
+        }
+      });
+
+      const [year, month] = currentMonth.split('-').map(Number);
+      const monthNames = { '2026-10': '2026年 10月 (民國115年)', '2026-11': '2026年 11月 (民國115年)', '2026-12': '2026年 12月 (民國115年)', '2027-01': '2027年 01月 (民國116年)' };
+      document.getElementById('calendarMonthTitle').textContent = monthNames[currentMonth] || `${year}年 ${month}月`;
+      document.getElementById('listMonthTitle').textContent = `${monthNames[currentMonth]} 課程總覽`;
+
+      // 2. 篩選課表
+      const filteredSchedule = COURSE_SCHEDULE.filter(day => {
+        const dismissalInfo = getDayDismissalInfo(day);
+
+        // 下課時間篩選
+        if (filterDismissal !== 'ALL') {
+          if (dismissalInfo.endTime !== filterDismissal) return false;
+        }
+
+        // 講師比對
+        if (filterTeacher !== 'ALL') {
+          const hasTeacher = day.segments.some(seg => seg.teacher === filterTeacher);
+          if (!hasTeacher) return false;
+        }
+
+        // 關鍵字比對
+        if (searchQuery) {
+          const inDate = day.date.includes(searchQuery) || day.rocDate.includes(searchQuery);
+          const inDismissal = dismissalInfo.endTime.includes(searchQuery) || dismissalInfo.style.label.includes(searchQuery);
+          const inSegments = day.segments.some(seg => 
+            seg.title.toLowerCase().includes(searchQuery) ||
+            seg.teacher.toLowerCase().includes(searchQuery) ||
+            seg.room.toLowerCase().includes(searchQuery)
+          );
+          if (!inDate && !inSegments && !inDismissal) return false;
+        }
+
+        return true;
+      });
+
+      const monthFiltered = filteredSchedule.filter(d => d.date.startsWith(currentMonth));
+      document.getElementById('filteredCountBadge').textContent = `本月符合課程: ${monthFiltered.length} 天`;
+
+      // 3. 渲染視圖
+      renderCalendarGrid(year, month, filteredSchedule);
+      renderListView(monthFiltered);
+    }
+
+    // 渲染日曆格子 (特別加上下課時間標記)
+    function renderCalendarGrid(year, month, allFiltered) {
+      const grid = document.getElementById('calendarGrid');
+      grid.innerHTML = '';
+
+      const firstDayOfMonth = new Date(year, month - 1, 1).getDay();
+      const daysInMonth = new Date(year, month, 0).getDate();
+
+      // 空白格
+      for (let i = 0; i < firstDayOfMonth; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'min-h-[115px] sm:min-h-[145px] bg-slate-50/50 p-2 hidden sm:block';
+        grid.appendChild(emptyCell);
+      }
+
+      // 當月每日
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dayStr = `${year}-${String(month).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const dayDate = new Date(year, month - 1, d);
+        const dayOfWeek = dayDate.getDay();
+        const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+
+        const dayData = COURSE_SCHEDULE.find(item => item.date === dayStr);
+        const isMatched = allFiltered.some(item => item.date === dayStr);
+
+        const cell = document.createElement('div');
+        cell.className = `min-h-[115px] sm:min-h-[145px] p-2 sm:p-2.5 transition-all flex flex-col justify-between relative group ${
+          isWeekend ? 'bg-slate-50/60' : 'bg-white'
+        } ${dayData ? 'cursor-pointer hover:bg-blue-50/30' : ''}`;
+
+        // 日期頂部號碼與【下課時間標籤】
+        const topRow = document.createElement('div');
+        topRow.className = 'flex items-center justify-between gap-1';
+
+        const dayNum = document.createElement('span');
+        dayNum.className = `text-xs sm:text-sm font-bold w-6 h-6 flex items-center justify-center rounded-full ${
+          isWeekend ? 'text-rose-400' : 'text-slate-700'
+        } ${dayData ? 'group-hover:bg-blue-600 group-hover:text-white transition-colors' : ''}`;
+        dayNum.textContent = d;
+        topRow.appendChild(dayNum);
+
+        if (dayData) {
+          const dismissal = getDayDismissalInfo(dayData);
+          if (isMatched) {
+            // ★ 明確標記當天下課時間 Badge ★
+            const badge = document.createElement('span');
+            badge.className = `text-[10px] sm:text-[11px] font-bold px-1.5 py-0.5 rounded-md inline-flex items-center gap-1 border shadow-2xs ${dismissal.style.bg}`;
+            badge.title = `本日預計 ${dismissal.endTime} 下課 (${dismissal.style.desc})`;
+            badge.innerHTML = `<i class="ph ph-clock text-[10px]"></i> ${dismissal.endTime} 下課`;
+            topRow.appendChild(badge);
+          } else {
+            const dimTag = document.createElement('span');
+            dimTag.className = 'text-[10px] text-slate-300';
+            dimTag.textContent = '已過濾';
+            topRow.appendChild(dimTag);
+          }
+        }
+
+        cell.appendChild(topRow);
+
+        // 課程主體
+        const contentContainer = document.createElement('div');
+        contentContainer.className = 'mt-1.5 flex-1 flex flex-col gap-1 overflow-hidden';
+
+        if (dayData) {
+          if (isMatched) {
+            dayData.segments.forEach(seg => {
+              const style = CATEGORY_STYLES[seg.category] || CATEGORY_STYLES.frontend;
+              const segEl = document.createElement('div');
+              segEl.className = `text-[10px] sm:text-xs px-1.5 py-1 rounded-md border truncate font-medium flex items-center justify-between gap-1 shadow-2xs ${style.cardBg}`;
+              segEl.innerHTML = `
+                <span class="truncate" title="${seg.title}">${seg.title}</span>
+                <span class="text-[9px] sm:text-[10px] opacity-75 shrink-0 hidden md:inline font-mono">${seg.periods[0]}~${seg.periods[seg.periods.length - 1]}節</span>
+              `;
+              contentContainer.appendChild(segEl);
+            });
+
+            // 底部資訊：教室與詳細引導
+            const bottomInfo = document.createElement('div');
+            bottomInfo.className = 'mt-auto pt-1 flex items-center justify-between text-[10px] text-slate-400';
+            bottomInfo.innerHTML = `
+              <span class="flex items-center gap-0.5"><i class="ph ph-door text-[11px]"></i>教室 ${dayData.room}</span>
+              <span class="text-blue-600 font-semibold group-hover:underline hidden sm:inline">詳情 →</span>
+            `;
+            contentContainer.appendChild(bottomInfo);
+
+            cell.addEventListener('click', () => openDetailModal(dayData));
+          } else {
+            const ghost = document.createElement('div');
+            ghost.className = 'h-full flex items-center justify-center text-[11px] text-slate-300 italic';
+            ghost.textContent = '無符合項目';
+            contentContainer.appendChild(ghost);
+          }
+        }
+
+        cell.appendChild(contentContainer);
+        grid.appendChild(cell);
+      }
+    }
+
+    // 渲染清單視圖 (突出下課時間)
+    function renderListView(monthData) {
+      const wrapper = document.getElementById('listItemsWrapper');
+      wrapper.innerHTML = '';
+
+      if (monthData.length === 0) {
+        wrapper.innerHTML = `
+          <div class="bg-white rounded-2xl p-8 text-center text-slate-400 border border-slate-200">
+            <i class="ph ph-calendar-x text-4xl mb-2 inline-block"></i>
+            <p>本月份在當前篩選條件下無課程記錄</p>
+          </div>
+        `;
+        return;
+      }
+
+      monthData.forEach(day => {
+        const dismissal = getDayDismissalInfo(day);
+        const item = document.createElement('div');
+        item.className = 'bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:border-blue-300 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 cursor-pointer';
+
+        let segmentsHtml = day.segments.map(seg => {
+          const style = CATEGORY_STYLES[seg.category] || CATEGORY_STYLES.frontend;
+          const pStart = seg.periods[0];
+          const pEnd = seg.periods[seg.periods.length - 1];
+          const timeStr = `${PERIOD_TIMES[pStart].start} - ${PERIOD_TIMES[pEnd].end}`;
+          return `
+            <div class="flex items-start sm:items-center gap-2">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold ${style.badgeBg} shrink-0">
+                第 ${pStart} ~ ${pEnd} 節 (${timeStr})
+              </span>
+              <div class="font-medium text-slate-800 text-sm">
+                ${seg.title}
+                <span class="text-xs text-slate-500 ml-1.5 font-normal">講師：${seg.teacher}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        item.innerHTML = `
+          <div class="flex items-start sm:items-center gap-3.5">
+            <div class="w-16 h-16 rounded-xl bg-slate-100 flex flex-col items-center justify-center text-center shrink-0 border border-slate-200">
+              <span class="text-[10px] text-slate-500 font-bold uppercase">週${day.weekday}</span>
+              <span class="text-xl font-black text-slate-900 leading-none">${day.date.split('-')[2]}</span>
+            </div>
+            <div class="space-y-1.5 flex-1">
+              <div class="flex flex-wrap items-center gap-2 text-xs">
+                <span class="font-bold text-slate-700">${day.date} (${day.rocDate})</span>
+                <span>•</span>
+                <span class="flex items-center gap-1 text-slate-500"><i class="ph ph-door"></i>教室 ${day.room}</span>
+                <!-- ★ 清單中醒目標示下課時間 ★ -->
+                <span class="inline-flex items-center gap-1 font-bold px-2 py-0.5 rounded-full text-xs ${dismissal.style.bg}">
+                  <i class="ph ph-bell-simple-ringing"></i> 下課時間：${dismissal.endTime} (${dismissal.style.desc})
+                </span>
+              </div>
+              <div class="space-y-1 pt-0.5">
+                ${segmentsHtml}
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center justify-end shrink-0">
+            <span class="px-3 py-1.5 text-xs font-semibold text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors inline-flex items-center gap-1">
+              查看每日節次 <i class="ph ph-arrow-right"></i>
+            </span>
+          </div>
+        `;
+
+        item.addEventListener('click', () => openDetailModal(day));
+        wrapper.appendChild(item);
+      });
+    }
+
+    // 打開課程詳細 Modal (完整呈現各節次作息與下課時間)
+    function openDetailModal(dayData) {
+      const modal = document.getElementById('courseModal');
+      const box = document.getElementById('modalBox');
+      const dismissal = getDayDismissalInfo(dayData);
+
+      document.getElementById('modalDateBadge').textContent = `${dayData.date} (週${dayData.weekday})`;
+      document.getElementById('modalDayOfWeek').textContent = `民國 ${dayData.rocDate} ｜ 教室：${dayData.room}`;
+
+      // 醒目橫幅：當天下課時間
+      const banner = document.getElementById('modalDismissalBanner');
+      banner.innerHTML = `
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl ${dismissal.style.pill} flex items-center justify-center font-bold text-lg shadow-sm">
+            <i class="ph ph-bell-ringing"></i>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500 font-medium">預計放學時間</div>
+            <div class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+              今日下課時間：<span class="${dismissal.style.text}">${dismissal.endTime}</span>
+            </div>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-bold border ${dismissal.style.bg}">
+            ${dismissal.style.desc}
+          </span>
+          <div class="text-[10px] text-slate-400 mt-0.5 font-mono">09:10 ~ ${dismissal.endTime}</div>
+        </div>
+      `;
+
+      // 產生各節次清單 (第1節 ~ 第7節)
+      const listContainer = document.getElementById('modalPeriodList');
+      listContainer.innerHTML = '';
+
+      const maxPeriod = 7;
+      for (let p = 1; p <= maxPeriod; p++) {
+        const matchedSeg = dayData.segments.find(s => s.periods.includes(p));
+        const periodInfo = PERIOD_TIMES[p];
+
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-between p-3 rounded-xl border border-slate-100 transition-all ' + 
+          (matchedSeg ? 'bg-slate-50 hover:bg-blue-50/50' : 'bg-slate-50/40 opacity-60');
+
+        if (matchedSeg) {
+          const style = CATEGORY_STYLES[matchedSeg.category] || CATEGORY_STYLES.frontend;
+          const isDismissalPeriod = (p === dismissal.maxPeriod);
+
+          row.innerHTML = `
+            <div class="flex items-center gap-3">
+              <div class="w-2.5 h-2.5 rounded-full ${style.dotBg} shrink-0"></div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-slate-800">${periodInfo.name}</span>
+                  <span class="text-[11px] text-slate-500 font-mono font-semibold">${periodInfo.time}</span>
+                  ${isDismissalPeriod ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-bold ${dismissal.style.pill}">放學下課</span>` : ''}
+                </div>
+                <div class="text-sm font-semibold text-slate-900 mt-0.5">${matchedSeg.title}</div>
+              </div>
+            </div>
+            <div class="text-right shrink-0">
+              <span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium ${style.badgeBg}">
+                ${matchedSeg.teacher} 老師
+              </span>
+              <div class="text-[10px] text-slate-400 mt-0.5">教室 ${matchedSeg.room}</div>
+            </div>
+          `;
+        } else {
+          row.innerHTML = `
+            <div class="flex items-center gap-3">
+              <div class="w-2.5 h-2.5 rounded-full bg-slate-300 shrink-0"></div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-medium text-slate-500">${periodInfo.name}</span>
+                  <span class="text-[11px] text-slate-400 font-mono">${periodInfo.time}</span>
+                </div>
+                <div class="text-xs text-slate-400 mt-0.5">無課 / 自習或放學休息</div>
+              </div>
+            </div>
+            <span class="text-xs text-slate-300">-</span>
+          `;
+        }
+        listContainer.appendChild(row);
+
+        // 如果是第 3 節結束，插入中午午休提醒分隔
+        if (p === 3) {
+          const lunchBreak = document.createElement('div');
+          lunchBreak.className = 'py-1.5 px-3 rounded-lg bg-amber-50/80 border border-dashed border-amber-200 text-amber-800 text-xs flex items-center justify-between';
+          lunchBreak.innerHTML = `
+            <span class="flex items-center gap-1 font-semibold"><i class="ph ph-fork-knife"></i> 中午午休時間 (12:00 - 13:10)</span>
+            <span class="font-mono text-[11px]">休息 70 分鐘</span>
+          `;
+          listContainer.appendChild(lunchBreak);
+        }
+      }
+
+      // Google Calendar 連結
+      const addToCalBtn = document.getElementById('modalAddToCalendarBtn');
+      addToCalBtn.onclick = () => {
+        const firstSeg = dayData.segments[0];
+        const startTime = dismissal.startTime.replace(':', '') + '00';
+        const endTime = dismissal.endTime.replace(':', '') + '00';
+        const dateStr = dayData.date.replace(/-/g, '');
+        
+        const titleStr = encodeURIComponent(`[中興前端培訓] ${firstSeg.title} (${firstSeg.teacher}) - 下課:${dismissal.endTime}`);
+        const locStr = encodeURIComponent(`國立中興大學 綜合大樓 ${dayData.room} 教室`);
+        const detailsStr = encodeURIComponent(
+          `本日預計下課時間：${dismissal.endTime}\n課程內容：${dayData.segments.map(s => s.title + ' (' + s.teacher + ')').join(' / ')}\n助教：蕭兆凱\n專任人員：朱祐勳`
+        );
+        
+        const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${titleStr}&dates=${dateStr}T${startTime}/${dateStr}T${endTime}&details=${detailsStr}&location=${locStr}`;
+        window.open(gcalUrl, '_blank');
+      };
+
+      // 顯示 Modal
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      box.classList.remove('scale-95');
+      box.classList.add('scale-100');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('courseModal');
+      const box = document.getElementById('modalBox');
+      box.classList.remove('scale-100');
+      box.classList.add('scale-95');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    // 匯出 .ics 行事曆 (包含下課時間提醒)
+    function exportIcsSchedule() {
+      let icsContent = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//NCHU FrontEnd Class//TW',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+        'X-WR-CALNAME:中興大學前端與UIUX培訓班課表',
+        'X-WR-TIMEZONE:Asia/Taipei'
+      ];
+
+      COURSE_SCHEDULE.forEach((day, index) => {
+        const dismissal = getDayDismissalInfo(day);
+        day.segments.forEach((seg, sIdx) => {
+          const pStart = seg.periods[0];
+          const pEnd = seg.periods[seg.periods.length - 1];
+          const startDate = day.date.replace(/-/g, '');
+          const startTimeStr = PERIOD_TIMES[pStart].start.replace(':', '') + '00';
+          const endTimeStr = PERIOD_TIMES[pEnd].end.replace(':', '') + '00';
+
+          icsContent.push('BEGIN:VEVENT');
+          icsContent.push(`UID:nchu-${day.date}-${sIdx}-${index}@nchu.edu.tw`);
+          icsContent.push(`DTSTAMP:${startDate}T000000Z`);
+          icsContent.push(`DTSTART;TZID=Asia/Taipei:${startDate}T${startTimeStr}`);
+          icsContent.push(`DTEND;TZID=Asia/Taipei:${startDate}T${endTimeStr}`);
+          icsContent.push(`SUMMARY:${seg.title} (${seg.teacher}老師) [${pStart}-${pEnd}節]`);
+          icsContent.push(`LOCATION:國立中興大學 綜合大樓 ${seg.room} 教室`);
+          icsContent.push(`DESCRIPTION:第${pStart}節至第${pEnd}節\\n授課教師：${seg.teacher}\\n本日預計放學下課時間：${dismissal.endTime}\\n助教：蕭兆凱\\n專任人員：朱祐勳`);
+          icsContent.push('STATUS:CONFIRMED');
+          icsContent.push('END:VEVENT');
+        });
+      });
+
+      icsContent.push('END:VCALENDAR');
+
+      const blob = new Blob([icsContent.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', '國立中興大學_前端與UIUX培訓班課表(含下課時間).ics');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
