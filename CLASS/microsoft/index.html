@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microsoft - 人工智慧、雲端、生產力、計算、遊戲和應用程式</title>
+  <link rel="stylesheet" href="https://uhf.microsoft.com/statics/20261021.14.40/css/style-PF2pqjN1.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --ms-blue: #0067b8;
+      --ms-blue-hover: #005da6;
+      --ms-blue-active: #005191;
+      --ms-surface: #ffffff;
+      --ms-subtle-bg: #f9fbfd;
+      --ms-text-primary: #1b1b1b;
+      --ms-text-secondary: #5a5a5a;
+      --ms-border: #e5e7eb;
+      --fluent-acrylic: rgba(255, 255, 255, 0.86);
+      --fluent-shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
+      --fluent-shadow-md: 0 10px 24px -4px rgba(15, 23, 42, 0.08);
+      --fluent-shadow-lg: 0 24px 48px -8px rgba(15, 23, 42, 0.16);
+      --ease-fluent: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI Variable Text", "Segoe UI", segoeui, "Helvetica Neue", helvetica, arial, sans-serif;
+      color: var(--ms-text-primary);
+      background-color: #fcfcfd;
+      line-height: 1.5;
+      font-size: 1rem;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: var(--ms-blue); text-decoration: none; transition: color 0.15s ease; }
+    a:hover { text-decoration: underline; }
+    .shell-container { max-width: 1560px; margin: 0 auto; padding: 0 40px; }
+    @media (max-width: 768px) { .shell-container { padding: 0 18px; } }
+    .ms-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--fluent-acrylic);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+      height: 56px;
+      display: flex;
+      align-items: center;
+    }
+    .header-layout { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+    .header-left, .header-right { display: flex; align-items: center; gap: 6px; }
+    .brand-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      text-decoration: none !important;
+      margin-right: 12px;
+      transition: background-color 0.2s ease;
+    }
+    .brand-group:hover { background: rgba(0, 0, 0, 0.04); }
+    .brand-grid { display: grid; grid-template-columns: 10px 10px; grid-template-rows: 10px 10px; gap: 2px; }
+    .brand-grid div:nth-child(1) { background-color: #f25022; }
+    .brand-grid div:nth-child(2) { background-color: #7fba00; }
+    .brand-grid div:nth-child(3) { background-color: #00a4ef; }
+    .brand-grid div:nth-child(4) { background-color: #ffb900; }
+    .brand-title { font-size: 18px; font-weight: 600; color: #262626; letter-spacing: -0.4px; }
+    .primary-nav ul { display: flex; list-style: none; gap: 4px; align-items: center; }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      color: #2b2b2b;
+      border-radius: 2px;
+      text-decoration: none !important;
+      position: relative;
+      transition: color 0.15s ease;
+      outline: none; /* 移除瀏覽器預設的藍色外框 */
+    }
+    /* Hover：出現底線效果 */
+    .nav-link:hover {
+      /* background: rgba(0, 0, 0, 0.04); */
+      color: #000000;
+      text-decoration: underline !important;
+      text-underline-offset: 4px; /* 控制底線與文字的間距 */
+      text-decoration-thickness: 15px;
+    }
+    /* 點擊選擇 (Active)、鍵盤聚焦 (Focus)、以及右鍵選中時的虛線外框 */
+    .nav-link:focus,
+    .nav-link:focus-visible,
+    .nav-link:active,
+    .nav-link.active-click {
+      outline: 3px dotted #000000 !important;
+      outline-offset: 0px; /* 內縮 2px，呈現經典的微軟緊湊虛線框 */
+    }
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px solid transparent;
+      padding: 7px 11px;
+      border-radius: 2px;
+      font-size: 13px;
+      color: #2b2b2b;
+      cursor: pointer;
+      font-family: inherit;
+      transition: color 0.15s ease;
+      text-decoration: none !important;
+      outline: none;
+    }
+    .action-btn:hover {
+      background: rgba(0, 0, 0, 0.04);
+      color: #000;
+    }
+    .action-btn:hover span {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    /* 點擊選擇、鍵盤聚焦、右鍵點選時的虛線框 */
+    .action-btn:focus,
+    .action-btn:focus-visible,
+    .action-btn:active,
+    .action-btn.active-click {
+      outline: 1px dotted #000000 !important;
+      outline-offset: -2px;
+    }
+    .badge-cart {
+      background-color: var(--ms-blue);
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 1px 6px;
+    }
+    .avatar-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 6px 4px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      background: #ffffff;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: #262626;
+      transition: all 0.2s ease;
+    }
+    .avatar-btn:hover { background: #f4f5f7; border-color: rgba(0, 0, 0, 0.2); }
+    .avatar-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0078d4, #004e8c);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .all-ms-container { position: relative; }
+    .mega-menu {
+      position: fixed;
+      top: 56px;
+      left: 50%;
+      right: auto;
+      width: min(1080px, calc(100vw - 32px));
+      max-height: calc(100dvh - 72px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(28px);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      box-shadow: var(--fluent-shadow-lg);
+      padding: 28px 36px 20px;
+      display: none;
+      opacity: 0;
+      transform: translate(-50%, -8px);
+      transition: opacity 0.2s var(--ease-fluent), transform 0.2s var(--ease-fluent);
+      z-index: 1001;
+    }
+    .mega-menu.is-open { display: block; opacity: 1; transform: translate(-50%, 0); }
+    .mega-menu-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; padding-bottom: 24px; border-bottom: 1px solid #f0f0f2; }
+    .mega-col-title { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 14px; }
+    .mega-col-list { list-style: none; }
+    .mega-col-list li { margin-bottom: 10px; }
+    .mega-col-list a { color: #52525b; font-size: 12.5px; line-height: 1.45; text-decoration: none; transition: color 0.15s ease; }
+    .mega-col-list a:hover { color: var(--ms-blue); text-decoration: underline; }
+    .mega-footer { padding-top: 14px; display: flex; justify-content: flex-end; }
+    .mega-footer a { font-size: 12.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+    .search-wrapper { position: relative; }
+    .search-input-box {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 8px);
+      width: 380px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      box-shadow: var(--fluent-shadow-md);
+      padding: 8px 12px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      z-index: 1001;
+    }
+    .search-input-box.is-open { display: flex; }
+    .search-input-box input { border: none; outline: none; font-size: 14px; font-family: inherit; width: 100%; color: #1e293b; }
+    .mobile-menu-toggle { display: none; background: none; border: none; padding: 6px; cursor: pointer; color: #1f2937; }
+    .hero-banner {
+      position: relative;
+      margin: 24px auto 52px;
+      border-radius: 20px;
+      background: radial-gradient(130% 120% at 85% 15%, #e0f2fe 0%, #edf5fd 45%, #f8fafc 100%);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: var(--fluent-shadow-sm);
+      overflow: hidden;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+    }
+    .hero-glow-1 {
+      position: absolute;
+      top: -120px;
+      right: 20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0, 164, 239, 0.22) 0%, transparent 70%);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+    .hero-glow-2 {
+      position: absolute;
+      bottom: -150px;
+      right: 5%;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.16) 0%, transparent 70%);
+      filter: blur(50px);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      align-items: center;
+      width: 100%;
+      padding: 64px 72px;
+      gap: 48px;
+      position: relative;
+      z-index: 2;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.85); } }
+    .hero-headline { font-size: 46px; line-height: 1.16; font-weight: 700; color: #0f172a; margin-bottom: 20px; letter-spacing: -0.9px; }
+    .hero-desc { font-size: 16.5px; line-height: 1.6; color: #334155; margin-bottom: 32px; max-width: 540px; }
+    .hero-cta-group { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .btn-fluent-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--ms-blue);
+      color: #ffffff !important;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 12px 28px;
+      border-radius: 6px;
+      text-decoration: none !important;
+      box-shadow: 0 4px 14px rgba(0, 103, 184, 0.28);
+      transition: all 0.2s var(--ease-fluent);
+    }
+    .btn-fluent-primary:hover { background-color: var(--ms-blue-hover); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0, 103, 184, 0.38); }
+    .btn-fluent-primary:active { transform: translateY(0); background-color: var(--ms-blue-active); }
+    .btn-fluent-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      color: #1e293b !important;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 12px 24px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      transition: all 0.2s ease;
+      text-decoration: none !important;
+    }
+    .btn-fluent-ghost:hover { background-color: #f8fafc; border-color: rgba(0, 0, 0, 0.3); }
+    .laptop-showcase { display: flex; justify-content: center; align-items: center; position: relative; }
+    .laptop-frame {
+      width: 480px;
+      background: #090d16;
+      border-radius: 16px 16px 2px 2px;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 32px 64px -14px rgba(15, 23, 42, 0.28);
+      overflow: hidden;
+      position: relative;
+    }
+    .laptop-top-bar { height: 26px; background: #131b2e; display: flex; align-items: center; padding: 0 12px; gap: 6px; }
+    .traffic-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .traffic-dot:nth-child(1) { background: #ef4444; }
+    .traffic-dot:nth-child(2) { background: #f59e0b; }
+    .traffic-dot:nth-child(3) { background: #10b981; }
+    .laptop-screen-content {
+      padding: 34px 24px;
+      background: linear-gradient(135deg, #090d16 0%, #151834 60%, #0f244a 100%);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .copilot-icon-symbol {
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed, #db2777, #f59e0b);
+      background-size: 200% 200%;
+      animation: gradientFlow 5s ease infinite;
+      box-shadow: 0 12px 28px rgba(124, 58, 237, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .copilot-prompt-preview {
+      width: 92%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+      font-size: 12.5px;
+      color: #e2e8f0;
+      backdrop-filter: blur(10px);
+    }
+    .laptop-base-stand {
+      width: 540px;
+      height: 12px;
+      background: linear-gradient(to bottom, #cbd5e1 0%, #94a3b8 100%);
+      border-radius: 0 0 16px 16px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+      position: relative;
+    }
+    .laptop-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 56px;
+      height: 4px;
+      background: #64748b;
+      border-radius: 0 0 4px 4px;
+    }
+    .quick-access-section { margin-bottom: 56px; }
+    .quick-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+    .quick-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 24px 18px;
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: var(--fluent-shadow-sm);
+      transition: all 0.25s var(--ease-fluent);
+      text-decoration: none !important;
+    }
+    .quick-tile:hover { transform: translateY(-4px); box-shadow: var(--fluent-shadow-md); border-color: rgba(0, 103, 184, 0.35); }
+    .quick-tile-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; transition: transform 0.25s ease; }
+    .quick-tile:hover .quick-tile-icon { transform: scale(1.08); }
+    .quick-tile-title { font-size: 14px; font-weight: 600; color: var(--ms-blue); }
+    .section-header-block { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px; padding-top: 10px; }
+    .section-title { font-size: 26px; font-weight: 600; color: #111827; letter-spacing: -0.5px; }
+    .section-sublink { font-size: 14px; font-weight: 600; color: var(--ms-blue); display: inline-flex; align-items: center; gap: 4px; }
+    .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 64px; }
+    .fluent-card {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      overflow: hidden;
+      box-shadow: var(--fluent-shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s var(--ease-fluent);
+    }
+    .fluent-card:hover { transform: translateY(-6px); box-shadow: var(--fluent-shadow-md); border-color: rgba(0, 103, 184, 0.3); }
+    .card-banner { height: 200px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .card-banner-bg { position: absolute; inset: 0; width: 100%; height: 100%; transition: transform 0.4s ease; }
+    .fluent-card:hover .card-banner-bg { transform: scale(1.05); }
+    .banner-graphic-svg { position: relative; z-index: 1; filter: drop-shadow(0 6px 14px rgba(0,0,0,0.18)); transition: transform 0.3s ease; }
+    .fluent-card:hover .banner-graphic-svg { transform: scale(1.05); }
+    .card-content { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+    .card-badge { display: inline-block; font-size: 11.5px; font-weight: 600; color: #0067b8; background: #e5f1fb; padding: 3px 8px; border-radius: 4px; margin-bottom: 12px; align-self: flex-start; }
+    .card-title { font-size: 19px; font-weight: 600; color: #111827; margin-bottom: 10px; line-height: 1.35; }
+    .card-description { font-size: 14px; line-height: 1.55; color: #4b5563; margin-bottom: 24px; flex-grow: 1; }
+    .card-link-action { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14.5px; color: var(--ms-blue); text-decoration: none !important; }
+    .card-link-action svg { transition: transform 0.2s ease; }
+    .fluent-card:hover .card-link-action svg { transform: translateX(4px); }
+    .spotlight-banner {
+      background: linear-gradient(135deg, #07193b 0%, #002b5e 100%);
+      color: #ffffff;
+      border-radius: 18px;
+      margin-bottom: 64px;
+      padding: 56px 64px;
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--fluent-shadow-md);
+    }
+    .spotlight-glow { position: absolute; top: -50px; right: 0; width: 420px; height: 420px; background: radial-gradient(circle, rgba(0, 164, 239, 0.28) 0%, transparent 70%); pointer-events: none; }
+    .spotlight-title { font-size: 34px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.6px; }
+    .spotlight-desc { font-size: 16px; line-height: 1.6; color: #cbd5e1; margin-bottom: 28px; }
+    .social-follow-row { display: flex; align-items: center; gap: 18px; margin: 40px 0 32px; font-size: 14.5px; color: #475569; }
+    .social-links-list { display: flex; align-items: center; gap: 10px; }
+    .social-icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: #334155;
+      transition: all 0.2s ease;
+    }
+    .social-icon-btn:hover { background: var(--ms-blue); color: #ffffff; transform: translateY(-2px); }
+    .site-footer { background-color: #f4f5f7; border-top: 1px solid #e2e8f0; font-size: 12px; color: #64748b; padding: 56px 0 32px; margin-top: 60px; }
+    .footer-nav-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 28px; margin-bottom: 48px; }
+    .footer-col-header { font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 18px; }
+    .footer-col-links { list-style: none; }
+    .footer-col-links li { margin-bottom: 12px; }
+    .footer-col-links a { color: #64748b; text-decoration: none; font-size: 12.5px; transition: color 0.15s ease; }
+    .footer-col-links a:hover { color: #0f172a; text-decoration: underline; }
+    .footer-subbar { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid #e2e8f0; flex-wrap: wrap; gap: 16px; font-size: 11.5px; }
+    .footer-region-picker { display: inline-flex; align-items: center; gap: 8px; color: #64748b; font-size: 12px; cursor: pointer; }
+    .footer-region-picker:hover { color: #0f172a; }
+    .footer-legal-links { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+    .footer-legal-links a { color: #64748b; }
+    .footer-legal-links a:hover { color: #0f172a; }
+    .mobile-drawer {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 56px);
+      background: #ffffff;
+      z-index: 999;
+      padding: 24px;
+      display: none;
+      overflow-y: auto;
+      box-shadow: var(--fluent-shadow-lg);
+    }
+    .mobile-drawer.is-open { display: block; }
+    .mobile-nav-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .mobile-nav-list a { font-size: 17px; font-weight: 600; color: #1e293b; display: block; padding-bottom: 8px; border-bottom: 1px solid #f1f5f9; }
+    @media (max-width: 1200px) {
+      .mega-menu { padding: 24px; }
+      .mega-menu-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .quick-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-nav-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; padding: 44px 24px; }
+      .laptop-frame { width: 100%; max-width: 440px; }
+      .laptop-base-stand { width: 100%; max-width: 470px; }
+      .spotlight-banner { grid-template-columns: 1fr; padding: 40px 28px; }
+      .ms-header .primary-nav,
+      .ms-header .header-right { display: none !important; }
+      .ms-header .mobile-menu-toggle {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 40px;
+        width: 40px;
+        height: 40px;
+      }
+      .ms-header .header-layout { justify-content: flex-start; }
+      .ms-header .brand-group { margin-right: 0; }
+      .mega-menu { display: none !important; }
+    }
+    @media (max-width: 640px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .quick-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-nav-grid { grid-template-columns: 1fr 1fr; }
+      .hero-headline { font-size: 32px; }
+      .footer-subbar { flex-direction: column; align-items: flex-start; }
+      .avatar-btn > span { display: none; }
+      .avatar-btn { padding: 3px; }
+      .search-input-box { position: fixed; left: 14px; right: 14px; top: 62px; width: auto; }
+    }
+
+    /* 行動版完整導覽：桌面 Mega Menu 項目集中在漢堡選單內 */
+    .mobile-all-ms summary {
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 600;
+      color: #1e293b;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .mobile-mega-group { padding: 12px 0 4px 16px; }
+    .mobile-mega-group strong { display: block; margin-bottom: 8px; font-size: 14px; }
+    .mobile-mega-group a { font-size: 14px; font-weight: 400; padding: 7px 0; }
+    @media (min-width: 901px) and (max-width: 1100px) {
+      .ms-header .nav-link { padding-inline: 7px; font-size: 12px; }
+      .ms-header .brand-group { margin-right: 2px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="ms-header" role="banner">
+    <div class="shell-container header-layout">
+      <div class="header-left">
+        <button class="mobile-menu-toggle" id="mobileMenuBtn" type="button" aria-label="開啟導覽選單" aria-controls="mobileDrawer" aria-expanded="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <a href="#" class="brand-group" aria-label="Microsoft 首頁">
+          <div class="brand-grid"><div></div><div></div><div></div><div></div></div>
+          <span class="brand-title">Microsoft</span>
+        </a>
+        <nav class="primary-nav" aria-label="主要導覽">
+          <ul>
+            <li><a href="#" class="nav-link active">Microsoft 365</a></li>
+            <li><a href="#" class="nav-link">Azure</a></li>
+            <li><a href="#" class="nav-link">Windows</a></li>
+            <li><a href="#" class="nav-link">Surface</a></li>
+            <li><a href="#" class="nav-link">Xbox</a></li>
+            <li><a href="#" class="nav-link">支援</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="header-right">
+        <div class="all-ms-container">
+          <button class="action-btn" id="allMsBtn" aria-expanded="false" aria-haspopup="true">
+            <span>所有 Microsoft</span>
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>
+          </button>
+          <div class="mega-menu" id="megaMenu">
+            <div class="mega-menu-grid">
+              <div class="mega-col">
+                <div class="mega-col-title">軟體</div>
+                <ul class="mega-col-list">
+                  <li><a href="#">Windows 應用程式</a></li>
+                  <li><a href="#">OneDrive</a></li>
+                  <li><a href="#">Outlook</a></li>
+                  <li><a href="#">從 Skype 移至 Teams</a></li>
+                  <li><a href="#">OneNote</a></li>
+                  <li><a href="#">Microsoft Teams</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-title">個人電腦和設備</div>
+                <ul class="mega-col-list">
+                  <li><a href="#">選購 Surface Pro</a></li>
+                  <li><a href="#">Surface Laptop</a></li>
+                  <li><a href="#">Surface 配件</a></li>
+                  <li><a href="#">電腦週邊與鍵鼠</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-title">娛樂</div>
+                <ul class="mega-col-list">
+                  <li><a href="#">Xbox Game Pass Ultimate</a></li>
+                  <li><a href="#">Xbox 主機與控制器</a></li>
+                  <li><a href="#">Xbox 與電腦遊戲</a></li>
+                  <li><a href="#">Windows 娛樂軟體</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-title">商務適用</div>
+                <ul class="mega-col-list">
+                  <li><a href="#">Microsoft AI</a></li>
+                  <li><a href="#">Microsoft 安全性</a></li>
+                  <li><a href="#">Azure 雲端運算</a></li>
+                  <li><a href="#">Dynamics 365</a></li>
+                  <li><a href="#">商務用 Microsoft 365</a></li>
+                  <li><a href="#">Power Platform</a></li>
+                  <li><a href="#">Windows 365 雲端電腦</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-title">開發人員與 IT</div>
+                <ul class="mega-col-list">
+                  <li><a href="#">Visual Studio</a></li>
+                  <li><a href="#">Microsoft Learn</a></li>
+                  <li><a href="#">支援 AI 市場應用程式</a></li>
+                  <li><a href="#">Microsoft 技術社群</a></li>
+                  <li><a href="#">Azure Marketplace</a></li>
+                  <li><a href="#">開發人員工具指南</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <div class="mega-col-title">其他</div>
+                <ul class="mega-col-list">
+                  <li><a href="#">Microsoft Rewards</a></li>
+                  <li><a href="#">免費下載與安全性</a></li>
+                  <li><a href="#">教育專案優惠</a></li>
+                  <li><a href="#">Xbox 禮品卡</a></li>
+                  <li><a href="#">大量授權 (Licensing)</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega-footer">
+              <a href="#">
+                <span>檢視完整網站地圖</span>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="search-wrapper">
+          <button class="action-btn" id="searchToggleBtn" title="搜尋 Microsoft.com" aria-label="搜尋">
+            <!-- <span class="search-text">搜尋</span> -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+          <div class="search-input-box" id="searchBox">
+            <input type="text" id="searchInput" placeholder="搜尋 Microsoft.com" />
+            <button class="action-btn" id="searchCloseBtn" style="padding: 4px;" aria-label="關閉搜尋">✕</button>
+          </div>
+        </div>
+        <a href="#" class="action-btn" title="購物車 (0 個項目)" aria-label="購物車">
+          <!-- <span class="cart-text">購物車</span> -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <span class="badge-cart">0</span>
+        </a>
+        <button class="avatar-btn" title="Microsoft 帳戶：崇徐" aria-label="個人帳戶選單">
+          <span>崇徐</span>
+          <div class="avatar-circle">徐</div>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-drawer" id="mobileDrawer" aria-label="行動版導覽">
+      <ul class="mobile-nav-list">
+<li><a href="#">Microsoft 365</a></li>
+<li><a href="#">Azure</a></li>
+<li><a href="#">Windows 11</a></li>
+<li><a href="#">Surface 裝置</a></li>
+<li><a href="#">Xbox 遊戲</a></li>
+<li><a href="#">商務解決方案</a></li>
+<li><a href="#">技術支援</a></li>
+<li><details class="mobile-all-ms"><summary>所有 Microsoft</summary><div class="mobile-mega-group"><strong>軟體</strong><a href="#">Windows 應用程式</a><a href="#">OneDrive</a><a href="#">Outlook</a><a href="#">從 Skype 移至 Teams</a><a href="#">OneNote</a><a href="#">Microsoft Teams</a></div><div class="mobile-mega-group"><strong>個人電腦和設備</strong><a href="#">選購 Surface Pro</a><a href="#">Surface Laptop</a><a href="#">Surface 配件</a><a href="#">電腦週邊與鍵鼠</a></div><div class="mobile-mega-group"><strong>娛樂</strong><a href="#">Xbox Game Pass Ultimate</a><a href="#">Xbox 主機與控制器</a><a href="#">Xbox 與電腦遊戲</a><a href="#">Windows 娛樂軟體</a></div><div class="mobile-mega-group"><strong>商務適用</strong><a href="#">Microsoft AI</a><a href="#">Microsoft 安全性</a><a href="#">Azure 雲端運算</a><a href="#">Dynamics 365</a><a href="#">商務用 Microsoft 365</a><a href="#">Power Platform</a><a href="#">Windows 365 雲端電腦</a></div><div class="mobile-mega-group"><strong>開發人員與 IT</strong><a href="#">Visual Studio</a><a href="#">Microsoft Learn</a><a href="#">支援 AI 市場應用程式</a><a href="#">Microsoft 技術社群</a><a href="#">Azure Marketplace</a><a href="#">開發人員工具指南</a></div><div class="mobile-mega-group"><strong>其他</strong><a href="#">Microsoft Rewards</a><a href="#">免費下載與安全性</a><a href="#">教育專案優惠</a><a href="#">Xbox 禮品卡</a><a href="#">大量授權 (Licensing)</a></div></details></li></ul>
+    </div>
+  </header>
+  <main>
+    <section class="shell-container">
+      <div class="hero-banner">
+        <div class="hero-glow-1"></div>
+        <div class="hero-glow-2"></div>
+        <div class="hero-inner">
+          <div class="laptop-showcase">
+            <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/Hero-Mobile-M365-Icon-Bounce-Premium-Left?resMode=sharp2&amp;op_usm=1.5,0.65,15,0&amp;wid=1600&amp;hei=900&amp;qlt=93&amp;fit=constrain" class="   " alt="Microsoft 365 訂閱中包含的各種應用程式，例如：Microsoft Copilot、Word、Excel、PowerPoint、Outlook、OneNote、OneDrive、Microsoft Defender 和 Microsoft Teams。" fetchpriority="high">
+          </div>
+          <div class="hero-text-side">
+            <h1 class="hero-headline">借助 Copilot 突破極限</h1>
+            <p class="hero-desc">透過 Microsoft 365，一站式獲得包含 Copilot 的生產力應用程式、進階 AI 功能，以及雲端儲存空間。</p>
+            <div class="hero-cta-group">
+              <a href="#" class="btn-fluent-primary">選購 Microsoft 365</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="shell-container quick-access-section">
+      <div class="quick-grid">
+        <a href="#" class="quick-tile">
+          <div class="quick-tile-icon" style="background: #eef2ff;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <span class="quick-tile-title">選購 Surface 裝置</span>
+        </a>
+        <a href="#" class="quick-tile">
+          <div class="quick-tile-icon" style="background: #f0fdf4;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <span class="quick-tile-title">選購 Microsoft 365</span>
+        </a>
+        <a href="#" class="quick-tile">
+          <div class="quick-tile-icon" style="background: #e0f2fe;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><polygon points="3 4 10 3 10 11 3 11 3 4"/><polygon points="10 13 3 13 3 20 10 19 10 13"/><polygon points="12 3 21 2 21 11 12 11 12 3"/><polygon points="21 13 12 13 12 21 21 20 21 13"/></svg>
+          </div>
+          <span class="quick-tile-title">取得 Windows 11</span>
+        </a>
+        <a href="#" class="quick-tile">
+          <div class="quick-tile-icon" style="background: #fef2f2;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M15 11h2"/><path d="M16 10v2"/></svg>
+          </div>
+          <span class="quick-tile-title">Xbox 遊戲與配件</span>
+        </a>
+        <a href="#" class="quick-tile">
+          <div class="quick-tile-icon" style="background: #fdf4ff;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#9333ea" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          </div>
+          <span class="quick-tile-title">探索微軟 AI 生態</span>
+        </a>
+      </div>
+    </section>
+    <section class="shell-container">
+      <div class="section-header-block">
+        <h2 class="section-title">熱門個人與家用精選</h2>
+        <a href="#" class="section-sublink">
+          <span>查看所有消費者產品</span>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+        </a>
+      </div>
+      <div class="products-grid">
+        <article class="fluent-card">
+          <div class="card-banner">
+            <div class="card-banner-bg" style="background: linear-gradient(135deg, #1e293b, #334155);"></div>
+            <div class="banner-graphic-svg">
+              <svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M2 18h20"/></svg>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="card-badge">全新推出</span>
+            <h3 class="card-title">Surface Laptop (第 7 版)</h3>
+            <p class="card-description">突破性的 NPU 運算晶片，帶來前所未有的長效全天電池續航與超高速 AI 智慧體驗。</p>
+            <a href="#" class="card-link-action">
+              <span>深入了解與選購</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </a>
+          </div>
+        </article>
+        <article class="fluent-card">
+          <div class="card-banner">
+            <div class="card-banner-bg" style="background: linear-gradient(135deg, #107c41, #0a4f29);"></div>
+            <div class="banner-graphic-svg">
+              <svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="card-badge">玩家必備</span>
+            <h3 class="card-title">Xbox Game Pass Ultimate</h3>
+            <p class="card-description">首發當天暢玩大作。在 Xbox 主機、電腦與雲端享受數百款高品質遊戲及 EA Play 會員福利。</p>
+            <a href="#" class="card-link-action">
+              <span>立即以超值價格訂閱</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </a>
+          </div>
+        </article>
+        <article class="fluent-card">
+          <div class="card-banner">
+            <div class="card-banner-bg" style="background: linear-gradient(135deg, #09090b, #27272a);"></div>
+            <div class="banner-graphic-svg">
+              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="1.6"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="6" r="1.5"/><line x1="12" y1="12" x2="12" y2="16"/></svg>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="card-badge">終極效能</span>
+            <h3 class="card-title">Xbox Series X</h3>
+            <p class="card-description">真 4K 120 FPS 高流暢度遊戲畫面、極速加載架構與向下相容四個世代的經典遊戲庫存。</p>
+            <a href="#" class="card-link-action">
+              <span>探索主機規格</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </a>
+          </div>
+        </article>
+        <article class="fluent-card">
+          <div class="card-banner">
+            <div class="card-banner-bg" style="background: linear-gradient(135deg, #0078d4, #00bcf2);"></div>
+            <div class="banner-graphic-svg">
+              <svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="card-badge">智慧瀏覽</span>
+            <h3 class="card-title">Microsoft Edge 瀏覽器</h3>
+            <p class="card-description">世界級的速度、隱私保護與深度整合的 Copilot 側邊欄，讓您網頁搜尋、翻譯與摘要一氣呵成。</p>
+            <a href="#" class="card-link-action">
+              <span>立即免費下載</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="shell-container">
+      <div class="spotlight-banner">
+        <div class="spotlight-glow"></div>
+        <div>
+          <h2 class="spotlight-title">微軟雲端與 AI：為每一家企業賦予非凡生產力</h2>
+          <p class="spotlight-desc">以負責任的 AI 原則為核心，Azure 與 Microsoft 365 Copilot 能為您的跨國團隊自動化繁瑣流程、保護敏感數位資產，並在瞬息萬變的商業環境中維持敏捷競爭優勢。</p>
+          <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+            <a href="#" class="btn-fluent-primary" style="background: #ffffff; color: #004e8c !important;">預約企業架構諮詢</a>
+            <a href="#" class="btn-fluent-ghost" style="background: transparent; color: #ffffff !important; border-color: rgba(255,255,255,0.4);">探索微軟 AI 解決方案</a>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center;">
+          <div style="width: 240px; height: 240px; border-radius: 50%; background: linear-gradient(135deg, rgba(0,164,239,0.3), rgba(127,186,0,0.3)); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2);">
+            <svg width="110" height="110" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.3"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="shell-container">
+      <div class="section-header-block">
+        <h2 class="section-title">適用於商務與企業解決方案</h2>
+        <a href="#" class="section-sublink">
+          <span>瀏覽微軟商務中心</span>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+        </a>
+      </div>
+      <div class="products-grid">
+        <article class="fluent-card">
+          <div class="card-banner">
+            <div class="card-banner-bg" style="background: linear-gradient(135deg, #1e3a8a, #172554);"></div>
+            <div class="banner-graphic-svg">
+              <svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="card-badge">企業硬體</span>
+            <h3 class="card-title">全新商務版 Surface</h3>
+            <p class="card-description">專為混合辦公量身打造，具備晶片至雲端的安全防護、現代遠端裝置部署與全天候高續航力。</p>
+            <a href="#" class="card-link-action">
+              <span>探索商務機型</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </a>
+          </div>
+        </article>
+        <article class="fluent-card">
+          <div class="card-banner">
+            <div class="card-banner-bg" style="background: linear-gradient(135deg, #064e3b, #022c22);"></div>
+            <div class="banner-graphic-svg">
+              <svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="card-badge">零信任防護</span>
+            <h3 class="card-title">Microsoft 安全性</h3>
+            <p class="card-description">跨身分識別、裝置、應用程式與多雲環境，以原生 AI 威脅情報提供 360 度無死角的主動聯防。</p>
+            <a href="#" class="card-link-action">
+              <span>檢視資安評估報告</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </a>
+          </div>
+        </article>
+        <article class="fluent-card">
+          <div class="card-banner">
+            <div class="card-banner-bg" style="background: linear-gradient(135deg, #0369a1, #0c4a6e);"></div>
+            <div class="banner-graphic-svg">
+              <svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.5"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="card-badge">全球雲端基礎</span>
+            <h3 class="card-title">Microsoft Azure 雲端</h3>
+            <p class="card-description">利用混合雲架構與 Azure OpenAI 服務，在值得信賴的企業級環境中快速打造次世代智慧系統。</p>
+            <a href="#" class="card-link-action">
+              <span>申請免費體驗帳號</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </a>
+          </div>
+        </article>
+        <article class="fluent-card">
+          <div class="card-banner">
+            <div class="card-banner-bg" style="background: linear-gradient(135deg, #4c1d95, #2e1065);"></div>
+            <div class="banner-graphic-svg">
+              <svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="card-badge">團隊協作</span>
+            <h3 class="card-title">Teams 與 Power Platform</h3>
+            <p class="card-description">將聊天會議、低程式碼流程自動化與數據分析集中於單一平台，實現無縫且高生產力的協同作業。</p>
+            <a href="#" class="card-link-action">
+              <span>探索商務方案方案</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+      <div class="social-follow-row">
+        <span>關注微軟社群動態：</span>
+        <div class="social-links-list">
+          <a href="#" class="social-icon-btn" title="Facebook" aria-label="微軟 Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-icon-btn" title="YouTube" aria-label="微軟 YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#fff"/></svg>
+          </a>
+          <a href="#" class="social-icon-btn" title="LinkedIn" aria-label="微軟 LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer" role="contentinfo">
+    <div class="shell-container">
+      <div class="footer-nav-grid">
+        <div class="footer-col">
+          <h4 class="footer-col-header">最新消息</h4>
+          <ul class="footer-col-links">
+            <li><a href="#">Surface Pro</a></li>
+            <li><a href="#">Surface Laptop</a></li>
+            <li><a href="#">探索 Copilot</a></li>
+            <li><a href="#">Microsoft 365</a></li>
+            <li><a href="#">Windows 11 應用程式</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-header">Microsoft Store</h4>
+          <ul class="footer-col-links">
+            <li><a href="#">帳戶設定檔</a></li>
+            <li><a href="#">下載中心</a></li>
+            <li><a href="#">Microsoft Store 支援</a></li>
+            <li><a href="#">退貨與退款政策</a></li>
+            <li><a href="#">訂單即時追蹤</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-header">教育</h4>
+          <ul class="footer-col-links">
+            <li><a href="#">Microsoft 教育方案</a></li>
+            <li><a href="#">學生與教育裝置</a></li>
+            <li><a href="#">Teams 教育版</a></li>
+            <li><a href="#">Microsoft 365 教育版</a></li>
+            <li><a href="#">Azure 學生開發專案</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-header">大型企業</h4>
+          <ul class="footer-col-links">
+            <li><a href="#">Microsoft AI 解決方案</a></li>
+            <li><a href="#">企業級安全平台</a></li>
+            <li><a href="#">Azure 雲端基礎架構</a></li>
+            <li><a href="#">Dynamics 365 商業智慧</a></li>
+            <li><a href="#">Power Platform 自動化</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-header">開發人員與 IT</h4>
+          <ul class="footer-col-links">
+            <li><a href="#">開發人員技術中心</a></li>
+            <li><a href="#">Microsoft Learn 學習路徑</a></li>
+            <li><a href="#">支援 AI 市場應用程式</a></li>
+            <li><a href="#">微軟技術社群</a></li>
+            <li><a href="#">Visual Studio 訂閱</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-header">公司與願景</h4>
+          <ul class="footer-col-links">
+            <li><a href="#">人才招募</a></li>
+            <li><a href="#">微軟新聞中心</a></li>
+            <li><a href="#">隱私權保護承諾</a></li>
+            <li><a href="#">投資者關係</a></li>
+            <li><a href="#">永續發展報告</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-subbar">
+        <div class="footer-region-picker">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          <span>中文 (台灣)</span>
+        </div>
+        <div class="footer-legal-links">
+          <a href="#">連絡 Microsoft</a>
+          <a href="#">隱私權與 Cookie</a>
+          <a href="#">使用規定</a>
+          <a href="#">商標聲明</a>
+          <a href="#">有關廣告的訊息</a>
+          <span>© Microsoft 2026</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const allMsBtn = document.getElementById('allMsBtn');
+      const megaMenu = document.getElementById('megaMenu');
+      const searchToggleBtn = document.getElementById('searchToggleBtn');
+      const searchBox = document.getElementById('searchBox');
+      const searchCloseBtn = document.getElementById('searchCloseBtn');
+      const searchInput = document.getElementById('searchInput');
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileDrawer = document.getElementById('mobileDrawer');
+      window.addEventListener('resize', () => {
+        if (window.innerWidth <= 900) {
+          megaMenu?.classList.remove('is-open');
+          allMsBtn?.setAttribute('aria-expanded', 'false');
+          searchBox?.classList.remove('is-open');
+        } else {
+          mobileDrawer?.classList.remove('is-open');
+          mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+          mobileMenuBtn?.setAttribute('aria-label', '開啟導覽選單');
+        }
+      });
+      if (allMsBtn && megaMenu) {
+        allMsBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = megaMenu.classList.toggle('is-open');
+          allMsBtn.setAttribute('aria-expanded', String(isOpen));
+          if (isOpen && searchBox) searchBox.classList.remove('is-open');
+        });
+        document.addEventListener('click', (e) => {
+          if (!allMsBtn.contains(e.target) && !megaMenu.contains(e.target)) {
+            megaMenu.classList.remove('is-open');
+            allMsBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+      if (searchToggleBtn && searchBox && searchCloseBtn) {
+        searchToggleBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = searchBox.classList.toggle('is-open');
+          if (isOpen && searchInput) {
+            searchInput.focus();
+            if (megaMenu) {
+              megaMenu.classList.remove('is-open');
+              if (allMsBtn) allMsBtn.setAttribute('aria-expanded', 'false');
+            }
+          }
+        });
+        searchCloseBtn.addEventListener('click', () => searchBox.classList.remove('is-open'));
+        document.addEventListener('click', (e) => {
+          if (!searchBox.contains(e.target) && !searchToggleBtn.contains(e.target)) {
+            searchBox.classList.remove('is-open');
+          }
+        });
+      }
+      if (mobileMenuBtn && mobileDrawer) {
+        mobileMenuBtn.addEventListener('click', () => {
+          const isOpen = mobileDrawer.classList.toggle('is-open');
+          mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+          mobileMenuBtn.setAttribute('aria-label', isOpen ? '關閉導覽選單' : '開啟導覽選單');
+        });
+        mobileDrawer.addEventListener('click', (event) => {
+          if (event.target.closest('a')) {
+            mobileDrawer.classList.remove('is-open');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            mobileMenuBtn.setAttribute('aria-label', '開啟導覽選單');
+          }
+        });
+      }
+      // 監聽導覽列項目：右鍵點選時顯示虛線框，點選其他地方時取消
+      const navElements = document.querySelectorAll('.nav-link, .action-btn');
+
+      navElements.forEach(el => {
+        // 滑鼠右鍵點擊 (contextmenu)
+        el.addEventListener('contextmenu', (e) => {
+          // 移除其他項目的選中狀態
+          navElements.forEach(item => item.classList.remove('active-click'));
+          // 為目前右鍵點擊的元素加上虛線樣式
+          el.classList.add('active-click');
+          el.focus();
+        });
+      });
+
+      // 點擊頁面其他任意處時移除右鍵虛線框
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-link, .action-btn')) {
+          navElements.forEach(item => item.classList.remove('active-click'));
+        }
+      });
+    });
+  </script>
+</body>
+</html>

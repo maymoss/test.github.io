@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar System Style Orbits</title>
+  <style>
+    body {
+      background-image: url('https://www.technice.com.tw/wp-content/uploads/2023/10/%E7%89%A7%E7%BE%8A%E4%BA%BA%E6%98%9F%E7%B3%BB_100608154_fb-link-1024x535.jpg');
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background-color: #0b0f19;
+    }
+
+    /* 地球中心 */
+    .big-box {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      position: relative;
+      background-image: url('http://finance.people.com.cn/mediafile/pic/20220803/58/8544981794475798914.jpg');
+      background-size: cover;
+      box-shadow: 0 0 30px rgba(78, 148, 255, 0.4);
+    }
+
+    /* 軌道圈 (畫出軌道線並負責旋轉) */
+    .orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: var(--d);
+      height: var(--d);
+      border-radius: 50%;
+      border: 1px dashed rgba(255, 255, 255, 0.2); /* 軌道線 */
+      pointer-events: none; /* 避免擋住點擊 */
+      
+      /* 將中心對齊地球中心，並進行旋轉 */
+      transform: translate(-50%, -50%);
+      animation: spin var(--speed, 10s) linear infinite;
+    }
+
+    /* 行星本體 (固定在軌道正上方) */
+    .box {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: var(--bg, #ff80f4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 9px;
+      color: #111;
+      font-weight: bold;
+      user-select: none;
+      box-shadow: 0 0 10px var(--bg);
+
+      /* 使小球自身也置中在軌道線上，並反向旋轉保持表情永遠朝上 */
+      transform: translate(-50%, -50%);
+      animation: counter-spin var(--speed, 10s) linear infinite;
+    }
+
+    /* 
+    軌道正向旋轉
+    from{...}to{...} 定義動畫的「起點」與「終點」 
+    transform: translate(-50%, -50%) 校正元素的定位基準點，讓元素水平、垂直完全居中
+    rotate(0deg) 到 rotate(360deg) 控制元素的角度變化與旋轉方向。
+    */
+    @keyframes spin {
+      from { /**/
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+    /* 軌道反向旋轉 */
+    /* @keyframes spin {
+      from {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+      to {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+    } */
+
+    /* 反向旋轉：抵消自轉，讓 "^︿^" 保持水平不倒立 */
+    @keyframes counter-spin {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+      to {
+        transform: translate(-50%, -50%) rotate(-360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="big-box">
+    <!-- 
+      --d: 軌道直徑 (直徑越大，距離地球越遠)
+      --speed: 公轉一圈所需秒數
+      --bg: 小球顏色
+    -->
+    <div class="orbit" style="--d: 180px; --speed: 5s;">
+      <div class="box" style="--bg: #ff7675; --speed: 5s;">^︿^</div>
+    </div>
+
+    <div class="orbit" style="--d: 240px; --speed: 7s;">
+      <div class="box" style="--bg: #e17055; --speed: 7s;">^︿^</div>
+    </div>
+
+    <div class="orbit" style="--d: 300px; --speed: 9s;">
+      <div class="box" style="--bg: #fdcb6e; --speed: 9s;">^︿^</div>
+    </div>
+
+    <div class="orbit" style="--d: 360px; --speed: 11s;">
+      <div class="box" style="--bg: #ffeaa7; --speed: 11s;">^︿^</div>
+    </div>
+
+    <div class="orbit" style="--d: 420px; --speed: 13s;">
+      <div class="box" style="--bg: #55efc4; --speed: 13s;">^︿^</div>
+    </div>
+
+    <div class="orbit" style="--d: 480px; --speed: 15s;">
+      <div class="box" style="--bg: #00cec9; --speed: 15s;">^︿^</div>
+    </div>
+
+    <div class="orbit" style="--d: 540px; --speed: 17s;">
+      <div class="box" style="--bg: #74b9ff; --speed: 17s;">^︿^</div>
+    </div>
+
+    <div class="orbit" style="--d: 600px; --speed: 19s;">
+      <div class="box" style="--bg: #a29bfe; --speed: 19s;">^︿^</div>
+    </div>
+
+    <div class="orbit" style="--d: 660px; --speed: 21s;">
+      <div class="box" style="--bg: #fd79a8; --speed: 21s;">^︿^</div>
+    </div>
+  </div>
+
+</body>
+</html>

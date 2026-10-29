@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microsoft - 人工智慧、雲端、生產力、計算、遊戲和應用程式</title>
+  
+  <style>
+    /* Reset & Global Settings */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", "Microsoft JhengHei", sans-serif;
+      color: #242424;
+      background-color: #ffffff;
+      line-height: 1.5;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+    a {
+      color: #0067b8;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 5%;
+    }
+
+    /* 頂部導覽列 (Global Header) */
+    .header-nav {
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e5e5e5;
+      font-size: 13px;
+    }
+    .nav-left, .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: 15px;
+      text-decoration: none !important;
+    }
+    /* Microsoft 4-Color Grid Logo */
+    .ms-logo {
+      display: grid;
+      grid-template-columns: 10px 10px;
+      grid-template-rows: 10px 10px;
+      gap: 2px;
+    }
+    .ms-logo div:nth-child(1) { background-color: #f25022; }
+    .ms-logo div:nth-child(2) { background-color: #7fba00; }
+    .ms-logo div:nth-child(3) { background-color: #00a4ef; }
+    .ms-logo div:nth-child(4) { background-color: #ffb900; }
+    .brand-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #737373;
+      letter-spacing: -0.5px;
+    }
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 18px;
+    }
+    .nav-menu a {
+      color: #262626;
+      font-size: 13px;
+      padding: 5px 0;
+    }
+    .nav-menu a:hover {
+      border-bottom: 2px solid #262626;
+      text-decoration: none;
+    }
+    .nav-right a {
+      color: #262626;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+    }
+    .nav-icon {
+      font-size: 14px;
+    }
+
+    /* Hero Banner 主視覺輪播區域 */
+    .hero-banner {
+      background: linear-gradient(100deg, #f0f4f9 0%, #e2ecf7 50%, #d8e5f5 100%);
+      position: relative;
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .hero-content {
+      max-width: 580px;
+      padding: 60px 0;
+      z-index: 2;
+    }
+    .hero-tag {
+      background: #ffb900;
+      color: #000;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .hero-content h1 {
+      font-size: 38px;
+      line-height: 1.2;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #000000;
+    }
+    .hero-content p {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+      color: #262626;
+    }
+    .btn-primary {
+      display: inline-block;
+      background-color: #0067b8;
+      color: #ffffff !important;
+      font-weight: 600;
+      padding: 10px 22px;
+      font-size: 15px;
+      text-decoration: none !important;
+      border-radius: 2px;
+      transition: background-color 0.15s ease-in-out;
+    }
+    .btn-primary:hover {
+      background-color: #005da6;
+    }
+    .hero-visual {
+      position: absolute;
+      right: 5%;
+      bottom: 0;
+      width: 48%;
+      height: 90%;
+      background: radial-gradient(circle at 60% 40%, rgba(0, 103, 184, 0.18), transparent 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .mock-laptop {
+      width: 460px;
+      height: 270px;
+      background: #ffffff;
+      border: 10px solid #1f2937;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .mock-laptop::after {
+      content: "";
+      position: absolute;
+      bottom: -18px;
+      width: 530px;
+      height: 10px;
+      background: #9ca3af;
+      border-radius: 0 0 10px 10px;
+    }
+    .copilot-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #107c41, #0078d4, #ff8c00);
+      margin-bottom: 12px;
+    }
+
+    /* 快捷功能按鈕區 */
+    .quick-links {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 40px 0 60px;
+      text-align: center;
+      flex-wrap: wrap;
+    }
+    .quick-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: #0067b8;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .quick-icon-box {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+
+    /* 產品網格 (4 Columns Cards) */
+    .section-title {
+      font-size: 26px;
+      font-weight: 600;
+      margin: 40px 0 20px;
+      color: #000;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      overflow: hidden;
+      transition: box-shadow 0.2s ease;
+    }
+    .card:hover {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+    .card-thumb {
+      height: 190px;
+      background-color: #f2f2f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      color: #737373;
+    }
+    .card-body {
+      padding: 24px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-body h3 {
+      font-size: 19px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #000000;
+    }
+    .card-body p {
+      font-size: 14px;
+      color: #616161;
+      margin-bottom: 20px;
+      line-height: 1.45;
+      flex-grow: 1;
+    }
+    .card-action {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 600;
+      font-size: 14px;
+      color: #0067b8;
+    }
+    .card-action::after {
+      content: " >";
+      margin-left: 4px;
+    }
+
+    /* 追蹤 Microsoft (Social Bar) */
+    .social-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 50px 0 30px;
+      font-size: 15px;
+    }
+    .social-icons a {
+      display: inline-block;
+      margin-right: 12px;
+      font-size: 20px;
+      color: #4b5563;
+    }
+
+    /* 頁尾 Footer */
+    .site-footer {
+      background-color: #f2f2f2;
+      font-size: 11px;
+      color: #616161;
+      padding: 40px 0 24px;
+      margin-top: 50px;
+    }
+    .footer-columns {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .footer-col h4 {
+      font-size: 14px;
+      color: #616161;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col li {
+      margin-bottom: 10px;
+    }
+    .footer-col a {
+      color: #616161;
+      font-size: 12px;
+    }
+    .footer-col a:hover {
+      color: #000000;
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid #e1e1e1;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 11px;
+    }
+    .footer-lang {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: #616161;
+    }
+
+    /* 響應式佈局 */
+    @media (max-width: 1080px) {
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .footer-columns {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .hero-visual {
+        display: none;
+      }
+      .hero-content {
+        max-width: 100%;
+      }
+    }
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-columns {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部導覽列 Header -->
+  <header>
+    <div class="container header-nav">
+      <div class="nav-left">
+        <a href="#" class="logo-link" aria-label="Microsoft 首頁">
+          <div class="ms-logo">
+            <div></div><div></div><div></div><div></div>
+          </div>
+          <span class="brand-name">Microsoft</span>
+        </a>
+        <ul class="nav-menu">
+          <li><a href="#">Microsoft 365</a></li>
+          <li><a href="#">Azure</a></li>
+          <li><a href="#">Windows</a></li>
+          <li><a href="#">Surface</a></li>
+          <li><a href="#">XBOX</a></li>
+          <li><a href="#">支援</a></li>
+        </ul>
+      </div>
+
+      <div class="nav-right">
+        <a href="#">所有 Microsoft &#9662;</a>
+        <a href="#" title="搜尋"><button class="uhf-nav-item uhf-nav-button uhf-search-button" data-m="{&quot;compnm&quot;: &quot;UHF&quot;, &quot;view&quot;: &quot;UHF&quot;, &quot;pa&quot;: &quot;UniversalSearch&quot;, &quot;cN&quot;:&quot;Search_nav&quot;, &quot;ecn&quot;:&quot;Search_nav&quot;, &quot;bhvr&quot;: 62}" aria-label="搜尋 Microsoft.com" title="搜尋 Microsoft.com">
+                <span class="uhf-search-text"><!--?lit$675469593$-->搜尋</span>
+                <uhf-icon iconname="Search"><!---->
+            <i class="ms-Icon ms-Icon--Search" style="font-size: 16px;"></i>
+        </uhf-icon>
+            </button></a>
+        <a href="#" title="購物車">&#128722; 購物車</a>
+        <a href="#" title="登入">&#128100; 登入</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 主視覺區 Hero Banner (Copilot & M365) -->
+    <section class="hero-banner">
+      <div class="container" style="width: 100%; position: relative;">
+        <div class="hero-content">
+          <span class="hero-tag">熱門推薦</span>
+          <h1>借助 Copilot 突破極限</h1>
+          <p>透過 Microsoft 365，一站式獲得包含 Copilot 的生產力應用程式、進階 AI 功能，以及安全的雲端儲存空間。</p>
+          <a href="#" class="btn-primary">選購 Microsoft 365</a>
+        </div>
+        <div class="hero-visual">
+          <div class="mock-laptop">
+            <div class="copilot-badge"></div>
+            <strong style="color: #1f2937; margin-bottom: 6px;">Microsoft 365 Copilot</strong>
+            <span style="font-size: 13px; color: #4b5563;">工作與生活的全能智慧助理</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- 快捷捷徑選單 -->
+      <section class="quick-links">
+        <a href="#" class="quick-item">
+          <div class="quick-icon-box">💻</div>
+          <span>選購 Surface</span>
+        </a>
+        <a href="#" class="quick-item">
+          <div class="quick-icon-box">📊</div>
+          <span>選購 Microsoft 365</span>
+        </a>
+        <a href="#" class="quick-item">
+          <div class="quick-icon-box">🪟</div>
+          <span>取得 Windows 11</span>
+        </a>
+        <a href="#" class="quick-item">
+          <div class="quick-icon-box">🎮</div>
+          <span>選購 XBOX 遊戲與配件</span>
+        </a>
+      </section>
+
+      <!-- 主要消費者產品卡片 (4 欄) -->
+      <section class="card-grid">
+        <div class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #107c41, #0e5c2f); color: #fff;">🎮</div>
+          <div class="card-body">
+            <h3>XBOX Game Pass Ultimate</h3>
+            <p>在首發日暢玩新遊戲。在主機、電腦或雲端與朋友一起享受數百款高品質遊戲。</p>
+            <a href="#" class="card-action">立即加入</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #1f2937, #111827); color: #fff;">🕹️</div>
+          <div class="card-body">
+            <h3>XBOX Series X</h3>
+            <p>有史以來最快、最強大的 XBOX 主機，帶來真正的 4K 遊戲體驗與流暢動態表現。</p>
+            <a href="#" class="card-action">選購 XBOX Series X</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #0078d4, #005a9e); color: #fff;">💻</div>
+          <div class="card-body">
+            <h3>Surface Laptop (第 7 版)</h3>
+            <p>無與倫比的效能與纖薄便攜設計，完美釋放新世代 AI 體驗與全天候長效電池續航。</p>
+            <a href="#" class="card-action">深入了解</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #00a4ef, #0078d4); color: #fff;">🌐</div>
+          <div class="card-body">
+            <h3>Microsoft Edge</h3>
+            <p>在您瀏覽時提供世界級的效能，以及更周全的隱私保護、生產力工具與內建 AI 體驗。</p>
+            <a href="#" class="card-action">立即下載</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 商務方案區塊 (For Business) -->
+      <h2 class="section-title">適用於商務</h2>
+      <section class="card-grid">
+        <div class="card">
+          <div class="card-thumb" style="background: #eef2ff; color: #4338ca;">🏢</div>
+          <div class="card-body">
+            <h3>全新商務版 Surface PC</h3>
+            <p>搭載最新處理器，為高需求商務應用程式提供快速效能、全天候電池續航力與企業級內建安全性。</p>
+            <a href="#" class="card-action">深入了解</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-thumb" style="background: #f0fdf4; color: #15803d;">🤖</div>
+          <div class="card-body">
+            <h3>Microsoft 365 Copilot</h3>
+            <p>透過商務用 Microsoft 365 中的生成式 AI，節省繁瑣時間並讓團隊專注於核心決策與創新。</p>
+            <a href="#" class="card-action">探索商務解決方案</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-thumb" style="background: #eff6ff; color: #1d4ed8;">☁️</div>
+          <div class="card-body">
+            <h3>創新無極限：Azure</h3>
+            <p>運用強大的微軟 Azure 雲端生態來設計、驅動並落實能夠自我學習與彈性擴展的企業系統架構。</p>
+            <a href="#" class="card-action">開始使用 Azure</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-thumb" style="background: #faf5ff; color: #7e22ce;">👥</div>
+          <div class="card-body">
+            <h3>為您的企業取得 Teams</h3>
+            <p>線上會議、團隊聊天群組、即時共同作業以及安全共用雲端儲存空間：全方位商務整合。</p>
+            <a href="#" class="card-action">尋找合適的計畫</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 追蹤 Microsoft -->
+      <section class="social-bar">
+        <span>關注 Microsoft：</span>
+        <div class="social-icons">
+          <a href="#" title="Facebook">📘 Facebook</a>
+          <a href="#" title="YouTube">📺 YouTube</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- 頁尾 Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-columns">
+        <div class="footer-col">
+          <h4>最新消息</h4>
+          <ul>
+            <li><a href="#">Surface Pro</a></li>
+            <li><a href="#">Surface Laptop</a></li>
+            <li><a href="#">探索 Copilot</a></li>
+            <li><a href="#">Microsoft 365</a></li>
+            <li><a href="#">Windows 11 應用程式</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Microsoft Store</h4>
+          <ul>
+            <li><a href="#">帳戶設定檔</a></li>
+            <li><a href="#">下載中心</a></li>
+            <li><a href="#">Microsoft Store 支援</a></li>
+            <li><a href="#">退貨/退款</a></li>
+            <li><a href="#">訂單追蹤</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>教育</h4>
+          <ul>
+            <li><a href="#">Microsoft 教育</a></li>
+            <li><a href="#">教育裝置</a></li>
+            <li><a href="#">Microsoft Teams 教育版</a></li>
+            <li><a href="#">Microsoft 365 教育版</a></li>
+            <li><a href="#">學生和家長優惠</a></li>
+            <li><a href="#">Azure 學生版</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>大型企業</h4>
+          <ul>
+            <li><a href="#">Microsoft AI</a></li>
+            <li><a href="#">Microsoft 安全性</a></li>
+            <li><a href="#">Azure</a></li>
+            <li><a href="#">Dynamics 365</a></li>
+            <li><a href="#">商務用 Microsoft 365</a></li>
+            <li><a href="#">Microsoft Power Platform</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>開發人員與 IT</h4>
+          <ul>
+            <li><a href="#">開發人員中心</a></li>
+            <li><a href="#">Microsoft Learn</a></li>
+            <li><a href="#">支援 AI 市場應用程式</a></li>
+            <li><a href="#">Microsoft 技術社群</a></li>
+            <li><a href="#">Azure Marketplace</a></li>
+            <li><a href="#">Visual Studio</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>公司</h4>
+          <ul>
+            <li><a href="#">人才招募</a></li>
+            <li><a href="#">公司新聞</a></li>
+            <li><a href="#">Microsoft 隱私權</a></li>
+            <li><a href="#">投資者資訊</a></li>
+            <li><a href="#">永續發展</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-lang">
+          🌐 <span>中文（台灣）</span>
+        </div>
+        <div class="footer-links">
+          <a href="#">連絡 Microsoft</a>
+          <a href="#">隱私權</a>
+          <a href="#">管理 Cookie</a>
+          <a href="#">使用規定</a>
+          <a href="#">商標</a>
+          <a href="#">有關我們的廣告訊息</a>
+          <span>© Microsoft 2026</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

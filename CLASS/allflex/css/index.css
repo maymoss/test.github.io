@@ -1,568 +1,612 @@
 /* ========================================================
-       1. 現代色彩變數（文藝活力色系：暖杏、鼠尾草綠、陶土粉、霧光白）
-       ======================================================== */
-    :root {
-      --bg-canvas: #f8f6f0;           /* 溫潤奶油杏白畫布底色 */
-      --sidebar-bg: #fdfbf7;          /* 側邊導覽微暖白 */
-      --text-main: #2b2b2b;           /* 炭黑主字體 */
-      --text-muted: #737067;          /* 啞光文藝灰 */
-      
-      /* 活力點綴色盤 */
-      --accent-coral: #ff7654;        /* 活力陶土珊瑚橘 */
-      --accent-sage: #5f8d75;         /* 文藝鼠尾草綠 */
-      --accent-lemon: #ffd466;        /* 柔暖奶黃 */
-      --accent-sky: #6cb8df;          /* 晴空柔藍 */
-      --accent-lavender: #9c88ff;     /* 浪漫薰衣草紫 */
-      
-      /* 投影與質感 */
-      --shadow-paper: 0 10px 30px -5px rgba(68, 59, 45, 0.07);
-      --shadow-card: 0 12px 32px -8px rgba(45, 40, 30, 0.12);
-      --shadow-float: 0 20px 40px -10px rgba(255, 118, 84, 0.28);
-      --radius-sm: 12px;
-      --radius-md: 18px;
-      --radius-lg: 28px;
+  1. 色彩變數
+  ======================================================== */
+:root {
+  --bg-canvas: #090b14;
+  --sidebar-bg: #111422;
+  --text-main: #f0f2f8;
+  --text-muted: #9aa1b8;
+
+  --accent-coral: #ff7654;
+  --accent-sage: #5f8d75;
+  --accent-lemon: #ffd466;
+  --accent-sky: #6cb8df;
+  --accent-lavender: #9c88ff;
+
+  --shadow-paper: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 16px 36px -8px rgba(0, 0, 0, 0.6);
+  --shadow-float: 0 24px 44px -8px rgba(108, 184, 223, 0.35);
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+}
+
+/* ========================================================
+  2. 基本重置與通用設定
+  ======================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-canvas);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 1920px;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  position: relative;
+  background-color: var(--sidebar-bg);
+  box-shadow: var(--shadow-paper);
+}
+
+/* ========================================================
+  3. 側邊導覽列 (Menu) 與純 CSS 漢堡選單
+  ======================================================== */
+.menu {
+  width: 280px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #131627 0%, #0e101d 100%);
+  border-right: 1.5px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+/* 隱藏原生 checkbox，僅用作狀態儲存 */
+.menu-toggle-checkbox {
+  display: none;
+}
+
+/* 漢堡按鈕本體（Label 偽裝成按鈕） */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: #1c2035;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  user-select: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 三條橫線 */
+.hamburger-btn span {
+  display: block;
+  width: 22px;
+  height: 2.5px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center;
+}
+
+/* 純 CSS 切換：「勾選時」變為「✕」 */
+.menu-toggle-checkbox:checked + .hamburger-btn {
+  border-color: rgba(255, 118, 84, 0.6);
+  background: #251b2a;
+}
+
+.menu-toggle-checkbox:checked + .hamburger-btn span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+  background-color: var(--accent-coral);
+}
+
+.menu-toggle-checkbox:checked + .hamburger-btn span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(12px);
+}
+
+.menu-toggle-checkbox:checked + .hamburger-btn span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+  background-color: var(--accent-coral);
+}
+
+.logo-box {
+  width: 100%;
+  max-width: 120px;
+  height: 120px;
+  background-color: transparent;
+  background-image: url('https://lanjiji.zapto.org/img/99-removebg-preview.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 44px;
+  flex-shrink: 0;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+  filter: drop-shadow(0 6px 16px rgba(108, 184, 223, 0.3));
+}
+
+.logo-box:hover {
+  transform: rotate(360deg) scale(1.08);
+  filter: drop-shadow(0 10px 24px rgba(255, 118, 84, 0.45));
+}
+
+.menu nav {
+  width: 100%;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  text-align: center;
+}
+
+/* 選單超連結樣式：清除手機點擊殘留與預設外框 */
+.nav-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #e2e6f3;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 13px 20px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(180deg, #1d2238 0%, #151829 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 防止行動裝置保留 Focus 外框 */
+.nav-links a:focus,
+.nav-links a:focus-visible {
+  outline: none;
+}
+
+.nav-links a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 25%;
+  height: 50%;
+  width: 3.5px;
+  border-radius: 0 3px 3px 0;
+  background-color: transparent;
+  transition: all 0.25s ease;
+}
+
+.nav-links li:nth-child(1) a::before { background-color: var(--accent-coral); }
+.nav-links li:nth-child(2) a::before { background-color: var(--accent-sage); }
+.nav-links li:nth-child(3) a::before { background-color: var(--accent-sky); }
+
+/* 關鍵修復：僅限實體滑鼠裝置生效，避免觸控環境下鎖定特定按鈕 */
+@media (hover: hover) and (pointer: fine) {
+  .nav-links a:hover {
+    color: #ffffff;
+    border-color: rgba(255, 118, 84, 0.6);
+    background: linear-gradient(135deg, #2a2e4b 0%, #20243d 100%);
+    box-shadow: 0 8px 18px rgba(255, 118, 84, 0.25);
+    transform: translateY(-2px);
+  }
+}
+
+.nav-links a:active {
+  transform: scale(0.98);
+  background: #252a45;
+}
+
+/* ========================================================
+  4. 動態極光星空主內容區 (星空 + 流動星雲)
+  ======================================================== */
+.main-wrapper {
+  flex: 1;
+  min-width: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  position: relative;
+  background: #090b14;
+  overflow: hidden;
+}
+
+/* 星雲光暈流體動畫 */
+.nebula-glow {
+  position: absolute;
+  inset: -50%;/* 擴大範圍，旋轉時邊角不穿幫 */
+  /* 控制光暈顏色設定四種顏色變化 */
+  background: 
+    radial-gradient(circle at 25% 30%, rgba(156, 136, 255, 0.35) 0%, transparent 40%),
+    radial-gradient(circle at 75% 65%, rgba(108, 184, 223, 0.35) 0%, transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(255, 118, 84, 0.25) 0%, transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(95, 141, 117, 0.3) 0%, transparent 40%);
+  filter: blur(60px);
+  animation: auroraRotate 22s ease-in-out infinite alternate;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 套用旋轉效果：旋轉 360 度並縮放 (scale) */
+@keyframes auroraRotate {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.15); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.stars-layer-1, .stars-layer-2 {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* 第一層星空 */
+.stars-layer-1 {
+  background-image: 
+    radial-gradient(1.5px 1.5px at 10% 15%, #ffffff 100%, transparent),
+    radial-gradient(1.5px 1.5px at 25% 45%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(2px 2px at 45% 20%, #ffd466 100%, transparent),
+    radial-gradient(1px 1px at 60% 75%, #ffffff 100%, transparent),
+    radial-gradient(2px 2px at 80% 35%, #9c88ff 100%, transparent),
+    radial-gradient(1.5px 1.5px at 90% 85%, #6cb8df 100%, transparent),
+    radial-gradient(1px 1px at 35% 85%, #ffffff 100%, transparent),
+    radial-gradient(2.5px 2.5px at 70% 90%, #ff7654 100%, transparent);
+  background-size: 350px 350px;/* 控制星星數量 數值越小 數量越多 */
+  animation: twinkle 4s ease-in-out infinite alternate;/* 每 4 秒閃爍一次 */
+}
+
+/* 第二層星空 */
+.stars-layer-2 {
+  background-image: 
+  radial-gradient(1px 1px at 18% 30%, #ffffff 100%, transparent),
+  radial-gradient(2px 2px at 30% 70%, #ffffff 100%, transparent),
+  radial-gradient(1px 1px at 55% 50%, #ffffff 100%, transparent),
+  radial-gradient(2.5px 2.5px at 85% 15%, #ffd466 100%, transparent),
+  radial-gradient(1.5px 1.5px at 92% 55%, #6cb8df 100%, transparent);
+  background-size: 300px 300px;/* 控制星星數量 數值越小 數量越多 */
+  animation: twinkle 6s ease-in-out infinite 2s alternate;/* 延遲 2 秒，營造忽明忽暗的層次 */
+  opacity: 0.7;
+}
+
+/* 控制星星閃爍的關鍵影格：透明度從 0.35 變化到 0.95，並微微微縮放 */
+@keyframes twinkle {
+  0% { opacity: 0.35; transform: scale(0.98); }
+  100% { opacity: 0.95; transform: scale(1.02); }
+}
+
+/* ========================================================
+  5. 卡片與互動效果
+  ======================================================== */
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.75rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+  border-radius: var(--radius-md);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              border-color 0.35s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  box-shadow: var(--shadow-card);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.card-picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.card-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.55;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.card-x::before {
+  background: linear-gradient(160deg, rgba(255, 118, 84, 0.45) 0%, rgba(12, 10, 15, 0.75) 100%);
+}
+
+.card-y::before {
+  background: linear-gradient(160deg, rgba(95, 141, 117, 0.45) 0%, rgba(10, 16, 20, 0.75) 100%);
+}
+
+.card-z::before {
+  background: linear-gradient(160deg, rgba(108, 184, 223, 0.45) 0%, rgba(15, 12, 28, 0.75) 100%);
+}
+
+.card span.card-label {
+  position: relative;
+  z-index: 3;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card:hover,
+.card:active {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-float);
+  border-color: rgba(255, 255, 255, 0.95);
+}
+
+.card:hover .card-picture img,
+.card:active .card-picture img {
+  transform: scale(1.12);
+}
+
+.card:hover span.card-label,
+.card:active span.card-label {
+  transform: scale(1.22);
+}
+
+.card:hover::before,
+.card:active::before {
+  opacity: 0.3;
+}
+
+/* ========================================================
+  6. 大型桌機版：1280px 以上
+  ======================================================== */
+@media (min-width: 1280px) {
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  width: 960px;
+  height: 570px;
+  gap: 10px;
+}
+
+.card {
+  width: calc((100% - 20px) / 3);
+  height: 100%;
+  flex: 0 0 calc((100% - 20px) / 3);
+}
+}
+
+/* ========================================================
+  7. 中型電腦版：900px～1279px
+  ======================================================== */
+@media (min-width: 900px) and (max-width: 1279px) {
+  .main-wrapper {
+    padding: 24px;
+  }
+
+  .cards-container {
+    display: grid;
+    /* 關鍵：明確定義 2 欄與 2 列，均分空間 */
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+
+    /* 響應式寬度與上限，避免在大平板過寬拉伸 */
+    width: 85%;
+    max-width: 720px;
+
+    /* 使用明確高度或 clamp/vh，確保 1fr 列高能被撐開 */
+    height: 520px; 
+    gap: 16px;
+  }
+
+  .card {
+    width: 100%;
+    height: 100%;
+    /* 關鍵修復：重置桌機版殘留的 flex 屬性，避免在 Grid 內寬度被固定 */
+    flex: initial; 
+  }
+
+  .card-x {
+  /* 第一列跨滿兩欄 */
+    grid-column: 1 / 3;
+  }
+}
+
+/* ========================================================
+  8. 平板版：577px～899px
+  ======================================================== */
+@media (min-width: 577px) and (max-width: 899px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .menu {
+    width: 100%;
+    min-height: 72px;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 28px;
+    border-right: none;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .logo-box {
+    width: 54px;
+    max-width: 54px;
+    height: 42px;
+    margin-bottom: 0;
+  }
+
+  .menu nav {
+    width: auto;
+  }
+
+  .nav-links {
+    flex-direction: row;
+    width: auto;
+    gap: 12px;
+  }
+
+  .nav-links a {
+    padding: 9px 16px;
+    font-size: 0.88rem;
+  }
+
+  .main-wrapper {
+    min-height: calc(100vh - 72px);
+    padding: 36px 24px;
+  }
+
+  .cards-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 90%;
+    max-width: 650px;
+    height: auto;
+    gap: 18px;
+  }
+
+  .card {
+    width: 100%;
+    height: 220px;
+  }
+
+  .card-x {
+    grid-column: 1 / 3;
+  }
+}
+
+/* ========================================================
+  9. 手機版：576px 以下 (純 CSS 控制漢堡選單展開/收合)
+  ======================================================== */
+@media (max-width: 576px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .menu {
+    width: 100%;
+    min-height: 64px;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .logo-box {
+    width: 44px;
+    max-width: 44px;
+    height: 36px;
+    margin-bottom: 0;
+  }
+
+  .menu nav {
+    width: auto;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: rgba(14, 16, 29, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px 20px;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+    z-index: 50;
+  }
+
+  /* 核取方塊勾選時展開下拉選單 */
+  .menu-toggle-checkbox:checked ~ nav .nav-links {
+    display: flex;
+    animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
     }
-
-    /* ========================================================
-       2. 基本重置與通用設定
-       ======================================================== */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
+  }
 
-    body {
-      font-family: 'Plus Jakarta Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg-canvas);
-      color: var(--text-main);
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.5;
-    }
+  .main-wrapper {
+    min-height: auto;
+    padding: 28px 18px;
+  }
 
-    /* 最外層最大寬度 1920px，水平置中 */
-    .app-container {
-      width: 100%;
-      max-width: 1920px;
-      min-height: 100vh;
-      margin: 0 auto;
-      display: flex;
-      position: relative;
-      background-color: var(--sidebar-bg);
-      box-shadow: var(--shadow-paper);
-    }
+  .cards-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    gap: 16px;
+  }
 
-    /* ========================================================
-       3. 選單列 (Menu / 側邊導覽列)
-       ======================================================== */
-    .menu {
-      width: 280px;
-      height: 100vh;
-      background: linear-gradient(175deg, #ffffff 0%, #fdf9f4 60%, #f3eee6 100%);
-      border-right: 1.5px solid rgba(220, 214, 203, 0.6);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 48px 24px;
-      flex-shrink: 0;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-
-    /* 電腦與平板預設隱藏漢堡按鈕 */
-    .hamburger-btn {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 6px;
-      width: 44px;
-      height: 44px;
-      background: #ffffff;
-      border: 1.5px solid #eae5db;
-      border-radius: 12px;
-      cursor: pointer;
-      padding: 8px 9px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    .hamburger-btn span {
-      display: block;
-      width: 24px;
-      height: 2.5px;
-      background-color: var(--text-main);
-      border-radius: 4px;
-      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-      transform-origin: left center;
-    }
-
-    /* 律動階梯 Hover 微互動（滑鼠裝置） */
-    @media (hover: hover) and (pointer: fine) {
-      .hamburger-btn:hover {
-        border-color: var(--accent-coral);
-        box-shadow: 0 4px 12px rgba(255, 118, 84, 0.15);
-      }
-
-      .hamburger-btn:hover span:nth-child(1) {
-        width: 14px;
-        transform: translateX(10px);
-        background-color: var(--accent-coral);
-      }
-
-      .hamburger-btn:hover span:nth-child(2) {
-        width: 22px;
-        transform: translateX(2px);
-        background-color: var(--accent-sage);
-      }
-
-      .hamburger-btn:hover span:nth-child(3) {
-        width: 17px;
-        transform: translateX(7px);
-        background-color: var(--accent-sky);
-      }
-    }
-
-    /* Logo 區塊：清爽去背、旋轉光圈靈動感 */
-    .logo-box {
-      width: 100%;
-      max-width: 120px;
-      height: 120px;
-      background-color: transparent;
-      background-image: url('https://lanjiji.zapto.org/9ghfo-83t22-001.ico');
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-      margin-bottom: 44px;
-      flex-shrink: 0;
-      position: relative;
-      cursor: pointer;
-      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
-      filter: drop-shadow(0 6px 12px rgba(95, 141, 117, 0.18));
-    }
-
-    .logo-box:hover {
-      transform: rotate(360deg) scale(1.08);
-      filter: drop-shadow(0 10px 18px rgba(255, 118, 84, 0.28));
-    }
-
-    .menu nav {
-      width: 100%;
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      width: 100%;
-      text-align: center;
-    }
-
-    /* ========================================================
-       4. 純 <a> 標籤立體文藝質感按鈕（非 BUTTON）
-       ======================================================== */
-    .nav-links a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: #38342e;
-      font-size: 0.92rem;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      padding: 13px 20px;
-      border-radius: var(--radius-sm);
-      /* 溫潤雙層漸層搭配細緻紙質邊框 */
-      background: linear-gradient(180deg, #ffffff 0%, #faf8f5 100%);
-      border: 1.5px solid #ebe5dc;
-      box-shadow: 0 4px 10px rgba(68, 59, 45, 0.05), inset 0 1px 0 #ffffff;
-      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-      user-select: none;
-      -webkit-user-select: none;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* 左側細緻文藝彩條裝飾 */
-    .nav-links a::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 25%;
-      height: 50%;
-      width: 3.5px;
-      border-radius: 0 3px 3px 0;
-      background-color: transparent;
-      transition: all 0.25s ease;
-    }
-
-    .nav-links li:nth-child(1) a::before { background-color: var(--accent-coral); }
-    .nav-links li:nth-child(2) a::before { background-color: var(--accent-sage); }
-    .nav-links li:nth-child(3) a::before { background-color: var(--accent-sky); }
-
-    /* 按鈕 Hover 懸浮效果：微躍升、文藝粉橘彩光 */
-    .nav-links a:hover {
-      color: #1a1917;
-      border-color: rgba(255, 118, 84, 0.5);
-      background: linear-gradient(135deg, #ffffff 0%, #fff7f4 100%);
-      box-shadow: 0 8px 18px rgba(255, 118, 84, 0.15), inset 0 1px 0 #ffffff;
-      transform: translateY(-2px);
-    }
-
-    .nav-links a:hover::before {
-      height: 80%;
-      top: 10%;
-    }
-
-    /* 按鈕 Active 點擊效果：沉穩微壓感 */
-    .nav-links a:active {
-      transform: translateY(1px);
-      box-shadow: 0 2px 4px rgba(68, 59, 45, 0.12), inset 0 2px 4px rgba(0, 0, 0, 0.04);
-      background: #f3efe9;
-    }
-
-    /* ========================================================
-       5. 右側主內容區塊（優雅漸層流光與極簡網格質地）
-       ======================================================== */
-    .main-wrapper {
-      flex: 1;
-      min-width: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 40px;
-      position: relative;
-      /* 溫和動態的朝陽夕霞漸層：杏桃橘、蜜桃粉至鼠尾草霧金 */
-      background: linear-gradient(120deg, #fceddb 0%, #f7dcd5 28%, #e2ece9 68%, #f8eedb 100%);
-      background-size: 260% 260%;
-      animation: subtleFlow 18s ease-in-out infinite alternate;
-    }
-
-    @keyframes subtleFlow {
-      0% { background-position: 0% 20%; }
-      50% { background-position: 100% 80%; }
-      100% { background-position: 0% 20%; }
-    }
-
-    /* ========================================================
-       6. 卡片共用設定（雜誌編排感、文藝光暈）
-       ======================================================== */
-    .cards-container {
-      display: flex;
-      flex-direction: row;
-      gap: 24px;
-      flex-shrink: 0;
-    }
-
-    .card {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 2.75rem;
-      font-weight: 800;
-      letter-spacing: 2px;
-      color: #ffffff;
-      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      border-radius: var(--radius-md);
-      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), 
-                  box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), 
-                  filter 0.3s ease;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      border: 3px solid rgba(255, 255, 255, 0.85);
-      box-shadow: var(--shadow-card);
-    }
-
-    /* 藝術風格玻璃色濾鏡與字首標籤 */
-    .card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    /* 卡片 X：暖秋陶土與金芒 */
-    .card-x {
-      background-image: url('https://picsum.photos/id/1015/800/800');
-    }
-    .card-x::before {
-      background: linear-gradient(160deg, rgba(255, 118, 84, 0.45) 0%, rgba(30, 20, 15, 0.55) 100%);
-    }
-
-    /* 卡片 Y：林間晨霧與鼠尾草綠 */
-    .card-y {
-      background-image: url('https://picsum.photos/id/1018/800/800');
-    }
-    .card-y::before {
-      background: linear-gradient(160deg, rgba(95, 141, 117, 0.45) 0%, rgba(18, 32, 28, 0.55) 100%);
-    }
-
-    /* 卡片 Z：晴朗海岸與悠悠藍光 */
-    .card-z {
-      background-image: url('https://picsum.photos/id/1025/800/800');
-    }
-    .card-z::before {
-      background: linear-gradient(160deg, rgba(108, 184, 223, 0.45) 0%, rgba(20, 30, 48, 0.55) 100%);
-    }
-
-    /* 卡片文字置於濾鏡之上 */
-    .card span.card-label {
-      position: relative;
-      z-index: 2;
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    /* 卡片 Hover 懸浮動態：輕微上浮、高光發散 */
-    .card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: var(--shadow-float);
-      border-color: #ffffff;
-      filter: brightness(1.06);
-    }
-
-    .card:hover span.card-label {
-      transform: scale(1.15);
-    }
-
-    .card:hover::before {
-      opacity: 0.75;
-    }
-
-    /* ========================================================
-       7. 大型電腦版：1280px 以上
-       ======================================================== */
-    @media (min-width: 1280px) {
-      .cards-container {
-        display: flex;
-        flex-direction: row;
-        width: 820px;
-        height: 480px;
-        gap: 20px;
-      }
-
-      .card {
-        width: 260px;
-        height: 480px;
-        flex: 0 0 260px;
-      }
-    }
-
-    /* ========================================================
-       8. 中型電腦版：900px～1279px
-       ======================================================== */
-    @media (min-width: 900px) and (max-width: 1279px) {
-      .main-wrapper {
-        padding: 24px;
-      }
-
-      .cards-container {
-        display: grid;
-        width: 536px;
-        height: 496px;
-        grid-template-columns: 260px 260px;
-        grid-template-rows: 240px 240px;
-        gap: 16px;
-      }
-
-      .card {
-        width: 100%;
-        height: 100%;
-        min-height: 0;
-      }
-
-      .card-x {
-        grid-column: 1 / 3;
-      }
-    }
-
-    /* ========================================================
-       9. 平板版：577px～899px
-       ======================================================== */
-    @media (min-width: 577px) and (max-width: 899px) {
-      .app-container {
-        flex-direction: column;
-      }
-
-      .menu {
-        width: 100%;
-        height: auto;
-        min-height: 72px;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 14px 28px;
-        position: relative;
-        border-right: none;
-        border-bottom: 1.5px solid rgba(220, 214, 203, 0.6);
-        background: #ffffff;
-      }
-
-      .logo-box {
-        width: 54px;
-        max-width: 54px;
-        height: 42px;
-        margin-bottom: 0;
-      }
-
-      .menu nav {
-        width: auto;
-      }
-
-      .nav-links {
-        flex-direction: row;
-        width: auto;
-        gap: 12px;
-      }
-
-      .nav-links a {
-        padding: 9px 16px;
-        font-size: 0.88rem;
-      }
-
-      .main-wrapper {
-        min-height: calc(100vh - 72px);
-        padding: 36px 24px;
-      }
-
-      .cards-container {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        grid-template-rows: auto auto;
-        width: 90%;
-        max-width: 650px;
-        height: auto;
-        gap: 18px;
-        flex-shrink: 1;
-      }
-
-      .card {
-        width: 100%;
-        height: 220px;
-      }
-
-      .card-x {
-        grid-column: 1 / 3;
-      }
-    }
-
-    /* ========================================================
-       10. 手機版：576px 以下
-       ======================================================== */
-    @media (max-width: 576px) {
-      .app-container {
-        flex-direction: column;
-      }
-
-      .menu {
-        width: 100%;
-        height: auto;
-        min-height: 64px;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 18px;
-        position: relative;
-        border-right: none;
-        border-bottom: 1px solid rgba(220, 214, 203, 0.6);
-        background: #ffffff;
-      }
-
-      .hamburger-btn {
-        display: flex;
-      }
-
-      .logo-box {
-        width: 44px;
-        max-width: 44px;
-        height: 36px;
-        margin-bottom: 0;
-      }
-
-      .menu nav {
-        width: auto;
-      }
-
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        flex-direction: column;
-        gap: 10px;
-        padding: 20px;
-        border-bottom: 1.5px solid rgba(220, 214, 203, 0.8);
-        box-shadow: 0 12px 24px rgba(45, 40, 30, 0.08);
-        z-index: 30;
-      }
-
-      .nav-links.active {
-        display: flex;
-        animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      @keyframes slideDown {
-        from {
-          opacity: 0;
-          transform: translateY(-8px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .nav-links a {
-        padding: 13px 18px;
-        font-size: 0.92rem;
-      }
-
-      .main-wrapper {
-        min-height: auto;
-        padding: 24px 16px;
-      }
-
-      .cards-container {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: auto;
-        gap: 16px;
-        flex-shrink: 1;
-      }
-
-      .card {
-        width: 100%;
-        height: 180px;
-        flex: none;
-        font-size: 2.2rem;
-      }
-    }
-
-    /* ========================================================
-       11. 邊界保護 (900px~950px 與 1280px~1360px)
-       ======================================================== */
-    @media (min-width: 900px) and (max-width: 950px) {
-      .menu {
-        width: 240px;
-      }
-
-      .main-wrapper {
-        padding: 18px;
-      }
-    }
-
-    @media (min-width: 1280px) and (max-width: 1360px) {
-      .main-wrapper {
-        padding: 24px;
-      }
-    }
+  .card {
+    width: 100%;
+    height: 190px;
+    font-size: 2.2rem;
+  }
+}

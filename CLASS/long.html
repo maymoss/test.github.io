@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  *,::after,::before{
+    box-sizing: border-box;
+  }
+  .box {
+    background-color: aquamarine;
+    width: 200px;
+    height: 100px;
+    position: relative;
+  }
+  .box::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    /* background-color: aliceblue; */
+    position: absolute;
+
+    left: 0;
+    right:0;
+
+    border-top: 25px solid #ff00ff;
+    border-bottom: 25px solid transparent;
+    border-left: 25px solid #ff00ff;
+    border-right: 25px solid transparent;
+  }
+  .box::after {
+    content: "";
+    width: 25px;
+    height: 25px;
+    /* background-color: aliceblue; */
+    position: absolute;
+
+    left: 150px;
+    right: 0;
+
+    border-top: 25px solid #0400ff;
+    border-bottom: 25px solid  transparent;
+    border-left: 25px solid transparent;
+    border-right: 25px solid #0400ff;
+  }
+</style>
+<body>
+  <div class="box"></div>
+</body>
+</html>
