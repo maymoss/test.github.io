@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://lanjiji.zapto.org/9ghfo-83t22-001.ico?v=2" rel="icon" type="image/x-icon"/>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <title>青春猜拳大對決！</title>
 </head>
 
@@ -209,7 +210,7 @@
 
     <div id="btnbox">
       <button id="bntgo">🎯 隨機猜拳</button>
-      <button id="bntusergo">👊 自訂出拳</button>
+      <button id="bntusergo">❔ 自訂出拳</button>
     </div>
   </div>
 
@@ -233,29 +234,15 @@
       "url('./img/paper.png')"
     ];
 
-    // 共用的勝負判定邏輯
-    // function ckvalue(a, b){
-    //   if( (a==0 && b==0) || (a==1 && b==1) || (a==2 && b==2) ){
-    //     return "平手";
-    //   }
-    //   else if( (a==0 && b==2) || (a==1 && b==0) || (a==2 && b==1) ){
-    //     return "電腦勝利";
-    //   }
-    //   else if( (a==2 && b==0) || (a==0 && b==1) || (a==1 && b==2) ){
-    //     return "玩家勝利";
-    //   }
-    // }
     function ckvalue(a, b) {
       if (a === b) return "平手";
 
-      // 定義玩家贏的組合 (格式: "電腦-玩家")
       const winConditions = {
         "0-2": "電腦勝利", // 剪刀(0) 贏 布(2)
         "1-0": "電腦勝利", // 石頭(1) 贏 剪刀(0)
         "2-1": "電腦勝利"  // 布(2) 贏 石頭(1)
       };
 
-      // 如果符合贏的組合就是玩家勝利，否則就是電腦勝利
       return winConditions[`${a}-${b}`] || "玩家勝利";
     }
 
@@ -263,7 +250,7 @@
     function playAnimation(callback) {
       btn2.textContent = "🤔 思考中..."; // 滾動時顯示提示字
 
-      // 開啟循環定時器：每 200 毫秒（0.2秒）變換一次圖片
+      // 開啟循環定時器：每 50 毫秒變換一次圖片
       let scrollTimer = setInterval(radombtn, 50);
 
       // 設定 1000 毫秒（1秒）後停止滾動，並執行傳入的 callback
@@ -288,22 +275,40 @@
       });
     });
 
-    // 2. 自訂出拳按鈕 (結合 prompt 彈窗)
-    bntusergo.addEventListener('click', function(){
-      let input = prompt("請輸入你要出什麼？(請填寫：剪刀、石頭 或 布)");
-      if (input === null) return; // 按取消
-
-      let userIndex;
-      if (input.trim() === "剪刀") userIndex = 0;
-      else if (input.trim() === "石頭") userIndex = 1;
-      else if (input.trim() === "布") userIndex = 2;
-      else {
-        alert("輸入錯誤！請輸入『剪刀』、『石頭』或『布』");
-        return;
-      }
-      
-      // 觸發帶有動畫的點擊效果
-      seckubtn(userIndex);
+    // 2. 自訂出拳按鈕 (改用 SweetAlert2 彈窗取代原本的 prompt)
+    bntusergo.addEventListener('click', async function(){
+      const { value: userIndex } = await Swal.fire({
+        title: '❔自訂出拳',
+        text: '請選擇你要出的拳：',
+        icon: 'question',
+        showCancelButton: true,
+        cancelButtonText: '取消',
+        confirmButtonText: '布 🖐️',
+        showDenyButton: false,
+        confirmButtonColor: '#ff7e5f',
+        cancelButtonColor: '#aaa',
+        // 透過 preConfirm 回傳對應的索引值 (0: 剪刀, 1: 石頭, 2: 布)
+        // 這裡我們直接自定義 HTML 按鈕排版會更直覺，如下：
+        html: `
+          <div style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+            <button type="button" class="swal2-btn-choice" data-val="0" style="padding: 10px 20px; border-radius: 20px; border: 2px solid #ff7e5f; background: #fffaf4; cursor: pointer; font-weight: bold;">✌️ 剪刀</button>
+            <button type="button" class="swal2-btn-choice" data-val="1" style="padding: 10px 20px; border-radius: 20px; border: 2px solid #ff7e5f; background: #fffaf4; cursor: pointer; font-weight: bold;">✊ 石頭</button>
+            <button type="button" class="swal2-btn-choice" data-val="2" style="padding: 10px 20px; border-radius: 20px; border: 2px solid #ff7e5f; background: #fffaf4; cursor: pointer; font-weight: bold;">🖐️ 布</button>
+          </div>
+        `,
+        showConfirmButton: false, // 隱藏預設的確認按鈕，改用自訂 HTML 裡的按鈕
+        didOpen: () => {
+          // 綁定自訂按鈕的點擊事件
+          const buttons = Swal.getPopup().querySelectorAll('.swal2-btn-choice');
+          buttons.forEach(button => {
+            button.addEventListener('click', () => {
+              const val = parseInt(button.getAttribute('data-val'));
+              Swal.close(); // 關閉彈窗
+              seckubtn(val); // 執行對應的遊戲邏輯
+            });
+          });
+        }
+      });
     });
 
     // ✨ 3. 下方 DIV 點擊事件 (或由自訂出拳呼叫)：加入動畫後再顯示結果
