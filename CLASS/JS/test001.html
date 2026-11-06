@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script> 
+    let money = prompt("請輸入金額：");
+    // let money = 1000;
+    let paymoney = 0;
+    if (money === null) {
+      console.log("您取消了輸入");
+    } else if (money.trim() === "" || isNaN(Number(money))) {
+      console.log("金額錯誤，請輸入正確的數字（正負數皆可）");
+    } else {
+      // 第一關：
+      console.log("*********第一關*********");
+      paymoney = Math.floor(money*0.9);
+      
+      if(paymoney>=1000 && paymoney>0)
+        console.log("打9折後金額為：", paymoney, "免運");
+      else if(paymoney<1000 && paymoney>0){
+        console.log("打9折後金額為：", paymoney, "未滿1000元。\r\n增加運費$80：", (paymoney+80));
+      } else {
+        console.log("金額錯誤");
+      }
+      console.log("*********第二關*********");
+      if( money>=2000 ){
+        console.log("外島金額滿2000，折100，同時免運");
+      }else if( money>=1000 ){
+        console.log("金額滿1000，折100");
+      }else if( money<1000 && money>0){
+        if( money<150 ){
+          console.log("打9折+運費："+(paymoney+150));
+        } else {
+          console.log("打9折"+paymoney);
+        }
+      } else {
+        console.log("金額錯誤");
+      }
+    }    
+  </script>
+</body>
+</html>

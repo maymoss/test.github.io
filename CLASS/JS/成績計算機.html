@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>成績計算機</title>
+  <style>
+    /* ===== 色彩變數(自動支援深色模式) ===== */
+    :root {
+      --bg-1: #f3f5fa;
+      --bg-2: #dfe5f0;
+      --card-top: #ffffff;
+      --card-bottom: #e9edf5;
+      --card-edge: #c5ccdb;
+
+      --screen-bg-top: #cfd6e3;
+      --screen-bg-bottom: #e8edf6;
+      --screen-text: #1d2433;
+
+      --key-top: #ffffff;
+      --key-bottom: #e6eaf2;
+      --key-edge: #b9c1d1;
+      --key-text: #1d2433;
+
+      --op-top: #ffc56b;
+      --op-bottom: #ffa62b;
+      --op-edge: #d8821a;
+      --op-text: #3a2400;
+
+      --eq-top: #4fd186;
+      --eq-bottom: #2fae66;
+      --eq-edge: #1f8a4e;
+
+      --clear-top: #ff7b78;
+      --clear-bottom: #ea4643;
+      --clear-edge: #b92f2d;
+
+      --focus: #3b82f6;
+      --muted: #8a93a6;
+      --gloss: rgba(255, 255, 255, 0.7);
+      --drop: rgba(30, 41, 59, 0.22);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-1: #1a1f2e;
+        --bg-2: #0d1017;
+        --card-top: #2a3045;
+        --card-bottom: #1b2030;
+        --card-edge: #0f121b;
+
+        --screen-bg-top: #0a0d14;
+        --screen-bg-bottom: #151a27;
+        --screen-text: #eaf0ff;
+
+        --key-top: #3a4160;
+        --key-bottom: #2a3045;
+        --key-edge: #141826;
+        --key-text: #f2f4fa;
+
+        --muted: #7d869c;
+        --gloss: rgba(255, 255, 255, 0.18);
+        --drop: rgba(0, 0, 0, 0.55);
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-size: 2rem;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+      background: radial-gradient(circle at 50% 0%, var(--bg-1), var(--bg-2));
+      color: var(--key-text);
+    }
+
+    header {
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      padding: 28px 16px 12px;
+      text-shadow: 0 1px 0 var(--gloss);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 8px 16px;
+    }
+
+    /* ===== 計算機外殼:厚度 + 高光 + 落影 ===== */
+    .calculator {
+      width: 100%;
+      max-width: 380px;
+      padding: 20px 20px 24px;
+      border-radius: 28px;
+      background: linear-gradient(160deg, var(--card-top), var(--card-bottom));
+      box-shadow:
+        inset 0 2px 0 var(--gloss),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.08),
+        0 10px 0 var(--card-edge),
+        0 24px 40px var(--drop);
+      animation: rise 0.5s cubic-bezier(.2, .9, .3, 1.2) both;
+    }
+
+    /* ===== 螢幕:凹陷感 ===== */
+    #screen {
+      display: block;
+      width: 100%;
+      height: 92px;
+      margin-bottom: 20px;
+      padding: 0 18px;
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      font-size: 2.4rem;
+      font-weight: 600;
+      text-align: right;
+      color: var(--screen-text);
+      background: linear-gradient(180deg, var(--screen-bg-top), var(--screen-bg-bottom));
+      border: none;
+      border-radius: 16px;
+      box-shadow:
+        inset 0 4px 10px rgba(0, 0, 0, 0.28),
+        inset 0 -1px 0 var(--gloss),
+        0 1px 0 var(--gloss);
+      outline: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-variant-numeric: tabular-nums;
+      cursor: default;
+    }
+
+    /* ===== 按鍵區 ===== */
+    .keys {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px 12px;
+    }
+
+    /* ===== 立體按鍵:漸層 + 底部厚度 + 高光 ===== */
+    button {
+      position: relative;
+      overflow: hidden;
+      font: inherit;
+      font-size: 1.6rem;
+      font-weight: 600;
+      min-height: 64px;
+      padding: 0;
+      border: none;
+      border-radius: 16px;
+      color: var(--key-text);
+      background: linear-gradient(180deg, var(--key-top), var(--key-bottom));
+      box-shadow:
+        inset 0 1px 0 var(--gloss),
+        0 6px 0 var(--key-edge),
+        0 10px 14px var(--drop);
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      transform: translateY(0);
+      transition:
+        transform 0.12s cubic-bezier(.3, .7, .4, 1.4),
+        box-shadow 0.12s ease,
+        filter 0.15s ease;
+      animation: pop 0.45s cubic-bezier(.2, .9, .3, 1.3) both;
+    }
+
+    /* 觸碰光暈:按下瞬間從中心擴散 */
+    button::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.55), transparent 65%);
+      opacity: 0;
+      transform: scale(0.4);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+    }
+
+    /* 滑鼠移上:微微浮起、變亮 */
+    button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+      box-shadow:
+        inset 0 1px 0 var(--gloss),
+        0 8px 0 var(--key-edge),
+        0 14px 18px var(--drop);
+    }
+
+    /* 按下:往下壓、厚度消失、內凹陰影 */
+    button:active {
+      transform: translateY(6px);
+      filter: brightness(0.96);
+      box-shadow:
+        inset 0 3px 8px rgba(0, 0, 0, 0.25),
+        0 0 0 var(--key-edge),
+        0 2px 4px var(--drop);
+      transition-duration: 0.04s;
+    }
+    button:active::after {
+      opacity: 1;
+      transform: scale(1.4);
+      transition-duration: 0s;
+    }
+
+    button:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    /* 運算鍵 */
+    button.op {
+      color: var(--op-text);
+      background: linear-gradient(180deg, var(--op-top), var(--op-bottom));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 6px 0 var(--op-edge), 0 10px 14px var(--drop);
+    }
+    button.op:hover {
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 8px 0 var(--op-edge), 0 14px 18px var(--drop);
+    }
+    button.op:active {
+      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.25), 0 0 0 var(--op-edge), 0 2px 4px var(--drop);
+    }
+
+    /* 等於鍵 */
+    button.eq {
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+      background: linear-gradient(180deg, var(--eq-top), var(--eq-bottom));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 6px 0 var(--eq-edge), 0 10px 14px var(--drop);
+    }
+    button.eq:hover {
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 8px 0 var(--eq-edge), 0 14px 18px var(--drop);
+    }
+    button.eq:active {
+      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.25), 0 0 0 var(--eq-edge), 0 2px 4px var(--drop);
+    }
+
+    /* 清除鍵 */
+    button.clear {
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+      background: linear-gradient(180deg, var(--clear-top), var(--clear-bottom));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 6px 0 var(--clear-edge), 0 10px 14px var(--drop);
+    }
+    button.clear:hover {
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 8px 0 var(--clear-edge), 0 14px 18px var(--drop);
+    }
+    button.clear:active {
+      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.25), 0 0 0 var(--clear-edge), 0 2px 4px var(--drop);
+    }
+
+    .span-2 { grid-column: span 2; }
+
+    footer {
+      text-align: center;
+      font-size: 1rem;
+      color: var(--muted);
+      padding: 28px 16px 28px;
+    }
+
+    /* ===== 進場動畫:按鍵依序彈出 ===== */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(24px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes pop {
+      from { opacity: 0; transform: translateY(12px) scale(0.85); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .keys button:nth-child(1)  { animation-delay: 0.05s; }
+    .keys button:nth-child(2)  { animation-delay: 0.08s; }
+    .keys button:nth-child(3)  { animation-delay: 0.11s; }
+    .keys button:nth-child(4)  { animation-delay: 0.14s; }
+    .keys button:nth-child(5)  { animation-delay: 0.17s; }
+    .keys button:nth-child(6)  { animation-delay: 0.20s; }
+    .keys button:nth-child(7)  { animation-delay: 0.23s; }
+    .keys button:nth-child(8)  { animation-delay: 0.26s; }
+    .keys button:nth-child(9)  { animation-delay: 0.29s; }
+    .keys button:nth-child(10) { animation-delay: 0.32s; }
+    .keys button:nth-child(11) { animation-delay: 0.35s; }
+    .keys button:nth-child(12) { animation-delay: 0.38s; }
+    .keys button:nth-child(13) { animation-delay: 0.41s; }
+    .keys button:nth-child(14) { animation-delay: 0.44s; }
+    .keys button:nth-child(15) { animation-delay: 0.47s; }
+    .keys button:nth-child(16) { animation-delay: 0.50s; }
+    .keys button:nth-child(17) { animation-delay: 0.53s; }
+
+    /* ===== 小螢幕手機微調 ===== */
+    @media (max-width: 400px) {
+      body { font-size: 1.6rem; }
+      .calculator { padding: 16px 14px 20px; border-radius: 24px; }
+      .keys { gap: 12px 10px; }
+      button { min-height: 58px; }
+      #screen { height: 80px; font-size: 2rem; }
+    }
+
+    /* 減少動態效果偏好:保留按壓回饋,關閉進場與浮起 */
+    @media (prefers-reduced-motion: reduce) {
+      .calculator, button { animation: none; }
+      button { transition: none; }
+      button:hover { transform: none; }
+      button::after { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>成績計算機</header>
+
+  <main>
+    <div class="calculator">
+      <!-- 顯示的小螢幕 -->
+      <input type="text" id="screen" readonly value="0" aria-label="計算結果" aria-live="polite" inputmode="none" tabindex="-1">
+
+      <!-- 按鍵區:0~9 數字鍵、(+ - * / % =) -->
+      <div class="keys">
+        <button class="clear" data-key="C" aria-label="清除">C</button>
+        <button class="op" data-key="%" aria-label="取餘數">%</button>
+        <button class="op" data-key="/" aria-label="除">÷</button>
+        <button class="op" data-key="*" aria-label="乘">×</button>
+
+        <button data-key="7">7</button>
+        <button data-key="8">8</button>
+        <button data-key="9">9</button>
+        <button class="op" data-key="-" aria-label="減">−</button>
+
+        <button data-key="4">4</button>
+        <button data-key="5">5</button>
+        <button data-key="6">6</button>
+        <button class="op" data-key="+" aria-label="加">+</button>
+
+        <button data-key="1">1</button>
+        <button data-key="2">2</button>
+        <button data-key="3">3</button>
+        <button data-key="." aria-label="小數點">.</button>
+
+        <button data-key="0" class="span-2">0</button>
+        <button data-key="=" class="eq span-2" aria-label="等於">=</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>% 為取餘數運算(例如 7 % 3 = 1)</footer>
+
+  <script>
+    const screen = document.getElementById('screen');
+    const ops = ['+', '-', '*', '/', '%'];
+    let expr = '';      // 目前輸入的算式
+    let justEvaluated = false;
+
+    function show(text) {
+      screen.value = text === '' ? '0' : text;
+    }
+
+    function calculate() {
+      if (expr === '') return;
+      // 結尾若是運算符號就先去掉
+      while (ops.includes(expr.slice(-1))) expr = expr.slice(0, -1);
+
+      // 只允許數字、小數點與運算符號,避免執行任意程式碼
+      if (!/^[0-9+\-*/%.]+$/.test(expr)) { show('錯誤'); expr = ''; return; }
+
+      try {
+        let result = Function('"use strict"; return (' + expr + ')')();
+        if (!isFinite(result)) throw new Error('invalid');
+        
+        result = Math.round(result * 1e10) / 1e10; // 避免 0.1+0.2 的浮點誤差
+        expr = String(result);
+        show(expr);
+        justEvaluated = true;
+      } catch (e) {
+        show('錯誤');
+        expr = '';
+      }
+    }
+
+    function press(key) {
+      if (key === 'C') {
+        expr = '';
+        justEvaluated = false;
+        show('');
+        return;
+      }
+      if (key === '=') {
+        calculate();
+        return;
+      }
+      if (ops.includes(key)) {
+        if (expr === '') {
+          if (key !== '-') return;          // 開頭只允許負號
+        } else if (ops.includes(expr.slice(-1))) {
+          expr = expr.slice(0, -1);          // 連按運算符號 → 取代上一個
+        }
+        justEvaluated = false;
+        expr += key;
+      } else {
+        // 數字或小數點
+        if (justEvaluated) { expr = ''; justEvaluated = false; }
+        if (key === '.') {
+          const lastNumber = expr.split(/[+\-*/%]/).pop();
+          if (lastNumber.includes('.')) return;
+          if (lastNumber === '') expr += '0';
+        }
+        expr += key;
+      }
+      show(expr);
+    }
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => press(btn.dataset.key));
+    });
+  </script>
+</body>
+</html>

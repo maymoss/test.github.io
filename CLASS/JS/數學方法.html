@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let price = "85";
+    let cnts = 3;
+    let pag = 2;
+    let allprice = 0;
+
+    allprice = ( Number(price)*Number(cnts) ) + Number(pag);
+    if( allprice >= 200 ){
+      console.log("總金額",allprice,"滿200元送點數");
+    } else {
+      console.log("總金額",allprice,"未滿200元不送點數");
+    }
+
+    let tax =45961095;
+    console.log("100有：", Math.floor(tax / 100)) ;
+    tax = tax % 100;
+    console.log("剩下多少：", tax);
+    console.log("50有：", Math.floor(tax / 50)) ;
+    tax = tax % 50;
+    console.log("剩下多少：",tax);
+    console.log("10有：", Math.floor(tax / 10)) ;
+    tax = tax % 10;
+    console.log("剩下多少：",tax);
+    console.log("1有：", Math.floor(tax / 1)) ;
+    tax = tax % 1;
+    console.log("剩下多少：",tax % 1);
+
+    console.log( "100元的79折電子發票：", Math.round( 0.79 * 99 ));
+
+    let a = 2500;
+
+    console.log("因為判斷式 memberLevel = VIP 了");
+    console.log("不行");
+    console.log("因為判斷順序錯誤了");
+  </script>
+</body>
+</html>

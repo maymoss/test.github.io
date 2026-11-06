@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://lanjiji.zapto.org/9ghfo-83t22-001.ico?v=2" rel="icon" type="image/x-icon"/>
+  <title>青春猜拳大對決！</title>
+</head>
+
+<style>
+  /* 青春洋溢、暖色系風格 */
+  :root {
+    --primary-orange: #ff7e5f;
+    --secondary-peach: #feb47b;
+    --accent-yellow: #ffe66d;
+    --bg-cream: #fffaf4;
+    --text-dark: #4a4a4a;
+    --shadow-color: rgba(255, 126, 95, 0.2);
+  }
+
+  /* 透過 ::before 實現 30% 透明度的淡色山水風景背景，不影響文字內容 */
+  body {
+    margin: 0;
+    padding: 30px 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://unsplash.com');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3; /* 淡色透明 30% */
+    z-index: -1;
+  }
+
+  /* 遊戲標題 */
+  h1 {
+    font-size: 2rem;
+    color: #e65c00;
+    text-shadow: 2px 2px 0px var(--accent-yellow);
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+  }
+
+  /* 遊戲主要對決區域 */
+  .game-container {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 25px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 550px;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  /* 對決區塊外層（電腦、結果、玩家） */
+  .battle-field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  /* 電腦區與玩家區 */
+  #box1, #box3 {
+    background-color: var(--secondary-peach);
+    width: 150px;
+    height: 150px;
+    border-radius: 18px;
+    background-size: 80%; 
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: inset 0 0 15px rgba(255,255,255,0.6), 0 6px 12px var(--shadow-color);
+    border: 3px solid #fff;
+    transition: transform 0.2s ease;
+    position: relative;
+  }
+
+  #box1::after { content: "電腦"; position: absolute; top: -25px; left: 50%; transform: translateX(-50%); font-weight: bold; color: #d35400; font-size: 0.9rem;}
+  #box3::after { content: "玩家"; position: absolute; top: -25px; left: 50%; transform: translateX(-50%); font-weight: bold; color: #d35400; font-size: 0.9rem;}
+
+  /* 中間的結果顯示框 */
+  #box2 {
+    background-color: var(--accent-yellow);
+    width: 110px;
+    height: 55px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #c0392b;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border: 2px solid #fff;
+    text-align: center;
+  }
+
+  /* 按鈕區塊 */
+  #btnbox {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  button {
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px var(--shadow-color);
+    transition: all 0.2s ease;
+  }
+
+  #bntgo {
+    background: linear-gradient(45deg, var(--primary-orange), var(--secondary-peach));
+    color: white;
+  }
+
+  #bntgo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 126, 95, 0.4);
+  }
+
+  #bntusergo {
+    background: linear-gradient(45deg, #f1c40f, var(--accent-yellow));
+    color: #5d4037;
+  }
+
+  #bntusergo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(241, 196, 15, 0.3);
+  }
+
+  button:active {
+    transform: translateY(1px);
+  }
+
+  /* 底部選擇區塊 */
+  #uallbox {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 15px;
+    border-radius: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  #ubox1, #ubox2, #ubox3 {
+    background-color: rgba(254, 180, 123, 0.5);
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 2px dashed #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  #ubox1{ background-image: url('./img/scissors.png'); }
+  #ubox2{ background-image: url('./img/rock.png'); }
+  #ubox3{ background-image: url('./img/paper.png'); }
+
+  /* ✨ 被點選時的「方框」選中樣式 */
+  .active {
+    border: 4px solid #e65c00 !important; /* 強調橘色實線方框 */
+    background-color: var(--accent-yellow) !important; /* 變換亮黃底色 */
+    transform: scale(1.1); /* 微放大效果 */
+    box-shadow: 0 5px 15px rgba(230, 92, 0, 0.4);
+  }
+
+</style>
+
+<body>
+
+  <h1>🌸 青春猜拳大對決 🌸</h1>
+
+  <div class="game-container">
+    <div class="battle-field">
+      <div id="box1"></div>
+      <div id="box2">等待出拳</div>
+      <div id="box3"></div>
+    </div>
+
+    <div id="btnbox">
+      <button id="bntgo">🎯 隨機猜拳</button>
+      <button id="bntusergo">👊 自訂出拳</button>
+    </div>
+  </div>
+
+  <!-- 傳入數字 0, 1, 2 代表剪刀、石頭、布 -->
+  <div id="uallbox">
+    <div id="ubox1" class="user-choice" onclick="seckubtn(0)"></div>
+    <div id="ubox2" class="user-choice" onclick="seckubtn(1)"></div>
+    <div id="ubox3" class="user-choice" onclick="seckubtn(2)"></div>
+  </div>
+
+  <script>
+    const btn1 = document.getElementById("box1");
+    const btn2 = document.getElementById("box2");
+    const btn3 = document.getElementById("box3");
+    const bntgo = document.getElementById("bntgo");
+    const bntusergo = document.getElementById("bntusergo");
+
+    const fruits = [
+      "url('./img/scissors.png')", 
+      "url('./img/rock.png')", 
+      "url('./img/paper.png')"
+    ];
+
+    // 共用的勝負判定邏輯
+    function ckvalue(a, b){
+      if( (a==0 && b==0) || (a==1 && b==1) || (a==2 && b==2) ){
+        return "平手";
+      }
+      else if( (a==0 && b==2) || (a==1 && b==0) || (a==2 && b==1) ){
+        return "電腦勝利";
+      }
+      else if( (a==2 && b==0) || (a==0 && b==1) || (a==1 && b==2) ){
+        return "玩家勝利";
+      }
+    }
+
+    // 🌟 共用動畫函式：接收一個 callback（當 1 秒滾動結束後要做甚麼事）
+    function playAnimation(callback) {
+      btn2.textContent = "🤔 思考中..."; // 滾動時顯示提示字
+
+      // 開啟循環定時器：每 200 毫秒（0.2秒）變換一次圖片
+      let scrollTimer = setInterval(radombtn, 50);
+
+      // 設定 1000 毫秒（1秒）後停止滾動，並執行傳入的 callback
+      setTimeout(function() {
+        clearInterval(scrollTimer); // 停止滾動
+        callback(); // 執行後續邏輯
+      }, 1000);
+    }
+
+    // 1. 隨機猜拳按鈕
+    bntgo.addEventListener('click', function(){
+      clearActive();
+
+      // 呼叫共用動畫，結束後隨機決定雙方出拳並判斷輸贏
+      playAnimation(function() {
+        let finalPc = Math.floor(Math.random() * fruits.length);
+        let finalUser = Math.floor(Math.random() * fruits.length);
+
+        btn1.style.backgroundImage = fruits[finalPc];
+        btn3.style.backgroundImage = fruits[finalUser];
+        btn2.textContent = ckvalue(finalPc, finalUser);
+      });
+    });
+
+    // 2. 自訂出拳按鈕 (結合 prompt 彈窗)
+    bntusergo.addEventListener('click', function(){
+      let input = prompt("請輸入你要出什麼？(請填寫：剪刀、石頭 或 布)");
+      if (input === null) return; // 按取消
+
+      let userIndex;
+      if (input.trim() === "剪刀") userIndex = 0;
+      else if (input.trim() === "石頭") userIndex = 1;
+      else if (input.trim() === "布") userIndex = 2;
+      else {
+        alert("輸入錯誤！請輸入『剪刀』、『石頭』或『布』");
+        return;
+      }
+      
+      // 觸發帶有動畫的點擊效果
+      seckubtn(userIndex);
+    });
+
+    // ✨ 3. 下方 DIV 點擊事件 (或由自訂出拳呼叫)：加入動畫後再顯示結果
+    function seckubtn(type) {
+      clearActive();
+
+      // 先點亮的選中方框
+      document.getElementById("ubox" + (type + 1)).classList.add("active");
+
+      // 呼叫共用動畫，動畫結束後才鎖定玩家的選擇並結算
+      playAnimation(function() {
+        // 玩家區域 (box3) 顯示玩家點選的固定拳
+        btn3.style.backgroundImage = fruits[type];
+
+        // 電腦 (box1) 自動隨機抽一個拳迎戰
+        let pcIndex = Math.floor(Math.random() * fruits.length);
+        btn1.style.backgroundImage = fruits[pcIndex];
+
+        // 計算勝負並顯示
+        btn2.textContent = ckvalue(pcIndex, type);
+      });
+    }
+
+    // 清除所有下方按鈕的 active 狀態
+    function clearActive() {
+      document.getElementById("ubox1").classList.remove("active");
+      document.getElementById("ubox2").classList.remove("active");
+      document.getElementById("ubox3").classList.remove("active");
+
+      document.getElementById("box1").textContent="";
+      document.getElementById("box2").textContent="";
+      document.getElementById("box3").textContent="";
+    }
+
+    // 1 秒內出現亂數的變動
+    function radombtn(){
+      let randomIndex = Math.floor(Math.random() * fruits.length);
+      btn1.style.backgroundImage = fruits[randomIndex];
+
+      let userIndex = Math.floor(Math.random() * fruits.length);
+      btn3.style.backgroundImage = fruits[userIndex];
+    }
+  </script>
+</body>
+</html>

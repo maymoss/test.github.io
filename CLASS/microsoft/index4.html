@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>
+      Microsoft - 人工智慧、雲端、生產力、計算、遊戲和應用程式
+    </title>
+    <link href="https://uhf.microsoft.com/statics/20261021.14.40/css/style-PF2pqjN1.css" rel="stylesheet"/>
+    <style>
+    /* 全域 CSS 變數：整合微軟品牌色、點擊深色背景、陰影與動畫曲線 */
+    :root {
+      --ms-blue: #0067b8;
+      --ms-blue-hover: #005da6;
+      --ms-blue-focus-dark: #002b49;
+      --ms-text-primary: #1b1b1b;
+      --fluent-acrylic: rgba(255, 255, 255, 0.86);
+      --fluent-shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
+      --fluent-shadow-md: 0 10px 24px -4px rgba(15, 23, 42, 0.08);
+      --fluent-shadow-lg: 0 24px 48px -8px rgba(15, 23, 42, 0.16);
+      --ease-fluent: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    /* 基礎重置與盒模型設定 */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Segoe UI Variable Text", "Segoe UI", segoeui, "Helvetica Neue", helvetica, arial, sans-serif;
+      color: var(--ms-text-primary);
+      background-color: #fcfcfd;
+      line-height: 1.5;
+      font-size: 1rem;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    /* 一般連結與全站統一焦點/點擊虛線外框設定 */
+    a {
+      color: var(--ms-blue);
+      text-decoration: none;
+      transition: color 0.15s ease;
+      outline: none;
+    }
+    a:hover { text-decoration: underline; }
+    a:focus, a:focus-visible, a:active, a.active-click,
+        button:focus, button:focus-visible, button:active, button.active-click,
+        summary:focus, summary:focus-visible, summary:active, summary.active-click { outline: 3px dotted #000000; outline-offset: 0px; }
+    /* 圖片同款微軟實心按鈕（一般狀態：亮藍底圓角；點擊/聚焦狀態：深海藍底 + 內縮白色虛線框） */
+    .btn, .btn-fluent-primary, .card-link-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background-color: var(--ms-blue);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 1.2;
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: none;
+      text-decoration: none;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: background-color 0.15s ease, transform 0.15s ease;
+      outline: none;
+    }
+    .btn:hover, .btn-fluent-primary:hover, .card-link-action:hover {
+      background-color: var(--ms-blue-hover);
+      color: #ffffff;
+      text-decoration: none;
+    }
+    .btn:focus, .btn:focus-visible, .btn:active, .btn.active-click,
+        .btn-fluent-primary:focus, .btn-fluent-primary:focus-visible, .btn-fluent-primary:active, .btn-fluent-primary.active-click,
+        .card-link-action:focus, .card-link-action:focus-visible, .card-link-action:active, .card-link-action.active-click {
+      background-color: var(--ms-blue-focus-dark);
+      color: #ffffff;
+      outline: 2px dotted #ffffff;
+      outline-offset: -4px;
+      text-decoration: none;
+    }
+    .shell-container {
+      max-width: 1560px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    @media (max-width: 768px) {
+      .shell-container { padding: 0 18px; }
+    }
+    /* 頁首導覽列與毛玻璃效果 */
+    .ms-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--fluent-acrylic);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+      height: 56px;
+      display: flex;
+      align-items: center;
+    }
+    .header-layout {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header-left, .header-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    /* 品牌標誌與四色方塊 */
+    .brand-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-right: 12px;
+      transition: background-color 0.2s ease;
+    }
+    .brand-group:hover { background: rgba(0, 0, 0, 0.04); }
+    .brand-grid {
+      display: grid;
+      grid-template-columns: 10px 10px;
+      grid-template-rows: 10px 10px;
+      gap: 2px;
+    }
+    .brand-grid div:nth-child(1) { background-color: #f25022; }
+    .brand-grid div:nth-child(2) { background-color: #7fba00; }
+    .brand-grid div:nth-child(3) { background-color: #00a4ef; }
+    .brand-grid div:nth-child(4) { background-color: #ffb900; }
+    .brand-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #262626;
+      letter-spacing: -0.4px;
+    }
+    /* 主導覽選單連結 */
+    .primary-nav ul {
+      display: flex;
+      list-style: none;
+      gap: 4px;
+      align-items: center;
+    }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      color: #2b2b2b;
+      border-radius: 2px;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.15s ease;
+      outline: none;
+    }
+    .nav-link:hover {
+      color: #000000;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 15px;
+    }
+    /* 右側功能按鈕（所有 Microsoft、搜尋、購物車） */
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px solid transparent;
+      padding: 7px 11px;
+      border-radius: 2px;
+      font-size: 13px;
+      color: #2b2b2b;
+      cursor: pointer;
+      font-family: inherit;
+      transition: color 0.15s ease;
+      text-decoration: none;
+      outline: none;
+    }
+    .action-btn:hover { background: rgba(0, 0, 0, 0.04); color: #000; }
+    .action-btn:hover span { text-decoration: underline; text-underline-offset: 4px; }
+    .badge-cart {
+      background-color: var(--ms-blue);
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 1px 6px;
+    }
+    /* 個人帳戶頭像按鈕 */
+    .avatar-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 6px 4px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      background: #ffffff;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: #262626;
+      transition: all 0.2s ease;
+    }
+    .avatar-btn:hover { background: #f4f5f7; border-color: rgba(0, 0, 0, 0.2); }
+    /* 所有 Microsoft 大型下拉選單 (Mega Menu) */
+    .all-ms-container { position: relative; }
+    .mega-menu {
+      position: fixed;
+      top: 56px;
+      left: 50%;
+      right: auto;
+      width: min(1080px, calc(100vw - 32px));
+      max-height: calc(100dvh - 72px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(28px);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      box-shadow: var(--fluent-shadow-lg);
+      padding: 28px 36px 20px;
+      display: none;
+      opacity: 0;
+      transform: translate(-50%, -8px);
+      transition: opacity 0.2s var(--ease-fluent), transform 0.2s var(--ease-fluent);
+      z-index: 1001;
+    }
+    .mega-menu.is-open {
+      display: block;
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+    .mega-menu-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 20px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #f0f0f2;
+    }
+    .mega-col-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 14px;
+    }
+    .mega-col-list { list-style: none; }
+    .mega-col-list li { margin-bottom: 10px; }
+    .mega-col-list a {
+      color: #52525b;
+      font-size: 12.5px;
+      line-height: 1.45;
+      text-decoration: none;
+      transition: color 0.15s ease;
+      display: inline-block;
+      padding: 1px 2px;
+    }
+    .mega-col-list a:hover { color: var(--ms-blue); text-decoration: underline; }
+    .mega-footer {
+      padding-top: 14px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .mega-footer a {
+      font-size: 12.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 4px;
+    }
+    /* 搜尋輸入框面板 */
+    .search-wrapper { position: relative; }
+    .search-input-box {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 8px);
+      width: 380px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      box-shadow: var(--fluent-shadow-md);
+      padding: 8px 12px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      z-index: 1001;
+    }
+    .search-input-box.is-open { display: flex; }
+    .search-input-box input {
+      border: none;
+      outline: none;
+      font-size: 14px;
+      font-family: inherit;
+      width: 100%;
+      color: #1e293b;
+    }
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      padding: 6px;
+      cursor: pointer;
+      color: #1f2937;
+    }
+    /* Hero 輪播：共用結構與轉場 */
+    .hero {
+      position: relative;
+      background: #fcfcfd;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .slides { display: flex; transition: transform .55s cubic-bezier(.2, .75, .25, 1); }
+    .slide {
+      min-width: 100%;
+      position: relative;
+      min-height: 510px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 0 5%;
+      overflow: hidden;
+    }
+    .slide[data-theme="1"] { background: #f8f9f1; }
+    .slide[data-theme="2"] { background: linear-gradient(115deg, #dcd8ea 0%, #b5b0c8 52%, #8e89a3 100%); }
+    /* Hero 圖文共用：行動版採上下排列 */
+    .hero-art {
+      flex: 1 1 55%;
+      max-width: 100%;
+      pointer-events: none;
+    }
+    .hero-art img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      flex: 1 1 40%;
+      max-width: 480px;
+      padding: 52px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .eyebrow {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      margin-bottom: 12px;
+    }
+    .eyebrow-w {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffb900;
+      color: #000000;
+      width: 60px;
+      height: 20px;
+      line-height: 1;
+      border-radius: 4px;
+    }
+    .hero h1, .hero h2 {
+      font-size: clamp(32px, 3.2vw, 47px);
+      font-weight: 600;
+      line-height: 1.16;
+      letter-spacing: -.035em;
+      margin: 0 0 20px;
+    }
+    .hero p {
+      font-size: 17px;
+      line-height: 1.65;
+      margin: 0 0 26px;
+      max-width: 430px;
+    }
+    /* 輪播控制列：置於輪播區下方、三個快速卡片上方 */
+    .controls {
+      position: relative;
+      z-index: 5;
+      max-width: 95%;
+      margin: 28px auto 12px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+    .controls-center {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ctrl-arrow {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid #1e3050;
+      background: #ffffff;
+      color: #1e3050;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .ctrl-arrow:hover:not(.is-edge) { background: #f1f5f9; transform: scale(1.04); }
+    .ctrl-arrow.is-edge { border-color: #cbd5e1; color: #cbd5e1; }
+    .dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dot {
+      width: 28px;
+      height: 3px;
+      border: 0;
+      padding: 0;
+      border-radius: 2px;
+      background: #dce3ec;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .dot[aria-current="true"] { background: #1e3050; }
+    .ctrl-play {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 2px solid #1e3050;
+      background: #ffffff;
+      color: #1e3050;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .ctrl-play:hover { background: #f1f5f9; }
+    /* 次要透明/淺色按鈕樣式與聚焦深色變化 */
+    .btn-fluent-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      color: #1e293b;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-fluent-ghost:hover {
+      background-color: #f8fafc;
+      border-color: rgba(0, 0, 0, 0.3);
+      text-decoration: none;
+    }
+    .btn-fluent-ghost:focus, .btn-fluent-ghost:focus-visible, .btn-fluent-ghost:active, .btn-fluent-ghost.active-click {
+      background-color: var(--ms-blue-focus-dark);
+      color: #ffffff;
+      outline: 2px dotted #ffffff;
+      outline-offset: -4px;
+      text-decoration: none;
+    }
+    /* 快速入口圖示區：置中排列、完全去背、文字下方顯示底線 */
+    .quick-access-section {
+      margin-bottom: 56px;
+      display: flex;
+      justify-content: center;
+    }
+    .quick-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 48px;
+    }
+    .quick-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 12px 16px;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      transition: transform 0.25s var(--ease-fluent);
+      text-decoration: none;
+    }
+    .quick-tile:hover { transform: translateY(-3px); }
+    .quick-tile-icon {
+      width: 48px;
+      height: 48px;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      transition: transform 0.25s ease;
+    }
+    .quick-tile-icon img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      background: transparent;
+    }
+    .quick-tile:hover .quick-tile-icon { transform: scale(1.08); }
+    .quick-tile-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ms-blue);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    /* 區塊標題與產品卡片網格 */
+    .section-header-block {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-top: 10px;
+    }
+    .section-title {
+      font-size: 26px;
+      font-weight: 600;
+      color: #111827;
+      letter-spacing: -0.5px;
+    }
+    .section-sublink {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ms-blue);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 4px;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+    .fluent-card {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      overflow: hidden;
+      box-shadow: var(--fluent-shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s var(--ease-fluent);
+    }
+    .fluent-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--fluent-shadow-md);
+      border-color: rgba(0, 103, 184, 0.3);
+    }
+    .card-banner {
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-banner-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.4s ease;
+    }
+    .fluent-card:hover .card-banner-bg { transform: scale(1.05); }
+    .banner-graphic-svg {
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.18));
+      transition: transform 0.3s ease;
+    }
+    .fluent-card:hover .banner-graphic-svg { transform: scale(1.05); }
+    .card-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .card-badge {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #0067b8;
+      background: #e5f1fb;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+      align-self: flex-start;
+    }
+    .card-title {
+      font-size: 19px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+    .card-description {
+      font-size: 14px;
+      line-height: 1.55;
+      color: #4b5563;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+    .card-link-action svg { display: none; }
+    /* 企業雲端與 AI 宣傳橫幅 (Spotlight Banner) */
+    .spotlight-banner {
+      background: linear-gradient(135deg, #07193b 0%, #002b5e 100%);
+      color: #ffffff;
+      border-radius: 18px;
+      margin-bottom: 64px;
+      padding: 56px 64px;
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--fluent-shadow-md);
+    }
+    .spotlight-glow {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(0, 164, 239, 0.28) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .spotlight-title {
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -0.6px;
+    }
+    .spotlight-desc {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #cbd5e1;
+      margin-bottom: 28px;
+    }
+    /* 社群媒體追蹤列 */
+    .social-follow-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin: 40px 0 32px;
+      font-size: 14.5px;
+      color: #475569;
+    }
+    .social-links-list {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .social-icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: #334155;
+      transition: all 0.2s ease;
+    }
+    .social-icon-btn:hover {
+      background: var(--ms-blue);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+    /* 右下角「回到首頁(最頂端)」浮動按鈕，輪播區可見時自動隱藏 */
+    .back-to-top {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 990;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background-color: var(--ms-blue);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      text-decoration: none;
+      transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.15s ease;
+    }
+    .back-to-top:hover { background-color: var(--ms-blue-hover); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); }
+    .back-to-top:focus, .back-to-top:focus-visible, .back-to-top:active, .back-to-top.active-click {
+      background-color: var(--ms-blue-focus-dark);
+      color: #ffffff;
+      outline: 2px dotted #ffffff;
+      outline-offset: -4px;
+    }
+    .back-to-top.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+    }
+    /* 頁尾導覽與版權資訊 */
+    .site-footer {
+      background-color: #f4f5f7;
+      border-top: 1px solid #e2e8f0;
+      font-size: 12px;
+      color: #64748b;
+      padding: 56px 0 32px;
+      margin-top: 60px;
+    }
+    .footer-nav-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 28px;
+      margin-bottom: 48px;
+    }
+    .footer-col-header {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 18px;
+    }
+    .footer-col-links { list-style: none; }
+    .footer-col-links li { margin-bottom: 12px; }
+    .footer-col-links a {
+      color: #64748b;
+      text-decoration: none;
+      font-size: 12.5px;
+      transition: color 0.15s ease;
+      display: inline-block;
+      padding: 1px 2px;
+    }
+    .footer-col-links a:hover { color: #0f172a; text-decoration: underline; }
+    .footer-subbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      border-top: 1px solid #e2e8f0;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 11.5px;
+    }
+    .footer-region-picker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #64748b;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .footer-region-picker:hover { color: #0f172a; }
+    .footer-legal-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .footer-legal-links a { color: #64748b; padding: 1px 2px; }
+    .footer-legal-links a:hover { color: #0f172a; }
+    /* 行動版側邊抽屜選單 */
+    .mobile-drawer {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 56px);
+      background: #ffffff;
+      z-index: 999;
+      padding: 24px;
+      display: none;
+      overflow-y: auto;
+      box-shadow: var(--fluent-shadow-lg);
+    }
+    .mobile-drawer.is-open { display: block; }
+    .mobile-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .mobile-nav-list a {
+      font-size: 17px;
+      font-weight: 600;
+      color: #1e293b;
+      display: block;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .mobile-all-ms summary {
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 600;
+      color: #1e293b;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .mobile-mega-group { padding: 12px 0 4px 16px; }
+    .mobile-mega-group strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    .mobile-mega-group a {
+      font-size: 14px;
+      font-weight: 400;
+      padding: 7px 0;
+    }
+    /* Hero 桌面版：背景滿版，文字絕對定位並垂直置中 */
+    @media (min-width: 861px) {
+      .hero .slide { display: block; padding: 0; }
+      .hero-art {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        background: center / cover no-repeat;
+      }
+      .hero-art img { display: none; }
+      .slide-1 .hero-art { background-image: url('./img/Hero-M365.avif'); }
+      .slide-2 .hero-art { background-image: url('./img/Hero-Attract.avif'); }
+      .hero-content {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 440px;
+        max-width: 40%;
+        padding: 0;
+        align-items: flex-start;
+        text-align: left;
+      }
+      /* 第一張：調整 right 控制靠右距離 */
+      .slide-1 .hero-content { right: 8%; }
+      /* 第二張：調整 left 控制靠左距離 */
+      .slide-2 .hero-content { left: 8%; }
+    }
+    /* 響應式斷點設定 (RWD) */
+    @media (max-width: 1200px) {
+      .mega-menu { padding: 24px; }
+      .mega-menu-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-nav-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 901px) and (max-width: 1100px) {
+      .ms-header .nav-link { padding-inline: 7px; font-size: 12px; }
+      .ms-header .brand-group { margin-right: 2px; }
+    }
+    @media (max-width: 900px) {
+      .spotlight-banner { grid-template-columns: 1fr; padding: 40px 28px; }
+      .ms-header .primary-nav, .ms-header .header-right { display: none; }
+      .ms-header .mobile-menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 40px;
+        width: 40px;
+        height: 40px;
+      }
+      .ms-header .header-layout { justify-content: flex-start; }
+      .ms-header .brand-group { margin-right: 0; }
+      .mega-menu { display: none; }
+    }
+    /* 小於 860px 時：上下堆疊，圖片在上方(order: 0)，滿版內容在下方(order: 1)，背景圖片獨立套用 */
+    @media (max-width: 860px) {
+      .hero .slide { flex-direction: column; padding: 0; }
+      .hero-art {
+        width: 100%;
+        max-width: 100%;
+        /* 主要控制圖片區域高度 */
+        height: 400px;
+        min-height: 400px;
+        max-height: none;
+        /* 避免 Flex 排版壓縮高度 */
+        flex: 0 0 auto;
+        order: 0;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+      }
+      .slide.slide-1 .hero-art { background-image: url('./img/Hero-M365_1600.avif'); }
+      .slide.slide-2 .hero-art { background-image: url('./img/Hero-Attract_1200.avif'); }
+      .hero-art img { display: none; }
+      .hero-content {
+        order: 1;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 32px 20px;
+        background: #a3c1e6;
+        display: flex;
+        flex-direction: column;
+        /* 內容整體垂直置中 */
+        justify-content: center;
+        /* 內容整體水平置中 */
+        align-items: center;
+        /* 文字靠左 */
+        text-align: left;
+      }
+      .hero h1, .hero h2, .hero p, .hero-content .eyebrow {
+        margin-left: 50px;
+        width: 100%;
+        text-align: left;
+      }
+      .hero h1, .hero h2 { font-size: 30px; }
+      .hero p { max-width: 100%; font-size: 15px; }
+      /* A 按鈕：靠右排列 */
+      .hero-content a.btn { margin-left: 20px; }
+      /* 第二張輪播的「即將推出」標籤 */
+    }
+    @media (max-width: 640px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .quick-grid { gap: 24px; }
+      .footer-nav-grid { grid-template-columns: 1fr 1fr; }
+      .footer-subbar { flex-direction: column; align-items: flex-start; }
+      .avatar-btn > span { display: none; }
+      .avatar-btn { padding: 3px; }
+      .search-input-box {
+        position: fixed;
+        left: 14px;
+        right: 14px;
+        top: 62px;
+        width: auto;
+      }
+    }
+    @media (max-width: 540px) {
+      .controls { margin: 20px auto 8px; padding: 0 16px; }
+      .ctrl-arrow { width: 42px; height: 42px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *:before, *:after {
+        scroll-behavior: auto;
+        transition: none;
+        animation: none;
+      }
+    }
+    </style>
+  </head>
+  <body>
+    <header class="ms-header" role="banner">
+      <div class="shell-container header-layout">
+        <div class="header-left">
+          <button aria-controls="mobileDrawer" aria-expanded="false" aria-label="開啟導覽選單" class="mobile-menu-toggle" id="mobileMenuBtn" type="button">
+            <svg fill="none" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
+              <line x1="3" x2="21" y1="12" y2="12">
+              </line>
+              <line x1="3" x2="21" y1="6" y2="6">
+              </line>
+              <line x1="3" x2="21" y1="18" y2="18">
+              </line>
+            </svg>
+          </button>
+          <a aria-label="Microsoft 首頁" class="brand-group" href="#">
+            <div class="brand-grid">
+              <div>
+              </div>
+              <div>
+              </div>
+              <div>
+              </div>
+              <div>
+              </div>
+            </div>
+            <span class="brand-title">
+              Microsoft
+            </span>
+          </a>
+          <nav aria-label="主要導覽" class="primary-nav">
+            <ul>
+              <li>
+                <a class="nav-link active" href="#">
+                  Microsoft 365
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="#">
+                  Azure
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="#">
+                  Windows
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="#">
+                  Surface
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="#">
+                  Xbox
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="#">
+                  支援
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="header-right">
+          <div class="all-ms-container">
+            <button aria-expanded="false" aria-haspopup="true" class="action-btn" id="allMsBtn">
+              <span>
+                所有 Microsoft
+              </span>
+              <svg fill="currentColor" height="12" viewbox="0 0 16 16" width="12">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z">
+                </path>
+              </svg>
+            </button>
+            <div class="mega-menu" id="megaMenu">
+              <div class="mega-menu-grid">
+                <div class="mega-col">
+                  <div class="mega-col-title">
+                    軟體
+                  </div>
+                  <ul class="mega-col-list">
+                    <li>
+                      <a href="#">
+                        Windows 應用程式
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        OneDrive
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Outlook
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        從 Skype 移至 Teams
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        OneNote
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Microsoft Teams
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-col">
+                  <div class="mega-col-title">
+                    個人電腦和設備
+                  </div>
+                  <ul class="mega-col-list">
+                    <li>
+                      <a href="#">
+                        選購 Surface Pro
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Surface Laptop
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Surface 配件
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        電腦週邊與鍵鼠
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-col">
+                  <div class="mega-col-title">
+                    娛樂
+                  </div>
+                  <ul class="mega-col-list">
+                    <li>
+                      <a href="#">
+                        Xbox Game Pass Ultimate
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Xbox 主機與控制器
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Xbox 與電腦遊戲
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Windows 娛樂軟體
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-col">
+                  <div class="mega-col-title">
+                    商務適用
+                  </div>
+                  <ul class="mega-col-list">
+                    <li>
+                      <a href="#">
+                        Microsoft AI
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Microsoft 安全性
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Azure 雲端運算
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Dynamics 365
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        商務用 Microsoft 365
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Power Platform
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Windows 365 雲端電腦
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-col">
+                  <div class="mega-col-title">
+                    開發人員與 IT
+                  </div>
+                  <ul class="mega-col-list">
+                    <li>
+                      <a href="#">
+                        Visual Studio
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Microsoft Learn
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        支援 AI 市場應用程式
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Microsoft 技術社群
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Azure Marketplace
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        開發人員工具指南
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-col">
+                  <div class="mega-col-title">
+                    其他
+                  </div>
+                  <ul class="mega-col-list">
+                    <li>
+                      <a href="#">
+                        Microsoft Rewards
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        免費下載與安全性
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        教育專案優惠
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Xbox 禮品卡
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        大量授權 (Licensing)
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-footer">
+                <a href="#">
+                  <span>
+                    檢視完整網站地圖
+                  </span>
+                  <svg fill="currentColor" height="14" viewbox="0 0 16 16" width="14">
+                    <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" fill-rule="evenodd">
+                    </path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="search-wrapper">
+            <button aria-label="搜尋" class="action-btn" id="searchToggleBtn" title="搜尋 Microsoft.com">
+              <svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+                <circle cx="11" cy="11" r="8">
+                </circle>
+                <line x1="21" x2="16.65" y1="21" y2="16.65">
+                </line>
+              </svg>
+            </button>
+            <div class="search-input-box" id="searchBox">
+              <input id="searchInput" placeholder="搜尋 Microsoft.com" type="text"/>
+              <button aria-label="關閉搜尋" class="action-btn" id="searchCloseBtn" style="padding: 4px;">
+                ✕
+              </button>
+            </div>
+          </div>
+          <a aria-label="購物車" class="action-btn" href="#" title="購物車 (0 個項目)">
+            <svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+              <circle cx="9" cy="21" r="1">
+              </circle>
+              <circle cx="20" cy="21" r="1">
+              </circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+              </path>
+            </svg>
+            <span class="badge-cart">
+              0
+            </span>
+          </a>
+          <button aria-label="個人帳戶選單" class="avatar-btn" title="Microsoft 帳戶：崇徐">
+            <span>
+              崇徐
+            </span>
+          </button>
+        </div>
+      </div>
+      <div aria-label="行動版導覽" class="mobile-drawer" id="mobileDrawer">
+        <ul class="mobile-nav-list">
+          <li>
+            <a href="#">
+              Microsoft 365
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              Azure
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              Windows 11
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              Surface 裝置
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              Xbox 遊戲
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              商務解決方案
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              技術支援
+            </a>
+          </li>
+          <li>
+            <details class="mobile-all-ms">
+              <summary>
+                所有 Microsoft
+              </summary>
+              <div class="mobile-mega-group">
+                <strong>
+                  軟體
+                </strong>
+                <a href="#">
+                  Windows 應用程式
+                </a>
+                <a href="#">
+                  OneDrive
+                </a>
+                <a href="#">
+                  Outlook
+                </a>
+                <a href="#">
+                  從 Skype 移至 Teams
+                </a>
+                <a href="#">
+                  OneNote
+                </a>
+                <a href="#">
+                  Microsoft Teams
+                </a>
+              </div>
+              <div class="mobile-mega-group">
+                <strong>
+                  個人電腦和設備
+                </strong>
+                <a href="#">
+                  選購 Surface Pro
+                </a>
+                <a href="#">
+                  Surface Laptop
+                </a>
+                <a href="#">
+                  Surface 配件
+                </a>
+                <a href="#">
+                  電腦週邊與鍵鼠
+                </a>
+              </div>
+              <div class="mobile-mega-group">
+                <strong>
+                  娛樂
+                </strong>
+                <a href="#">
+                  Xbox Game Pass Ultimate
+                </a>
+                <a href="#">
+                  Xbox 主機與控制器
+                </a>
+                <a href="#">
+                  Xbox 與電腦遊戲
+                </a>
+                <a href="#">
+                  Windows 娛樂軟體
+                </a>
+              </div>
+              <div class="mobile-mega-group">
+                <strong>
+                  商務適用
+                </strong>
+                <a href="#">
+                  Microsoft AI
+                </a>
+                <a href="#">
+                  Microsoft 安全性
+                </a>
+                <a href="#">
+                  Azure 雲端運算
+                </a>
+                <a href="#">
+                  Dynamics 365
+                </a>
+                <a href="#">
+                  商務用 Microsoft 365
+                </a>
+                <a href="#">
+                  Power Platform
+                </a>
+                <a href="#">
+                  Windows 365 雲端電腦
+                </a>
+              </div>
+              <div class="mobile-mega-group">
+                <strong>
+                  開發人員與 IT
+                </strong>
+                <a href="#">
+                  Visual Studio
+                </a>
+                <a href="#">
+                  Microsoft Learn
+                </a>
+                <a href="#">
+                  支援 AI 市場應用程式
+                </a>
+                <a href="#">
+                  Microsoft 技術社群
+                </a>
+                <a href="#">
+                  Azure Marketplace
+                </a>
+                <a href="#">
+                  開發人員工具指南
+                </a>
+              </div>
+              <div class="mobile-mega-group">
+                <strong>
+                  其他
+                </strong>
+                <a href="#">
+                  Microsoft Rewards
+                </a>
+                <a href="#">
+                  免費下載與安全性
+                </a>
+                <a href="#">
+                  教育專案優惠
+                </a>
+                <a href="#">
+                  Xbox 禮品卡
+                </a>
+                <a href="#">
+                  大量授權 (Licensing)
+                </a>
+              </div>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <main id="main">
+      <section aria-label="焦點輪播" aria-roledescription="carousel" class="hero" id="top">
+        <div class="slides" id="slides">
+          <article aria-label="第 1 張，共 2 張" class="slide slide-1" data-theme="1">
+            <div aria-hidden="true" class="hero-art">
+            </div>
+            <div class="hero-content">
+              <h1>
+                借助 Copilot突破極限
+              </h1>
+              <p>
+                透過 Microsoft 365，一站式獲得包含 Copilot 的生產力應用程式、進階 AI 功能，以及雲端儲存空間。
+              </p>
+              <a class="btn" href="#m365">
+                探索 Microsoft 365
+              </a>
+            </div>
+          </article>
+          <article aria-label="第 2 張，共 2 張" class="slide slide-2" data-theme="2">
+            <div aria-hidden="true" class="hero-art">
+            </div>
+            <div class="hero-content">
+              <div class="eyebrow">
+                <div class="eyebrow-w">
+                  即將推出
+                </div>
+              </div>
+              <h2>
+                我們最方便攜帶的 Surface 系列產品
+              </h2>
+              <p>
+                無論是發揮創意、應付忙碌日常，還是捕捉創造力瞬間，Surface Pro 和 Surface Laptop 都能跟上步調。
+              </p>
+              <a class="btn" href="#products">
+                探索 Surface
+              </a>
+            </div>
+          </article>
+        </div>
+        <div class="controls">
+          <button aria-label="上一張" class="ctrl-arrow" id="prevBtn">
+            <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+              <line x1="19" x2="5" y1="12" y2="12">
+              </line>
+              <polyline points="12 19 5 12 12 5">
+              </polyline>
+            </svg>
+          </button>
+          <div class="controls-center">
+            <div class="dots" id="dots">
+              <button aria-current="true" aria-label="第 1 張" class="dot" data-index="0">
+              </button>
+              <button aria-current="false" aria-label="第 2 張" class="dot" data-index="1">
+              </button>
+            </div>
+            <button aria-label="暫停輪播" class="ctrl-play" id="playBtn">
+              <svg fill="currentColor" height="14" viewbox="0 0 16 16" width="14">
+                <rect height="12" rx="1" width="4" x="3" y="2">
+                </rect>
+                <rect height="12" rx="1" width="4" x="9" y="2">
+                </rect>
+              </svg>
+            </button>
+          </div>
+          <button aria-label="下一張" class="ctrl-arrow" id="nextBtn">
+            <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+              <line x1="5" x2="19" y1="12" y2="12">
+              </line>
+              <polyline points="12 5 19 12 12 19">
+              </polyline>
+            </svg>
+          </button>
+        </div>
+      </section>
+      <section class="shell-container quick-access-section" id="m365">
+        <div class="quick-grid">
+          <a class="quick-tile" href="#">
+            <div class="quick-tile-icon">
+              <img alt="" loading="lazy" src="https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/Quick-Links-Store-Apps?resMode=sharp2&amp;op_usm=1.5,0.65,15,0&amp;qlt=85"/>
+            </div>
+            <span class="quick-tile-title">
+              選購 Microsoft 365
+            </span>
+          </a>
+          <a class="quick-tile" href="#">
+            <div class="quick-tile-icon">
+              <img alt="" loading="lazy" src="https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/Quick-Links-MSCOM-Tablet?resMode=sharp2&amp;op_usm=1.5,0.65,15,0&amp;qlt=85"/>
+            </div>
+            <span class="quick-tile-title">
+              選購 Surface
+            </span>
+          </a>
+          <a class="quick-tile" href="#">
+            <div class="quick-tile-icon">
+              <img alt="" loading="lazy" src="https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/Quick-Links-Store-Apps?resMode=sharp2&amp;op_usm=1.5,0.65,15,0&amp;qlt=85&amp;fit=constrain"/>
+            </div>
+            <span class="quick-tile-title">
+              取得 Windows 11
+            </span>
+          </a>
+        </div>
+      </section>
+      <section class="shell-container" id="products">
+        <div class="section-header-block">
+          <h2 class="section-title">
+            熱門個人與家用精選
+          </h2>
+          <a class="section-sublink" href="#">
+            <span>
+              查看所有消費者產品
+            </span>
+            <svg fill="currentColor" height="14" viewbox="0 0 16 16" width="14">
+              <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" fill-rule="evenodd">
+              </path>
+            </svg>
+          </a>
+        </div>
+        <div class="products-grid">
+          <article class="fluent-card">
+            <div class="card-banner">
+              <div class="card-banner-bg" style="background: linear-gradient(135deg, #1e293b, #334155);">
+              </div>
+              <div class="banner-graphic-svg">
+                <img alt="XBOX Game Pass 提供各式多樣好玩的遊戲。" loading="lazy" src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/455251-Card-Feature-Xbox-Game-Pass?resMode=sharp2&amp;op_usm=1.5,0.65,15,0&amp;wid=800&amp;hei=450&amp;qlt=85&amp;fit=constrain"/>
+              </div>
+            </div>
+            <div class="card-content">
+              <span class="card-badge">
+                全新推出
+              </span>
+              <h3 class="card-title">
+                Surface Laptop (第 7 版)
+              </h3>
+              <p class="card-description">
+                突破性的 NPU 運算晶片，帶來前所未有的長效全天電池續航與超高速 AI 智慧體驗。
+              </p>
+              <a class="card-link-action" href="#">
+                <span>
+                  深入了解與選購
+                </span>
+                <svg fill="currentColor" height="14" viewbox="0 0 16 16" width="14">
+                  <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" fill-rule="evenodd">
+                  </path>
+                </svg>
+              </a>
+            </div>
+          </article>
+          <article class="fluent-card">
+            <div class="card-banner">
+              <div class="card-banner-bg" style="background: linear-gradient(135deg, #107c41, #0a4f29);">
+              </div>
+              <div class="banner-graphic-svg">
+                <svg fill="none" height="84" stroke="#ffffff" stroke-width="1.5" viewbox="0 0 24 24" width="84">
+                  <circle cx="12" cy="12" r="10">
+                  </circle>
+                  <path d="M8 12h8M12 8v8">
+                  </path>
+                </svg>
+              </div>
+            </div>
+            <div class="card-content">
+              <span class="card-badge">
+                玩家必備
+              </span>
+              <h3 class="card-title">
+                Xbox Game Pass Ultimate
+              </h3>
+              <p class="card-description">
+                首發當天暢玩大作。在 Xbox 主機、電腦與雲端享受數百款高品質遊戲及 EA Play 會員福利。
+              </p>
+              <a class="card-link-action" href="#">
+                <span>
+                  立即以超值價格訂閱
+                </span>
+                <svg fill="currentColor" height="14" viewbox="0 0 16 16" width="14">
+                  <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" fill-rule="evenodd">
+                  </path>
+                </svg>
+              </a>
+            </div>
+          </article>
+          <article class="fluent-card">
+            <div class="card-banner">
+              <div class="card-banner-bg" style="background: linear-gradient(135deg, #09090b, #27272a);">
+              </div>
+              <div class="banner-graphic-svg">
+                <svg fill="none" height="80" stroke="#22c55e" stroke-width="1.6" viewbox="0 0 24 24" width="80">
+                  <rect height="20" rx="2" width="14" x="5" y="2">
+                  </rect>
+                  <circle cx="12" cy="6" r="1.5">
+                  </circle>
+                  <line x1="12" x2="12" y1="12" y2="16">
+                  </line>
+                </svg>
+              </div>
+            </div>
+            <div class="card-content">
+              <span class="card-badge">
+                終極效能
+              </span>
+              <h3 class="card-title">
+                Xbox Series X
+              </h3>
+              <p class="card-description">
+                真 4K 120 FPS 高流暢度遊戲畫面、極速加載架構與向下相容四個世代的經典遊戲庫存。
+              </p>
+              <a class="card-link-action" href="#">
+                <span>
+                  選購 XBOX Series X
+                </span>
+                <svg fill="currentColor" height="14" viewbox="0 0 16 16" width="14">
+                  <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" fill-rule="evenodd">
+                  </path>
+                </svg>
+              </a>
+            </div>
+          </article>
+          <article class="fluent-card">
+            <div class="card-banner">
+              <div class="card-banner-bg" style="background: linear-gradient(135deg, #0078d4, #00bcf2);">
+              </div>
+              <div class="banner-graphic-svg">
+                <svg fill="none" height="84" stroke="#ffffff" stroke-width="1.5" viewbox="0 0 24 24" width="84">
+                  <circle cx="12" cy="12" r="10">
+                  </circle>
+                  <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                  </path>
+                </svg>
+              </div>
+            </div>
+            <div class="card-content">
+              <span class="card-badge">
+                智慧瀏覽
+              </span>
+              <h3 class="card-title">
+                Microsoft Edge 瀏覽器
+              </h3>
+              <p class="card-description">
+                世界級的速度、隱私保護與深度整合的 Copilot 側邊欄，讓您網頁搜尋、翻譯與摘要一氣呵成。
+              </p>
+              <a class="card-link-action" href="#">
+                <span>
+                  立即免費下載
+                </span>
+                <svg fill="currentColor" height="14" viewbox="0 0 16 16" width="14">
+                  <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" fill-rule="evenodd">
+                  </path>
+                </svg>
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="shell-container" id="business">
+        <div class="spotlight-banner">
+          <div class="spotlight-glow">
+          </div>
+          <div>
+            <h2 class="spotlight-title">
+              微軟雲端與 AI：為每一家企業賦予非凡生產力
+            </h2>
+            <p class="spotlight-desc">
+              以負責任的 AI 原則為核心，Azure 與 Microsoft 365 Copilot 能為您的跨國團隊自動化繁瑣流程、保護敏感數位資產，並在瞬息萬變的商業環境中維持敏捷競爭優勢。
+            </p>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+              <a class="btn-fluent-primary" href="#">
+                預約企業架構諮詢
+              </a>
+              <a class="btn-fluent-ghost" href="#" style="background: transparent; color: #ffffff !important; border-color: rgba(255,255,255,0.4);">
+                探索微軟 AI 解決方案
+              </a>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: center;">
+            <div style="width: 240px; height: 240px; border-radius: 50%; background: linear-gradient(135deg, rgba(0,164,239,0.3), rgba(127,186,0,0.3)); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2);">
+              <svg fill="none" height="110" stroke="#ffffff" stroke-width="1.3" viewbox="0 0 24 24" width="110">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z">
+                </path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="shell-container">
+        <div class="section-header-block">
+          <h2 class="section-title">
+            適用於商務與企業解決方案
+          </h2>
+          <a class="section-sublink" href="#">
+            <span>
+              瀏覽微軟商務中心
+            </span>
+            <svg fill="currentColor" height="14" viewbox="0 0 16 16" width="14">
+              <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" fill-rule="evenodd">
+              </path>
+            </svg>
+          </a>
+        </div>
+        <div class="products-grid">
+          <article class="fluent-card">
+            <div class="card-banner">
+              <div class="card-banner-bg" style="background: linear-gradient(135deg, #1e3a8a, #172554);">
+              </div>
+              <div class="banner-graphic-svg">
+                <svg fill="none" height="84" stroke="#60a5fa" stroke-width="1.5" viewbox="0 0 24 24" width="84">
+                  <rect height="14" rx="2" width="20" x="2" y="3">
+                  </rect>
+                  <line x1="12" x2="12" y1="17" y2="21">
+                  </line>
+                  <line x1="8" x2="16" y1="21" y2="21">
+                  </line>
+                </svg>
+              </div>
+            </div>
+            <div class="card-content">
+              <span class="card-badge">
+                企業硬體
+              </span>
+              <h3 class="card-title">
+                全新商務版 Surface
+              </h3>
+              <p class="card-description">
+                專為混合辦公量身打造，具備晶片至雲端的安全防護、現代遠端裝置部署與全天候高續航力。
+              </p>
+              <a class="card-link-action" href="#">
+                <span>
+                  探索商務機型
+                </span>
+                <svg fill="currentColor" height="14" viewbox="0 0 16 16" width="14">
+                  <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" fill-rule="evenodd">
+                  </path>
+                </svg>
+              </a>
+            </div>
+          </article>
+          <article class="fluent-card">
+            <div class="card-banner">
+              <div class="card-banner-bg" style="background: linear-gradient(135deg, #064e3b, #022c22);">
+              </div>
+              <div class="banner-graphic-svg">
+                <svg fill="none" height="84" stroke="#34d399" stroke-width="1.5" viewbox="0 0 24 24" width="84">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z">
+                  </path>
+                </svg>
+              </div>
+            </div>
+            <div class="card-content">
+              <span class="card-badge">
+                零信任防護
+              </span>
+              <h3 class="card-title">
+                Microsoft 安全性
+              </h3>
+              <p class="card-description">
+                跨身分識別、裝置、應用程式與多雲環境，以原生 AI 威脅情報提供 360 度無死角的主動聯防。
+              </p>
+              <a class="card-link-action" href="#">
+                <span>
+                  檢視資安評估報告
+                </span>
+                <svg fill="currentColor" height="14" viewbox="0 0 16 16" width="14">
+                  <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" fill-rule="evenodd">
+                  </path>
+                </svg>
+              </a>
+            </div>
+          </article>
+          <article class="fluent-card">
+            <div class="card-banner">
+              <div class="card-banner-bg" style="background: linear-gradient(135deg, #0369a1, #0c4a6e);">
+              </div>
+              <div class="banner-graphic-svg">
+                <svg fill="none" height="84" stroke="#38bdf8" stroke-width="1.5" viewbox="0 0 24 24" width="84">
+                  <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z">
+                  </path>
+                </svg>
+              </div>
+            </div>
+            <div class="card-content">
+              <span class="card-badge">
+                全球雲端基礎
+              </span>
+              <h3 class="card-title">
+                Microsoft Azure 雲端
+              </h3>
+              <p class="card-description">
+                利用混合雲架構與 Azure OpenAI 服務，在值得信賴的企業級環境中快速打造次世代智慧系統。
+              </p>
+              <a class="card-link-action" href="#">
+                <span>
+                  申請免費體驗帳號
+                </span>
+                <svg fill="currentColor" height="14" viewbox="0 0 16 16" width="14">
+                  <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" fill-rule="evenodd">
+                  </path>
+                </svg>
+              </a>
+            </div>
+          </article>
+          <article class="fluent-card">
+            <div class="card-banner">
+              <div class="card-banner-bg" style="background: linear-gradient(135deg, #4c1d95, #2e1065);">
+              </div>
+              <div class="banner-graphic-svg">
+                <svg fill="none" height="84" stroke="#c084fc" stroke-width="1.5" viewbox="0 0 24 24" width="84">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2">
+                  </path>
+                  <circle cx="9" cy="7" r="4">
+                  </circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87">
+                  </path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75">
+                  </path>
+                </svg>
+              </div>
+            </div>
+            <div class="card-content">
+              <span class="card-badge">
+                團隊協作
+              </span>
+              <h3 class="card-title">
+                Teams 與 Power Platform
+              </h3>
+              <p class="card-description">
+                將聊天會議、低程式碼流程自動化與數據分析集中於單一平台，實現無縫且高生產力的協同作業。
+              </p>
+              <a class="card-link-action" href="#">
+                <span>
+                  探索商務方案
+                </span>
+                <svg fill="currentColor" height="14" viewbox="0 0 16 16" width="14">
+                  <path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" fill-rule="evenodd">
+                  </path>
+                </svg>
+              </a>
+            </div>
+          </article>
+        </div>
+        <div class="social-follow-row">
+          <span>
+            關注微軟社群動態：
+          </span>
+          <div class="social-links-list">
+            <a aria-label="微軟 Facebook" class="social-icon-btn" href="#" title="Facebook">
+              <svg fill="currentColor" height="18" viewbox="0 0 24 24" width="18">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z">
+                </path>
+              </svg>
+            </a>
+            <a aria-label="微軟 YouTube" class="social-icon-btn" href="#" title="YouTube">
+              <svg fill="currentColor" height="18" viewbox="0 0 24 24" width="18">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z">
+                </path>
+                <polygon fill="#fff" points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02">
+                </polygon>
+              </svg>
+            </a>
+            <a aria-label="微軟 LinkedIn" class="social-icon-btn" href="#" title="LinkedIn">
+              <svg fill="currentColor" height="18" viewbox="0 0 24 24" width="18">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                </path>
+                <rect height="12" width="4" x="2" y="9">
+                </rect>
+                <circle cx="4" cy="4" r="2">
+                </circle>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <a aria-label="回到首頁頂端" class="back-to-top is-hidden" href="#top" id="backToTopBtn">
+      <svg fill="currentColor" height="14" viewbox="0 0 16 16" width="14">
+        <path d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" fill-rule="evenodd">
+        </path>
+      </svg>
+      <span>
+        回到首頁
+      </span>
+    </a>
+    <footer class="site-footer" id="footer" role="contentinfo">
+      <div class="shell-container">
+        <div class="footer-nav-grid">
+          <div class="footer-col">
+            <h4 class="footer-col-header">
+              最新消息
+            </h4>
+            <ul class="footer-col-links">
+              <li>
+                <a href="#">
+                  Surface Pro
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  Surface Laptop
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  探索 Copilot
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  Microsoft 365
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  Windows 11 應用程式
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-header">
+              Microsoft Store
+            </h4>
+            <ul class="footer-col-links">
+              <li>
+                <a href="#">
+                  帳戶設定檔
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  下載中心
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  Microsoft Store 支援
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  退貨與退款政策
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  訂單即時追蹤
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-header">
+              教育
+            </h4>
+            <ul class="footer-col-links">
+              <li>
+                <a href="#">
+                  Microsoft 教育方案
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  學生與教育裝置
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  Teams 教育版
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  Microsoft 365 教育版
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  Azure 學生開發專案
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-header">
+              大型企業
+            </h4>
+            <ul class="footer-col-links">
+              <li>
+                <a href="#">
+                  Microsoft AI 解決方案
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  企業級安全平台
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  Azure 雲端基礎架構
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  Dynamics 365 商業智慧
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  Power Platform 自動化
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-header">
+              開發人員與 IT
+            </h4>
+            <ul class="footer-col-links">
+              <li>
+                <a href="#">
+                  開發人員技術中心
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  Microsoft Learn 學習路徑
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  支援 AI 市場應用程式
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  微軟技術社群
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  Visual Studio 訂閱
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-header">
+              公司與願景
+            </h4>
+            <ul class="footer-col-links">
+              <li>
+                <a href="#">
+                  人才招募
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  微軟新聞中心
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  隱私權保護承諾
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  投資者關係
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  永續發展報告
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-subbar">
+          <div class="footer-region-picker">
+            <svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+              <circle cx="12" cy="12" r="10">
+              </circle>
+              <line x1="2" x2="22" y1="12" y2="12">
+              </line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+              </path>
+            </svg>
+            <span>
+              中文 (台灣)
+            </span>
+          </div>
+          <div class="footer-legal-links">
+            <a href="#">
+              連絡 Microsoft
+            </a>
+            <a href="#">
+              隱私權與 Cookie
+            </a>
+            <a href="#">
+              使用規定
+            </a>
+            <a href="#">
+              商標聲明
+            </a>
+            <a href="#">
+              有關廣告的訊息
+            </a>
+            <span>
+              &copy; Microsoft 2026
+            </span>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          // 取得導覽列、下拉選單、搜尋框與行動版抽屜的 DOM 元素
+          const allMsBtn = document.getElementById('allMsBtn');
+          const megaMenu = document.getElementById('megaMenu');
+          const searchToggleBtn = document.getElementById('searchToggleBtn');
+          const searchBox = document.getElementById('searchBox');
+          const searchCloseBtn = document.getElementById('searchCloseBtn');
+          const searchInput = document.getElementById('searchInput');
+          const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+          const mobileDrawer = document.getElementById('mobileDrawer');
+          // 監聽視窗尺寸變化：自動收合不適用當前斷點的選單
+          window.addEventListener('resize', () => {
+            if (window.innerWidth <= 900) {
+              megaMenu?.classList.remove('is-open');
+              allMsBtn?.setAttribute('aria-expanded', 'false');
+              searchBox?.classList.remove('is-open');
+            } else {
+              mobileDrawer?.classList.remove('is-open');
+              mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+              mobileMenuBtn?.setAttribute('aria-label', '開啟導覽選單');
+            }
+          });
+          // 「所有 Microsoft」Mega Menu 開關與點擊外部自動關閉
+          if (allMsBtn && megaMenu) {
+            allMsBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const isOpen = megaMenu.classList.toggle('is-open');
+              allMsBtn.setAttribute('aria-expanded', String(isOpen));
+              if (isOpen && searchBox) searchBox.classList.remove('is-open');
+            });
+            document.addEventListener('click', (e) => {
+              if (!allMsBtn.contains(e.target) && !megaMenu.contains(e.target)) {
+                megaMenu.classList.remove('is-open');
+                allMsBtn.setAttribute('aria-expanded', 'false');
+              }
+            });
+          }
+          // 搜尋輸入框展開、聚焦與關閉控制
+          if (searchToggleBtn && searchBox && searchCloseBtn) {
+            searchToggleBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const isOpen = searchBox.classList.toggle('is-open');
+              if (isOpen && searchInput) {
+                searchInput.focus();
+                if (megaMenu) {
+                  megaMenu.classList.remove('is-open');
+                  if (allMsBtn) allMsBtn.setAttribute('aria-expanded', 'false');
+                }
+              }
+            });
+            searchCloseBtn.addEventListener('click', () => searchBox.classList.remove('is-open'));
+            document.addEventListener('click', (e) => {
+              if (!searchBox.contains(e.target) && !searchToggleBtn.contains(e.target)) {
+                searchBox.classList.remove('is-open');
+              }
+            });
+          }
+          // 行動版漢堡選單開關與點擊連結後自動收合
+          if (mobileMenuBtn && mobileDrawer) {
+            mobileMenuBtn.addEventListener('click', () => {
+              const isOpen = mobileDrawer.classList.toggle('is-open');
+              mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+              mobileMenuBtn.setAttribute('aria-label', isOpen ? '關閉導覽選單' : '開啟導覽選單');
+            });
+            mobileDrawer.addEventListener('click', (event) => {
+              if (event.target.closest('a')) {
+                mobileDrawer.classList.remove('is-open');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                mobileMenuBtn.setAttribute('aria-label', '開啟導覽選單');
+              }
+            });
+          }
+          // 全站所有連結與按鈕：左鍵點擊、鍵盤聚焦或右鍵點選時觸發深色底與虛線外框，點擊外部時取消
+          const interactiveElements = document.querySelectorAll('a, button, summary');
+          interactiveElements.forEach(el => {
+            const activateOutline = () => {
+              interactiveElements.forEach(item => item.classList.remove('active-click'));
+              el.classList.add('active-click');
+            };
+            el.addEventListener('click', activateOutline);
+            el.addEventListener('contextmenu', () => { activateOutline(); el.focus(); });
+          });
+          document.addEventListener('click', (e) => {
+            if (!e.target.closest('a, button, summary')) {
+              interactiveElements.forEach(item => item.classList.remove('active-click'));
+            }
+          });
+          // 輪播區邏輯：控制幻燈片切換、左右邊界箭頭淡化、SVG 暫停/播放圖示切換與自動播放
+          const slides = document.getElementById('slides');
+          const playBtn = document.getElementById('playBtn');
+          const prevBtn = document.getElementById('prevBtn');
+          const nextBtn = document.getElementById('nextBtn');
+          const dots = [...document.querySelectorAll('.dot')];
+          const items = [...document.querySelectorAll('.slide')];
+          const hero = document.querySelector('.hero');
+          const pauseSvg = '<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="4" height="12" rx="1"></rect><rect x="9" y="2" width="4" height="12" rx="1"></rect></svg>';
+          const playSvg = '<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><polygon points="4,2 14,8 4,14"></polygon></svg>';
+          if (slides && items.length) {
+            let index = 0;
+            let playing = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let timer = null;
+            const update = (n) => {
+              index = (n + items.length) % items.length;
+              slides.style.transform = `translateX(-${index * 100}%)`;
+              dots.forEach((b, i) => b.setAttribute('aria-current', String(i === index)));
+              items.forEach((el, i) => {
+                el.setAttribute('aria-hidden', String(i !== index));
+                el.querySelectorAll('a').forEach(a => a.tabIndex = (i === index ? 0 : -1));
+              });
+              prevBtn?.classList.toggle('is-edge', index === 0);
+              nextBtn?.classList.toggle('is-edge', index === items.length - 1);
+            };
+            const stop = () => { clearInterval(timer); timer = null; };
+            const start = () => { stop(); if (playing) timer = setInterval(() => update(index + 1), 7000); };
+            const togglePlay = () => {
+              playing = !playing;
+              playBtn.innerHTML = playing ? pauseSvg : playSvg;
+              playBtn.setAttribute('aria-label', playing ? '暫停輪播' : '播放輪播');
+              start();
+            };
+            prevBtn?.addEventListener('click', () => { update(index - 1); start(); });
+            nextBtn?.addEventListener('click', () => { update(index + 1); start(); });
+            playBtn?.addEventListener('click', togglePlay);
+            dots.forEach(b => b.addEventListener('click', () => { update(Number(b.dataset.index)); start(); }));
+            hero?.addEventListener('mouseenter', stop);
+            hero?.addEventListener('mouseleave', start);
+            hero?.addEventListener('focusin', stop);
+            hero?.addEventListener('focusout', e => { if (!hero.contains(e.relatedTarget)) start(); });
+            document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+            update(0);
+            if (playBtn) {
+              playBtn.innerHTML = playing ? pauseSvg : playSvg;
+              playBtn.setAttribute('aria-label', playing ? '暫停輪播' : '播放輪播');
+            }
+            start();
+          }
+          // 監聽輪播框可視狀態：當輪播框出現在畫面中時隱藏「回到首頁」按鈕，滾動離開時顯示
+          const backToTopBtn = document.getElementById('backToTopBtn');
+          if (hero && backToTopBtn) {
+            const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                backToTopBtn.classList.toggle('is-hidden', entry.isIntersecting);
+              });
+            }, { threshold: 0.05 });
+            observer.observe(hero);
+            backToTopBtn.addEventListener('click', (e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+          }
+        });
+    </script>
+  </body>
+</html>

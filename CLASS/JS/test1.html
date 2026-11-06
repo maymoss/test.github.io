@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .box{
+    background-color: aquamarine;
+    width: 200px;
+    height: 200px;
+  }
+</style>
+<body>
+
+  <div class="box">123</div>
+  <script>
+    const btnbox = document.querySelector(".box");
+    btnbox.textContent="999";
+    btnbox.addEventListener('click',function(){
+      if( btnbox.textContent==="No" ){
+        btnbox.textContent="Hello!";
+        btnbox.style.     
+      }
+      else{
+        btnbox.textContent="No";
+      }
+    } );
+  </script>
+</body>
+</html>
