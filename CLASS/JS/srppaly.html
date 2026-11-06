@@ -11,11 +11,8 @@
 <style>
   /* 青春洋溢、暖色系風格 */
   :root {
-    --primary-orange: #ff7e5f;
     --secondary-peach: #feb47b;
     --accent-yellow: #ffe66d;
-    --bg-cream: #fffaf4;
-    --text-dark: #4a4a4a;
     --shadow-color: rgba(255, 126, 95, 0.2);
   }
 
@@ -24,7 +21,7 @@
     margin: 0;
     padding: 30px 10px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--text-dark);
+    color: #4a4a4a;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -136,7 +133,7 @@
   }
 
   #bntgo {
-    background: linear-gradient(45deg, var(--primary-orange), var(--secondary-peach));
+    background: linear-gradient(45deg, #ff7e5f, var(--secondary-peach));
     color: white;
   }
 
@@ -248,15 +245,15 @@
 
     // 🌟 共用動畫函式：接收一個 callback（當 1 秒滾動結束後要做甚麼事）
     function playAnimation(callback) {
-      btn2.textContent = "🤔 思考中..."; // 滾動時顯示提示字
+      btn2.textContent = "🤔 思考中..."; 
 
       // 開啟循環定時器：每 50 毫秒變換一次圖片
       let scrollTimer = setInterval(radombtn, 50);
 
       // 設定 1000 毫秒（1秒）後停止滾動，並執行傳入的 callback
       setTimeout(function() {
-        clearInterval(scrollTimer); // 停止滾動
-        callback(); // 執行後續邏輯
+        clearInterval(scrollTimer); 
+        callback();
       }, 1000);
     }
 
@@ -288,7 +285,6 @@
         confirmButtonColor: '#ff7e5f',
         cancelButtonColor: '#aaa',
         // 透過 preConfirm 回傳對應的索引值 (0: 剪刀, 1: 石頭, 2: 布)
-        // 這裡我們直接自定義 HTML 按鈕排版會更直覺，如下：
         html: `
           <div style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
             <button type="button" class="swal2-btn-choice" data-val="0" style="padding: 10px 20px; border-radius: 20px; border: 2px solid #ff7e5f; background: #fffaf4; cursor: pointer; font-weight: bold;">✌️ 剪刀</button>
@@ -311,7 +307,7 @@
       });
     });
 
-    // ✨ 3. 下方 DIV 點擊事件 (或由自訂出拳呼叫)：加入動畫後再顯示結果
+    // ✨ 3. 自訂出拳
     function seckubtn(type) {
       clearActive();
 
@@ -320,14 +316,10 @@
 
       // 呼叫共用動畫，動畫結束後才鎖定玩家的選擇並結算
       playAnimation(function() {
-        // 玩家區域 (box3) 顯示玩家點選的固定拳
         btn3.style.backgroundImage = fruits[type];
-
-        // 電腦 (box1) 自動隨機抽一個拳迎戰
         let pcIndex = Math.floor(Math.random() * fruits.length);
         btn1.style.backgroundImage = fruits[pcIndex];
 
-        // 計算勝負並顯示
         btn2.textContent = ckvalue(pcIndex, type);
       });
     }

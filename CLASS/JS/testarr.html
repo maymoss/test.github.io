@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let menu = ["紅茶","綠茶","烏龍茶","奶茶","奶綠" ];
+    console.log(menu[ menu.length-5 ]);
+
+    let car = [];
+    car.push("白吐司");
+    console.log( car, car.length );
+    car.push("統一脆面");
+    console.log( car, car.length );
+    car.push("可口可樂 1250ml");
+    console.log( car, car.length );
+
+    console.log("移除了", car.pop() );
+    car[1]="啤酒";
+    console.log(car);
+
+    const moneys = [50,60,45,80,100];
+    let totals = moneys[0] + moneys[1] + moneys[2] + moneys[3] + moneys[4];
+    let roundtotal = totals / moneys.length;
+    console.log( "平均值：", roundtotal );
+    
+    if( totals>=300){
+      console.log("滿300送點數");
+    } else {
+      console.log("距離滿300送點數還差：", (300-totals) );
+    }
+
+  </script>
+</body>
+</html>

@@ -1,183 +1,174 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://lanjiji.zapto.org/9ghfo-83t22-001.ico?v=2" rel="icon" type="image/x-icon"/>
-  <title>基礎計算機</title>
+  <title>極簡美學計算機</title>
   <style>
-    /* ===== 色彩變數(自動支援深色模式) ===== */
+    /* ===== 色彩與厚度變數 ===== */
     :root {
-      --bg-1: #f3f5fa;
-      --bg-2: #dfe5f0;
-      --card-top: #ffffff;
-      --card-bottom: #e9edf5;
-      --card-edge: #c5ccdb;
+      --bg-1: #262a39;
+      --bg-2: #101218;
 
-      --screen-bg-top: #cfd6e3;
-      --screen-bg-bottom: #e8edf6;
-      --screen-text: #1d2433;
+      --body-top: #2a2e3a;
+      --body-bottom: #1d2028;
+      --body-edge: #0d0f14;
+      --body-border: #343a4a;
 
-      --key-top: #ffffff;
-      --key-bottom: #e6eaf2;
-      --key-edge: #b9c1d1;
-      --key-text: #1d2433;
+      --screen: #14161c;
+      --screen-line: rgba(255, 255, 255, 0.05);
 
-      --op-top: #ffc56b;
-      --op-bottom: #ffa62b;
-      --op-edge: #d8821a;
-      --op-text: #3a2400;
+      --key-top: #363a49;
+      --key-bottom: #282b36;
+      --key-edge: #12141a;
 
-      --eq-top: #4fd186;
-      --eq-bottom: #2fae66;
-      --eq-edge: #1f8a4e;
+      --action-top: #43303a;
+      --action-bottom: #30242b;
+      --action-edge: #170f13;
 
-      --clear-top: #ff7b78;
-      --clear-bottom: #ea4643;
-      --clear-edge: #b92f2d;
+      --operator-top: #2d3d52;
+      --operator-bottom: #222e3e;
+      --operator-edge: #0f1722;
 
-      --focus: #3b82f6;
-      --muted: #8a93a6;
-      --gloss: rgba(255, 255, 255, 0.7);
-      --drop: rgba(30, 41, 59, 0.22);
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg-1: #1a1f2e;
-        --bg-2: #0d1017;
-        --card-top: #2a3045;
-        --card-bottom: #1b2030;
-        --card-edge: #0f121b;
+      --equals-top: #66bdff;
+      --equals-bottom: #409be6;
+      --equals-edge: #2368a8;
 
-        --screen-bg-top: #0a0d14;
-        --screen-bg-bottom: #151a27;
-        --screen-text: #eaf0ff;
-
-        --key-top: #3a4160;
-        --key-bottom: #2a3045;
-        --key-edge: #141826;
-        --key-text: #f2f4fa;
-
-        --muted: #7d869c;
-        --gloss: rgba(255, 255, 255, 0.18);
-        --drop: rgba(0, 0, 0, 0.55);
-      }
+      --gloss: rgba(255, 255, 255, 0.12);
+      --drop: rgba(0, 0, 0, 0.45);
+      --focus: #74c0fc;
     }
 
-    * { box-sizing: border-box; }
-
+    /* ===== 全局與置中設定 ===== */
     body {
-      font-size: 2rem;
       margin: 0;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
-      background: radial-gradient(circle at 50% 0%, var(--bg-1), var(--bg-2));
-      color: var(--key-text);
-    }
-
-    header {
-      text-align: center;
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      padding: 28px 16px 12px;
-      text-shadow: 0 1px 0 var(--gloss);
-    }
-
-    main {
-      flex: 1;
-      display: flex;
       justify-content: center;
-      align-items: flex-start;
-      padding: 8px 16px;
+      align-items: center;
+      background: radial-gradient(circle at 50% 0%, var(--bg-1), var(--bg-2) 70%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Roboto, sans-serif;
+      color: #ffffff;
     }
 
-    /* ===== 計算機外殼:厚度 + 高光 + 落影 ===== */
-    .calculator {
-      width: 100%;
-      max-width: 380px;
-      padding: 20px 20px 24px;
+    h1 {
+      margin: 0 0 24px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-indent: 0.3em;
+      color: #aab4c5;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ===== 計算機主體:厚度 + 高光 + 落影 ===== */
+    table {
+      border-collapse: separate;
+      border-spacing: 0;
+      width: 320px;
+      max-width: 100%;
+      background: linear-gradient(160deg, var(--body-top), var(--body-bottom));
+      border: 1px solid var(--body-border);
       border-radius: 28px;
-      background: linear-gradient(160deg, var(--card-top), var(--card-bottom));
-      box-shadow:
-        inset 0 2px 0 var(--gloss),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.08),
-        0 10px 0 var(--card-edge),
-        0 24px 40px var(--drop);
-      animation: rise 0.5s cubic-bezier(.2, .9, .3, 1.2) both;
-    }
-
-    /* ===== 螢幕:凹陷感 ===== */
-    #screen {
-      display: block;
-      width: 100%;
-      height: 92px;
-      margin-bottom: 20px;
-      padding: 0 18px;
-      font-family: ui-monospace, "SF Mono", Consolas, monospace;
-      font-size: 2.4rem;
-      font-weight: 600;
-      text-align: right;
-      color: var(--screen-text);
-      background: linear-gradient(180deg, var(--screen-bg-top), var(--screen-bg-bottom));
-      border: none;
-      border-radius: 16px;
-      box-shadow:
-        inset 0 4px 10px rgba(0, 0, 0, 0.28),
-        inset 0 -1px 0 var(--gloss),
-        0 1px 0 var(--gloss);
-      outline: none;
       overflow: hidden;
-      text-overflow: ellipsis;
-      font-variant-numeric: tabular-nums;
-      cursor: default;
-    }
-
-    /* ===== 按鍵區 ===== */
-    .keys {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px 12px;
-    }
-
-    /* ===== 立體按鍵:漸層 + 底部厚度 + 高光 ===== */
-    button {
-      position: relative;
-      overflow: hidden;
-      font: inherit;
-      font-size: 1.6rem;
-      font-weight: 600;
-      min-height: 64px;
-      padding: 0;
-      border: none;
-      border-radius: 16px;
-      color: var(--key-text);
-      background: linear-gradient(180deg, var(--key-top), var(--key-bottom));
       box-shadow:
         inset 0 1px 0 var(--gloss),
-        0 6px 0 var(--key-edge),
-        0 10px 14px var(--drop);
+        0 10px 0 var(--body-edge),
+        0 30px 50px var(--drop);
+      animation: rise 0.5s cubic-bezier(.2, .9, .3, 1.2) backwards;
+    }
+
+    /* ===== 螢幕顯示區 (thead 不可點擊):凹陷感 ===== */
+    thead tr {
+      pointer-events: none;
+    }
+
+    thead th {
+      background-color: var(--screen);
+      padding: 16px 22px;
+      text-align: right;
+      border: none;
+    }
+
+    /* 即時算式軌跡 */
+    #keys {
+      font-size: 1rem;
+      color: #8a99ad;
+      min-height: 20px;
+      word-break: break-all;
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
+      padding-bottom: 0;
+      box-shadow: inset 0 8px 12px -4px rgba(0, 0, 0, 0.6);
+    }
+
+    /* 計算結果/當前數值 */
+    #total {
+      font-size: 2.2rem;
+      color: #ffffff;
+      font-weight: 600;
+      word-break: break-all;
+      padding-top: 4px;
+      font-variant-numeric: tabular-nums;
+      border-bottom: 1px solid var(--screen-line);
+      box-shadow: inset 0 -6px 10px -4px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ===== 按鈕區排版與間距(下方預留按鍵厚度空間) ===== */
+    td {
+      padding: 6px 8px 12px;
+      text-align: center;
+      border: none;
+    }
+
+    tbody tr:first-child td {
+      padding-top: 18px;
+    }
+
+    tbody tr:last-child td {
+      padding-bottom: 22px;
+    }
+
+    /* ===== 統一按鈕樣式:立體按鍵 ===== */
+    .calc-btn {
+      position: relative;
+      overflow: hidden;
+      width: 60px;
+      height: 60px;
+      font: inherit;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #ffffff;
+      background: linear-gradient(180deg, var(--key-top), var(--key-bottom));
+      border: none;
+      border-radius: 16px;
+      box-shadow:
+        inset 0 1px 0 var(--gloss),
+        0 5px 0 var(--key-edge),
+        0 8px 10px var(--drop);
       cursor: pointer;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
       user-select: none;
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
-      transform: translateY(0);
       transition:
         transform 0.12s cubic-bezier(.3, .7, .4, 1.4),
         box-shadow 0.12s ease,
         filter 0.15s ease;
-      animation: pop 0.45s cubic-bezier(.2, .9, .3, 1.3) both;
+      animation: pop 0.45s cubic-bezier(.2, .9, .3, 1.3) backwards;
     }
 
     /* 觸碰光暈:按下瞬間從中心擴散 */
-    button::after {
+    .calc-btn::after {
       content: "";
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.55), transparent 65%);
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.35), transparent 65%);
       opacity: 0;
       transform: scale(0.4);
       transition: opacity 0.35s ease, transform 0.35s ease;
@@ -185,87 +176,91 @@
     }
 
     /* 滑鼠移上:微微浮起、變亮 */
-    button:hover {
+    .calc-btn:hover {
       transform: translateY(-2px);
-      filter: brightness(1.06);
+      filter: brightness(1.12);
       box-shadow:
         inset 0 1px 0 var(--gloss),
-        0 8px 0 var(--key-edge),
-        0 14px 18px var(--drop);
+        0 7px 0 var(--key-edge),
+        0 12px 14px var(--drop);
     }
 
-    /* 按下:往下壓、厚度消失、內凹陰影 */
-    button:active {
-      transform: translateY(6px);
-      filter: brightness(0.96);
+    /* 按下:往下壓,厚度消失,內凹陰影 */
+    .calc-btn:active {
+      transform: translateY(5px);
+      filter: brightness(0.94);
       box-shadow:
-        inset 0 3px 8px rgba(0, 0, 0, 0.25),
+        inset 0 3px 8px rgba(0, 0, 0, 0.35),
         0 0 0 var(--key-edge),
-        0 2px 4px var(--drop);
+        0 2px 3px var(--drop);
       transition-duration: 0.04s;
     }
-    button:active::after {
+
+    .calc-btn:active::after {
       opacity: 1;
       transform: scale(1.4);
       transition-duration: 0s;
     }
 
-    button:focus-visible {
+    .calc-btn:focus-visible {
       outline: 3px solid var(--focus);
       outline-offset: 3px;
     }
 
-    /* 運算鍵 */
-    button.op {
-      color: var(--op-text);
-      background: linear-gradient(180deg, var(--op-top), var(--op-bottom));
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 6px 0 var(--op-edge), 0 10px 14px var(--drop);
-    }
-    button.op:hover {
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 8px 0 var(--op-edge), 0 14px 18px var(--drop);
-    }
-    button.op:active {
-      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.25), 0 0 0 var(--op-edge), 0 2px 4px var(--drop);
+    /* 空白按鈕(沒有功能):做成凹槽,不可點擊 */
+    .calc-btn:empty {
+      background: transparent;
+      box-shadow:
+        inset 0 3px 6px rgba(0, 0, 0, 0.4),
+        0 1px 0 rgba(255, 255, 255, 0.05);
+      pointer-events: none;
+      animation: none;
     }
 
-    /* 等於鍵 */
-    button.eq {
-      color: #fff;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-      background: linear-gradient(180deg, var(--eq-top), var(--eq-bottom));
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 6px 0 var(--eq-edge), 0 10px 14px var(--drop);
+    /* ===== 功能按鈕顏色配置 ===== */
+    /* 清除與刪除鍵 (C / del) */
+    .btn-action {
+      color: #ff6b6b;
+      background: linear-gradient(180deg, var(--action-top), var(--action-bottom));
+      box-shadow: inset 0 1px 0 var(--gloss), 0 5px 0 var(--action-edge), 0 8px 10px var(--drop);
     }
-    button.eq:hover {
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 8px 0 var(--eq-edge), 0 14px 18px var(--drop);
+    .btn-action:hover {
+      box-shadow: inset 0 1px 0 var(--gloss), 0 7px 0 var(--action-edge), 0 12px 14px var(--drop);
     }
-    button.eq:active {
-      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.25), 0 0 0 var(--eq-edge), 0 2px 4px var(--drop);
-    }
-
-    /* 清除鍵 */
-    button.clear {
-      color: #fff;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-      background: linear-gradient(180deg, var(--clear-top), var(--clear-bottom));
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 6px 0 var(--clear-edge), 0 10px 14px var(--drop);
-    }
-    button.clear:hover {
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 8px 0 var(--clear-edge), 0 14px 18px var(--drop);
-    }
-    button.clear:active {
-      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.25), 0 0 0 var(--clear-edge), 0 2px 4px var(--drop);
+    .btn-action:active {
+      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.35), 0 0 0 var(--action-edge), 0 2px 3px var(--drop);
     }
 
-    .span-2 { grid-column: span 2; }
-
-    footer {
-      text-align: center;
-      font-size: 1rem;
-      color: var(--muted);
-      padding: 28px 16px 28px;
+    /* 運算符號鍵 (+, -, *, /, %, 括號) */
+    .btn-operator {
+      color: #4dabf7;
+      background: linear-gradient(180deg, var(--operator-top), var(--operator-bottom));
+      box-shadow: inset 0 1px 0 var(--gloss), 0 5px 0 var(--operator-edge), 0 8px 10px var(--drop);
+    }
+    .btn-operator:hover {
+      box-shadow: inset 0 1px 0 var(--gloss), 0 7px 0 var(--operator-edge), 0 12px 14px var(--drop);
+    }
+    .btn-operator:active {
+      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.35), 0 0 0 var(--operator-edge), 0 2px 3px var(--drop);
     }
 
-    /* ===== 進場動畫:按鍵依序彈出 ===== */
+    /* 等於鍵 (=) 醒目設計 */
+    .btn-equals {
+      color: #ffffff;
+      font-weight: bold;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(180deg, var(--equals-top), var(--equals-bottom));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 5px 0 var(--equals-edge), 0 8px 10px var(--drop);
+    }
+    .btn-equals:hover {
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 7px 0 var(--equals-edge), 0 12px 14px var(--drop);
+    }
+    .btn-equals:active {
+      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.3), 0 0 0 var(--equals-edge), 0 2px 3px var(--drop);
+    }
+
+    /* ===== 進場動畫:外殼升起、按鍵一排一排彈出 ===== */
+    /* 注意:動畫只用 backwards,結束後交還給 hover / active,按壓位移才不會被動畫鎖住 */
     @keyframes rise {
       from { opacity: 0; transform: translateY(24px) scale(0.97); }
       to   { opacity: 1; transform: translateY(0) scale(1); }
@@ -274,147 +269,140 @@
       from { opacity: 0; transform: translateY(12px) scale(0.85); }
       to   { opacity: 1; transform: translateY(0) scale(1); }
     }
-    .keys button:nth-child(1)  { animation-delay: 0.05s; }
-    .keys button:nth-child(2)  { animation-delay: 0.08s; }
-    .keys button:nth-child(3)  { animation-delay: 0.11s; }
-    .keys button:nth-child(4)  { animation-delay: 0.14s; }
-    .keys button:nth-child(5)  { animation-delay: 0.17s; }
-    .keys button:nth-child(6)  { animation-delay: 0.20s; }
-    .keys button:nth-child(7)  { animation-delay: 0.23s; }
-    .keys button:nth-child(8)  { animation-delay: 0.26s; }
-    .keys button:nth-child(9)  { animation-delay: 0.29s; }
-    .keys button:nth-child(10) { animation-delay: 0.32s; }
-    .keys button:nth-child(11) { animation-delay: 0.35s; }
-    .keys button:nth-child(12) { animation-delay: 0.38s; }
-    .keys button:nth-child(13) { animation-delay: 0.41s; }
-    .keys button:nth-child(14) { animation-delay: 0.44s; }
-    .keys button:nth-child(15) { animation-delay: 0.47s; }
-    .keys button:nth-child(16) { animation-delay: 0.50s; }
-    .keys button:nth-child(17) { animation-delay: 0.53s; }
+    tbody tr:nth-child(1) .calc-btn { animation-delay: 0.10s; }
+    tbody tr:nth-child(2) .calc-btn { animation-delay: 0.17s; }
+    tbody tr:nth-child(3) .calc-btn { animation-delay: 0.24s; }
+    tbody tr:nth-child(4) .calc-btn { animation-delay: 0.31s; }
+    tbody tr:nth-child(5) .calc-btn { animation-delay: 0.38s; }
+    tbody tr:nth-child(6) .calc-btn { animation-delay: 0.45s; }
 
     /* ===== 小螢幕手機微調 ===== */
-    @media (max-width: 400px) {
-      body { font-size: 1.6rem; }
-      .calculator { padding: 16px 14px 20px; border-radius: 24px; }
-      .keys { gap: 12px 10px; }
-      button { min-height: 58px; }
-      #screen { height: 80px; font-size: 2rem; }
+    @media (max-width: 360px) {
+      .calc-btn { width: 52px; height: 52px; font-size: 1.1rem; }
+      td { padding-left: 5px; padding-right: 5px; }
     }
 
-    /* 減少動態效果偏好:保留按壓回饋,關閉進場與浮起 */
+    /* 減少動態效果偏好:關閉進場與浮起,保留按壓回饋 */
     @media (prefers-reduced-motion: reduce) {
-      .calculator, button { animation: none; }
-      button { transition: none; }
-      button:hover { transform: none; }
-      button::after { transition: none; }
+      table, .calc-btn { animation: none; }
+      .calc-btn { transition: none; }
+      .calc-btn:hover { transform: none; }
+      .calc-btn::after { transition: none; }
     }
   </style>
 </head>
+
 <body>
-
-  <header>基礎計算機</header>
-
-  <main>
-    <div class="calculator">
-      <!-- 顯示的小螢幕 -->
-      <input type="text" id="screen" readonly value="0" aria-label="計算結果" aria-live="polite" inputmode="none" tabindex="-1">
-
-      <!-- 按鍵區:0~9 數字鍵、(+ - * / % =) -->
-      <div class="keys">
-        <button class="clear" data-key="C" aria-label="清除">C</button>
-        <button class="op" data-key="%" aria-label="取餘數">%</button>
-        <button class="op" data-key="/" aria-label="除">÷</button>
-        <button class="op" data-key="*" aria-label="乘">×</button>
-
-        <button data-key="7">7</button>
-        <button data-key="8">8</button>
-        <button data-key="9">9</button>
-        <button class="op" data-key="-" aria-label="減">−</button>
-
-        <button data-key="4">4</button>
-        <button data-key="5">5</button>
-        <button data-key="6">6</button>
-        <button class="op" data-key="+" aria-label="加">+</button>
-
-        <button data-key="1">1</button>
-        <button data-key="2">2</button>
-        <button data-key="3">3</button>
-        <button data-key="." aria-label="小數點">.</button>
-
-        <button data-key="0" class="span-2">0</button>
-        <button data-key="=" class="eq span-2" aria-label="等於">=</button>
-      </div>
-    </div>
-  </main>
-
-  <footer>% 為取餘數運算(例如 7 % 3 = 1)</footer>
-
+  <div>
+    <h1>極簡美學計算機</h1>
+    <table>
+      <thead>
+        <tr>
+          <th colspan="4" id="keys"></th>
+        </tr>
+        <tr>
+          <th colspan="4" id="total">0</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><button class="calc-btn btn-action" id="btn_zero">C</button></td>
+          <td><button class="calc-btn btn-action" id="btn_del">del</button></td>
+          <td><button class="calc-btn btn-operator" id="btn_lsb">(</button></td>
+          <td><button class="calc-btn btn-operator" id="btn_rsb">)</button></td>
+        </tr>
+        <tr>
+          <td><button class="calc-btn btn-operator" id="btn_P">%</button></td>
+          <td><button class="calc-btn" id="btn_empty1"></button></td>
+          <td><button class="calc-btn" id="btn_empty2"></button></td>
+          <td><button class="calc-btn btn-operator" id="btn_gain">-</button></td>
+        </tr>
+        <tr>
+          <td><button class="calc-btn" id="btn_7">7</button></td>
+          <td><button class="calc-btn" id="btn_8">8</button></td>
+          <td><button class="calc-btn" id="btn_9">9</button></td>
+          <td><button class="calc-btn btn-operator" id="btn_X">*</button></td>
+        </tr>
+        <tr>
+          <td><button class="calc-btn" id="btn_4">4</button></td>
+          <td><button class="calc-btn" id="btn_5">5</button></td>
+          <td><button class="calc-btn" id="btn_6">6</button></td>
+          <td><button class="calc-btn btn-operator" id="btn_add">+</button></td>
+        </tr>
+        <tr>
+          <td><button class="calc-btn" id="btn_1">1</button></td>
+          <td><button class="calc-btn" id="btn_2">2</button></td>
+          <td><button class="calc-btn" id="btn_3">3</button></td>
+          <td><button class="calc-btn btn-operator" id="btn_C">/</button></td>
+        </tr>
+        <tr>
+          <td><button class="calc-btn" id="btn_empty3"></button></td>
+          <td><button class="calc-btn" id="btn_0">0</button></td>
+          <td><button class="calc-btn" id="btn_dot">.</button></td>
+          <td><button class="calc-btn btn-equals" id="btn_equals">=</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <script>
-    const screen = document.getElementById('screen');
-    const ops = ['+', '-', '*', '/', '%'];
-    let expr = '';      // 目前輸入的算式
-    let justEvaluated = false;
+    function goget(name) {
+      let btn = document.getElementById(name);      
+      let total = document.getElementById("total");
+      let keys = document.getElementById("keys");
 
-    function show(text) {
-      screen.value = text === '' ? '0' : text;
-    }
+      // const cknum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; 暫時用不到，原本想增加判斷輸入數字的部分。後面直接擋掉即可
+      const ckkeys = ["+", "-", "*", "/", "%", "=", "(", ")"];
 
-    function calculate() {
-      if (expr === '') return;
-      // 結尾若是運算符號就先去掉
-      while (ops.includes(expr.slice(-1))) expr = expr.slice(0, -1);
+      btn.addEventListener('click', function () {
+        let strs = btn.textContent;
+        if (!strs) return; // 如果按鈕沒有文字（空白格）就不動作
 
-      // 只允許數字、小數點與運算符號,避免執行任意程式碼
-      if (!/^[0-9+\-*/%.]+$/.test(expr)) { show('錯誤'); expr = ''; return; }
-
-      try {
-        let result = Function('"use strict"; return (' + expr + ')')();
-        if (!isFinite(result)) throw new Error('invalid');
-        
-        result = Math.round(result * 1e10) / 1e10; // 避免 0.1+0.2 的浮點誤差
-        expr = String(result);
-        show(expr);
-        justEvaluated = true;
-      } catch (e) {
-        show('錯誤');
-        expr = '';
-      }
-    }
-
-    function press(key) {
-      if (key === 'C') {
-        expr = '';
-        justEvaluated = false;
-        show('');
-        return;
-      }
-      if (key === '=') {
-        calculate();
-        return;
-      }
-      if (ops.includes(key)) {
-        if (expr === '') {
-          if (key !== '-') return;          // 開頭只允許負號
-        } else if (ops.includes(expr.slice(-1))) {
-          expr = expr.slice(0, -1);          // 連按運算符號 → 取代上一個
+        // 順序不可顛倒，如要顛倒。判斷式必須重寫
+        if (strs === "C") { // 清除重來
+          total.textContent = "0";
+          keys.textContent = "";
+        } else if (strs === "=") { // 計算結果
+          try {
+            total.textContent = eval(keys.textContent); // 直接使用函式計算
+          } catch (error) {
+            total.textContent = "計算式錯誤，請重新輸入!";
+          }
+        } else if (strs === "del") { //刪除最後一個字
+          if (keys.textContent.length > 0) {
+            keys.textContent = keys.textContent.slice(0, -1);
+            if (keys.textContent.length === 0) {
+              total.textContent = "0";
+              keys.textContent = "";
+            }
+          }
+        } else if (ckkeys.includes(strs)) { // 計算法按鈕輸入
+          keys.textContent = keys.textContent + strs;
+          total.textContent = strs;
+        } else {
+          if (total.textContent === "0" && keys.textContent.length === 0) {
+            total.textContent = strs;
+            keys.textContent = strs;
+          } else {
+            total.textContent = strs;
+            keys.textContent = keys.textContent + strs;
+          }
         }
-        justEvaluated = false;
-        expr += key;
-      } else {
-        // 數字或小數點
-        if (justEvaluated) { expr = ''; justEvaluated = false; }
-        if (key === '.') {
-          const lastNumber = expr.split(/[+\-*/%]/).pop();
-          if (lastNumber.includes('.')) return;
-          if (lastNumber === '') expr += '0';
-        }
-        expr += key;
-      }
-      show(expr);
+      });
     }
-    document.querySelectorAll('button').forEach(btn => {
-      btn.addEventListener('click', () => press(btn.dataset.key));
+
+    document.addEventListener('DOMContentLoaded', function () { // 使用隨時等待模式
+      let btnnumarr = ["btn_0", "btn_1", "btn_2", "btn_3", "btn_4", "btn_5", "btn_6", "btn_7", "btn_8", "btn_9"];
+      let btnkeys = ["btn_P", "btn_zero", "btn_del", "btn_dot", "btn_equals", "btn_C", "btn_add", "btn_X", "btn_gain", "btn_lsb", "btn_rsb"];
+
+      for (let i = 0; i < btnnumarr.length; i++) { // 操作數字鍵
+        goget(btnnumarr[i]);
+      }
+
+      for (let i = 0; i < btnkeys.length; i++) { // 操作計算鍵
+        goget(btnkeys[i]);
+      }
     });
   </script>
 </body>
+
 </html>
