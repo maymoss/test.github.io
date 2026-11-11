@@ -1,0 +1,166 @@
+  *{
+    box-sizing: border-box;
+  }
+
+  body{
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+    background: linear-gradient(135deg, #74b9ff 0%, #a29bfe 100%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px 15px;
+  }
+
+  /* 最外層主要容器 */
+  #maindiv.maindiv{
+    width: 100%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    padding: 25px;
+    backdrop-filter: blur(5px);
+  }
+
+  /* 上方縣市選擇區 */
+  #stopdiv.stopdiv{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  #scity.scity{
+    width: 100%;
+    max-width: 320px;
+  }
+
+  /* 下拉式選單 */
+  #scity select{
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 16px;
+    color: #2d3436;
+    background: #ffffff;
+    border: 2px solid #a29bfe;
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+
+  #scity select:hover,
+  #scity select:focus{
+    border-color: #6c5ce7;
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.15);
+  }
+
+  /* 天氣卡片區 */
+  #cardsmain.cardsmain{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  /* 取得縣市按鈕 */
+  #getcity.getcity{
+    display: block;
+    margin: 0 auto; 
+    width: 100%;
+    max-width: 200px;
+    padding: 12px 20px;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #6c5ce7 0%, #74b9ff 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.25s, opacity 0.25s;
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.35);
+  }
+
+  #getcity.getcity:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(108, 92, 231, 0.45);
+  }
+
+  #getcity.getcity:active{
+    transform: translateY(0);
+    opacity: 0.85;
+  }
+
+  /* 手機版調整 */
+  @media (max-width: 480px){
+    #maindiv.maindiv{
+      padding: 18px;
+      border-radius: 15px;
+    }
+
+    #cardsmain.cardsmain{
+      grid-template-columns: 1fr;
+    }
+  }
+  /* 天氣小卡片 */
+  .wcard{
+    background: linear-gradient(160deg, #ffffff 0%, #f0f3ff 100%);
+    border-radius: 14px;
+    padding: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(108, 92, 231, 0.15);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    max-width: 400px;
+    /* margin: 0 auto; */
+  }
+
+  .wcard:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(108, 92, 231, 0.2);
+  }
+
+  .wcard .cname{
+    font-size: 18px;
+    font-weight: bold;
+    color: #2d3436;
+    margin-bottom: 6px;
+  }
+
+  .wcard .cicon{
+    font-size: 34px;
+    line-height: 1;
+    margin: 6px 0;
+  }
+
+  .wcard .cweather{
+    font-size: 15px;
+    color: #6c5ce7;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .wcard .ctemp{
+    font-size: 26px;
+    font-weight: bold;
+    color: #0984e3;
+  }
+
+  .wcard .ctemp small{
+    font-size: 14px;
+    color: #636e72;
+    font-weight: normal;
+  }
+
+  .wcard .crain{
+    font-size: 14px;
+    color: #00b894;
+    margin-top: 6px;
+  }
+
+  .wcard.loading{
+    color: #636e72;
+    font-size: 14px;
+  }

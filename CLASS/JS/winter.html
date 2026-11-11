@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>天氣小卡片</title>
+  <link rel="stylesheet" href="./css/winter.css">
+</head>
+<body>
+  <main id="maindiv" class="maindiv">
+    <div id="stopdiv" class="stopdiv">
+      <div id="scity" class="scity"><!-- 透過 JS API 取得各縣市，暫時不預先載入 -->
+        <label for="selcity">選擇縣市（可按住 Ctrl / Cmd 複選）：</label>
+        <select id="selcity" multiple="" size="8" aria-label="選擇要顯示天氣的縣市，可按住 Ctrl 或 Cmd 複選">
+          <option value="">-- 請選擇 --</option>
+        </select>
+      </div> 
+    </div>
+    <div id="cardsmain" class="cardsmain">
+      <div class="wcard">
+        <div class="cname"> 縣市 </div>
+        <div class="cicon"> ☁️ </div>
+        <div class="cweather"> 陰天 </div>
+        <div class="ctemp"> XX ~  XX <small>°C</small></div>
+        <div class="crain">☔ 降雨機率： 0 %</div>
+      </div>
+      <div class="wcard">
+        <div class="cname"> 縣市 </div>
+        <div class="cicon"> ☁️ </div>
+        <div class="cweather"> 陰天 </div>
+        <div class="ctemp"> XX ~  XX <small>°C</small></div>
+        <div class="crain">☔ 降雨機率： 0 %</div>
+      </div>
+    </div> <!-- 卡片由JS加入 -->
+    <button id="getcity" class="getcity">取得縣市</button>
+  </main>
+  <script src="./js/winter.js"></script>
+</body>
+</html>

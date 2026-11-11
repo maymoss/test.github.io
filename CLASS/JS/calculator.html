@@ -363,7 +363,9 @@
           keys.textContent = "";
         } else if (strs === "=") { // 計算結果
           try {
-            total.textContent = eval(keys.textContent); // 直接使用函式計算
+            let currentKeys = keys.textContent;
+            currentKeys = currentKeys.replace(/^0+(?!\.)/, '');
+            total.textContent = eval( currentKeys ); // 直接使用函式計算
           } catch (error) {
             total.textContent = "計算式錯誤，請重新輸入!";
           }

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // let ages = [12, 18, 25, 7, 30, 16];
+    // let passlist = [];
+
+    // for(let i=0;i<ages.length;i++){
+    //   if(Number(ages[i])>=18){
+    //     passlist.push(ages[i]);
+    //   }
+    // }
+    // console.log(passlist);
+
+    // console.log("****************");
+    // let scores = [88, 59, 60, 45, 73, 0];
+    // let no60s = [];
+    // let nook = 0;
+    // for(let i = 0; i < scores.length; i++){
+    //   if( Number(scores[i])<60 ){
+    //     nook++;
+    //     no60s.push(scores[i]);
+    //   }
+    // }
+    // console.log( "共" + nook.toString() + "人要補考\r\n要補考的分數有" , no60s );
+    
+    // console.log("****************");
+    // let totals = [1200, 980, 1000, "1500", 2300];
+    // let alltotals = [];
+    // let allmoney = 0;
+    // for(let i = 0; i<totals.length;i++){
+    //   if( Number(totals[i])>=1000 ){
+    //     alltotals.push(Number(totals[i]));
+    //     allmoney += Number(totals[i]);
+    //   }
+    // }
+
+    // console.log("可抽獎的有" , alltotals, "\r\n總金額是：" + allmoney.toString());
+
+    // let price = [45, 60, 75];
+    // let newprice = [];
+    // for(let i = 0; i<price.length;i++){
+    //   let none = Math.round(price[i]*0.9);   // 打九折後四捨五入取整數
+    //   newprice.push( none );
+    // }
+    // console.log(newprice);
+    // console.log("****************");
+
+    // price = [45, 60, 75, 99];
+    // newprice = [];
+    // for(let i = 0; i<price.length;i++){
+    //   let none = Math.ceil(price[i]*0.9);
+
+    //   newprice.push( none );
+    // }
+    // console.log(newprice);
+    // console.log("****************");
+
+    // price = [50, 60, 55, 45];
+    // let sizes = ["中","大","中","M",];
+    // newprice = [];
+    // for(let i = 0; i<price.length;i++){      
+    //   if( sizes[i]==="中" || sizes[i]==="M" ){
+    //     newprice.push(price[i]+10);
+    //   } else {
+    //     newprice.push(price[i]);
+    //   }
+    // }
+    // console.log(newprice);
+    // console.log("****************");
+
+    let prices = [350, 1200, 600, 1000, 2500, 1499];
+    let prices_8 = [];
+    let total_all = 0;
+    let total_8 = 0;
+    let total_0 = 0;
+    let mover2000 = 0;
+    for(let i = 0; i<prices.length;i++){
+      total_all = Number(total_all) + Number(prices[i]);
+      if( Number(prices[i])>=500 ){
+        console.log("超過500："+prices[i].toString());
+        if( Number(prices[i])>=1000 ){
+          total_0 = Number(total_0) + Number(prices[i]);
+          let totaltmp = Math.ceil(Number(prices[i])*0.8);
+          total_8 = Number(total_8) + Number(totaltmp);
+          prices_8.push("\r\n原價："+ prices[i].toString() + "，8折價：" + totaltmp.toString());
+          if( Number(prices[i])>=2000 ){
+            mover2000=Number(i)+1;
+          }
+        }
+      }
+    }
+    
+    console.log("%c"+prices_8+
+      "\r\n%c所有總金額含不打折的一共省了約："+(Number(total_all)-Number(total_8)).toString() +
+      "\r\n%c只算有打折的一共省了約："+(Number(total_0)-Number(total_8)).toString() +
+      "\r\n%c超過2000元的商品是第"+mover2000.toString()+"個",'color: #ff80c0;','color: #80ffff;','color: #00ff80;','color: #ded307;'
+    );
+
+  </script>
+</body>
+</html>

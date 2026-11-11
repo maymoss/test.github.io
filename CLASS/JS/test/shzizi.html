@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>骰子小遊戲</title>
+  <link rel="stylesheet" href="./css/shzizi.css">
+</head>
+
+<body>
+  <main id="main">
+    <h1 class="biaoti">骰骰子</h1>
+    <p class="fubiaoti">連骰 15 次 ・ 三顆相同會標示</p>
+    <div id="tshai"> <!-- 使用CSS放三顆骰子，骰子骰動時才會有變化 -->
+      <div class="point_box">
+        <div class="dice"></div>
+      </div>
+      <div class="point_box">
+        <div class="dice"></div>
+      </div>
+      <div class="point_box">
+        <div class="dice"></div>
+      </div>
+    </div>
+    <div id="showjieguo"> <!-- 骰15次結果 -->
+			<p>第1次：6 , 4 , 5</p>
+			<p>第2次：1 , 4 , 6</p>
+			<p class="same">第3次：6 , 6 , 6</p>
+			<p>第4次：2 , 4 , 2</p>
+			<p>第5次：5 , 2 , 4</p>
+			<p>第6次：3 , 5 , 3</p>
+			<p>第7次：1 , 6 , 2</p>
+			<p>第8次：1 , 5 , 1</p>
+			<p>第9次：5 , 5 , 6</p>
+			<p>第10次：6 , 2 , 4</p>
+			<p class="same">第11次：3 , 3 , 3</p>
+			<p>第12次：6 , 6 , 3</p>
+			<p>第13次：1 , 4 , 1</p>
+			<p>第14次：3 , 5 , 2</p>
+			<p>第15次：6 , 3 , 5</p>
+		</div>
+    <div id="go">
+      <button class="goshai" id="rollBtn" type="button">骰骰子</button>
+    </div>
+  </main>
+
+  <script src="./js/shzizi.js"></script>
+</body>
+
+</html>
