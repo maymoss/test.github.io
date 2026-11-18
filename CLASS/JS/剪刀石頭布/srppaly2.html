@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://lanjiji.zapto.org/9ghfo-83t22-001.ico?v=2" rel="icon" type="image/x-icon"/>
+  <link rel="stylesheet" href="./css/srppaly2.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <title>青春猜拳大對決！</title>
+</head>
+
+<body>
+  <h1>🌸 青春猜拳大對決 🌸</h1>
+  <div class="game-container">
+    <div class="battle-field">
+      <div id="box1"></div>
+      <div id="box2">等待出拳</div>
+      <div id="box3"></div>
+    </div>
+
+    <div id="btnbox">
+      <button type="button" id="bntgo">🎯 隨機猜拳</button>
+      <button type="button" id="bntusergo">❔ 自訂出拳</button>
+    </div>
+  </div>
+
+  <!-- 傳入數字 0, 1, 2 代表剪刀、石頭、布 -->
+  <div id="uallbox">
+    <div id="ubox1" class="user-choice" ></div>
+    <div id="ubox2" class="user-choice" ></div>
+    <div id="ubox3" class="user-choice" ></div>
+  </div>
+
+<script src="./js/srppaly2.js"></script>
+</body>
+</html>
