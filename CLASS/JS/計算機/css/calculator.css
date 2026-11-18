@@ -1,0 +1,283 @@
+    /* ===== 色彩與厚度變數 ===== */
+    :root {
+      --bg-1: #262a39;
+      --bg-2: #101218;
+
+      --body-top: #2a2e3a;
+      --body-bottom: #1d2028;
+      --body-edge: #0d0f14;
+      --body-border: #343a4a;
+
+      --screen: #14161c;
+      --screen-line: rgba(255, 255, 255, 0.05);
+
+      --key-top: #363a49;
+      --key-bottom: #282b36;
+      --key-edge: #12141a;
+
+      --action-top: #43303a;
+      --action-bottom: #30242b;
+      --action-edge: #170f13;
+
+      --operator-top: #2d3d52;
+      --operator-bottom: #222e3e;
+      --operator-edge: #0f1722;
+
+      --equals-top: #66bdff;
+      --equals-bottom: #409be6;
+      --equals-edge: #2368a8;
+
+      --gloss: rgba(255, 255, 255, 0.12);
+      --drop: rgba(0, 0, 0, 0.45);
+      --focus: #74c0fc;
+    }
+
+    /* ===== 全局與置中設定 ===== */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at 50% 0%, var(--bg-1), var(--bg-2) 70%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Roboto, sans-serif;
+      color: #ffffff;
+    }
+
+    h1 {
+      margin: 0 0 24px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-indent: 0.3em;
+      color: #aab4c5;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ===== 計算機主體:厚度 + 高光 + 落影 ===== */
+    table {
+      border-collapse: separate;
+      border-spacing: 0;
+      width: 320px;
+      max-width: 100%;
+      background: linear-gradient(160deg, var(--body-top), var(--body-bottom));
+      border: 1px solid var(--body-border);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow:
+        inset 0 1px 0 var(--gloss),
+        0 10px 0 var(--body-edge),
+        0 30px 50px var(--drop);
+      animation: rise 0.5s cubic-bezier(.2, .9, .3, 1.2) backwards;
+    }
+
+    /* ===== 螢幕顯示區 (thead 不可點擊):凹陷感 ===== */
+    thead tr {
+      pointer-events: none;
+    }
+
+    thead th {
+      background-color: var(--screen);
+      padding: 16px 22px;
+      text-align: right;
+      border: none;
+    }
+
+    /* 即時算式軌跡 */
+    #keys {
+      font-size: 1rem;
+      color: #8a99ad;
+      min-height: 20px;
+      word-break: break-all;
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
+      padding-bottom: 0;
+      box-shadow: inset 0 8px 12px -4px rgba(0, 0, 0, 0.6);
+    }
+
+    /* 計算結果/當前數值 */
+    #total {
+      font-size: 2.2rem;
+      color: #ffffff;
+      font-weight: 600;
+      word-break: break-all;
+      padding-top: 4px;
+      font-variant-numeric: tabular-nums;
+      border-bottom: 1px solid var(--screen-line);
+      box-shadow: inset 0 -6px 10px -4px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ===== 按鈕區排版與間距(下方預留按鍵厚度空間) ===== */
+    td {
+      padding: 6px 8px 12px;
+      text-align: center;
+      border: none;
+    }
+
+    tbody tr:first-child td {
+      padding-top: 18px;
+    }
+
+    tbody tr:last-child td {
+      padding-bottom: 22px;
+    }
+
+    /* ===== 統一按鈕樣式:立體按鍵 ===== */
+    .calc-btn {
+      position: relative;
+      overflow: hidden;
+      width: 60px;
+      height: 60px;
+      font: inherit;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #ffffff;
+      background: linear-gradient(180deg, var(--key-top), var(--key-bottom));
+      border: none;
+      border-radius: 16px;
+      box-shadow:
+        inset 0 1px 0 var(--gloss),
+        0 5px 0 var(--key-edge),
+        0 8px 10px var(--drop);
+      cursor: pointer;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      transition:
+        transform 0.12s cubic-bezier(.3, .7, .4, 1.4),
+        box-shadow 0.12s ease,
+        filter 0.15s ease;
+      animation: pop 0.45s cubic-bezier(.2, .9, .3, 1.3) backwards;
+    }
+
+    /* 觸碰光暈:按下瞬間從中心擴散 */
+    .calc-btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.35), transparent 65%);
+      opacity: 0;
+      transform: scale(0.4);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+    }
+
+    /* 滑鼠移上:微微浮起、變亮 */
+    .calc-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.12);
+      box-shadow:
+        inset 0 1px 0 var(--gloss),
+        0 7px 0 var(--key-edge),
+        0 12px 14px var(--drop);
+    }
+
+    /* 按下:往下壓,厚度消失,內凹陰影 */
+    .calc-btn:active {
+      transform: translateY(5px);
+      filter: brightness(0.94);
+      box-shadow:
+        inset 0 3px 8px rgba(0, 0, 0, 0.35),
+        0 0 0 var(--key-edge),
+        0 2px 3px var(--drop);
+      transition-duration: 0.04s;
+    }
+
+    .calc-btn:active::after {
+      opacity: 1;
+      transform: scale(1.4);
+      transition-duration: 0s;
+    }
+
+    .calc-btn:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    /* 空白按鈕(沒有功能):做成凹槽,不可點擊 */
+    .calc-btn:empty {
+      background: transparent;
+      box-shadow:
+        inset 0 3px 6px rgba(0, 0, 0, 0.4),
+        0 1px 0 rgba(255, 255, 255, 0.05);
+      pointer-events: none;
+      animation: none;
+    }
+
+    /* ===== 功能按鈕顏色配置 ===== */
+    /* 清除與刪除鍵 (C / del) */
+    .btn-action {
+      color: #ff6b6b;
+      background: linear-gradient(180deg, var(--action-top), var(--action-bottom));
+      box-shadow: inset 0 1px 0 var(--gloss), 0 5px 0 var(--action-edge), 0 8px 10px var(--drop);
+    }
+    .btn-action:hover {
+      box-shadow: inset 0 1px 0 var(--gloss), 0 7px 0 var(--action-edge), 0 12px 14px var(--drop);
+    }
+    .btn-action:active {
+      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.35), 0 0 0 var(--action-edge), 0 2px 3px var(--drop);
+    }
+
+    /* 運算符號鍵 (+, -, *, /, %, 括號) */
+    .btn-operator {
+      color: #4dabf7;
+      background: linear-gradient(180deg, var(--operator-top), var(--operator-bottom));
+      box-shadow: inset 0 1px 0 var(--gloss), 0 5px 0 var(--operator-edge), 0 8px 10px var(--drop);
+    }
+    .btn-operator:hover {
+      box-shadow: inset 0 1px 0 var(--gloss), 0 7px 0 var(--operator-edge), 0 12px 14px var(--drop);
+    }
+    .btn-operator:active {
+      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.35), 0 0 0 var(--operator-edge), 0 2px 3px var(--drop);
+    }
+
+    /* 等於鍵 (=) 醒目設計 */
+    .btn-equals {
+      color: #ffffff;
+      font-weight: bold;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(180deg, var(--equals-top), var(--equals-bottom));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 5px 0 var(--equals-edge), 0 8px 10px var(--drop);
+    }
+    .btn-equals:hover {
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 7px 0 var(--equals-edge), 0 12px 14px var(--drop);
+    }
+    .btn-equals:active {
+      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.3), 0 0 0 var(--equals-edge), 0 2px 3px var(--drop);
+    }
+
+    /* ===== 進場動畫:外殼升起、按鍵一排一排彈出 ===== */
+    /* 注意:動畫只用 backwards,結束後交還給 hover / active,按壓位移才不會被動畫鎖住 */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(24px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes pop {
+      from { opacity: 0; transform: translateY(12px) scale(0.85); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    tbody tr:nth-child(1) .calc-btn { animation-delay: 0.10s; }
+    tbody tr:nth-child(2) .calc-btn { animation-delay: 0.17s; }
+    tbody tr:nth-child(3) .calc-btn { animation-delay: 0.24s; }
+    tbody tr:nth-child(4) .calc-btn { animation-delay: 0.31s; }
+    tbody tr:nth-child(5) .calc-btn { animation-delay: 0.38s; }
+    tbody tr:nth-child(6) .calc-btn { animation-delay: 0.45s; }
+
+    /* ===== 小螢幕手機微調 ===== */
+    @media (max-width: 360px) {
+      .calc-btn { width: 52px; height: 52px; font-size: 1.1rem; }
+      td { padding-left: 5px; padding-right: 5px; }
+    }
+
+    /* 減少動態效果偏好:關閉進場與浮起,保留按壓回饋 */
+    @media (prefers-reduced-motion: reduce) {
+      table, .calc-btn { animation: none; }
+      .calc-btn { transition: none; }
+      .calc-btn:hover { transform: none; }
+      .calc-btn::after { transition: none; }
+    }

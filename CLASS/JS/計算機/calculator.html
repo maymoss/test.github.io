@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>極簡美學計算機</title>
+  <link rel="stylesheet" href="./css/calculator.css">
+</head>
+
+<body>
+  <div>
+    <h1>極簡美學計算機</h1>
+    <table>
+      <thead>
+        <tr>
+          <th colspan="4" id="keys"></th>
+        </tr>
+        <tr>
+          <th colspan="4" id="total">0</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><button class="calc-btn btn-action" id="btn_zero">C</button></td>
+          <td><button class="calc-btn btn-action" id="btn_del">del</button></td>
+          <td><button class="calc-btn btn-operator" id="btn_lsb">(</button></td>
+          <td><button class="calc-btn btn-operator" id="btn_rsb">)</button></td>
+        </tr>
+        <tr>
+          <td><button class="calc-btn btn-operator" id="btn_P">%</button></td>
+          <td><button class="calc-btn" id="btn_empty1"></button></td>
+          <td><button class="calc-btn" id="btn_empty2"></button></td>
+          <td><button class="calc-btn btn-operator" id="btn_gain">-</button></td>
+        </tr>
+        <tr>
+          <td><button class="calc-btn" id="btn_7">7</button></td>
+          <td><button class="calc-btn" id="btn_8">8</button></td>
+          <td><button class="calc-btn" id="btn_9">9</button></td>
+          <td><button class="calc-btn btn-operator" id="btn_X">*</button></td>
+        </tr>
+        <tr>
+          <td><button class="calc-btn" id="btn_4">4</button></td>
+          <td><button class="calc-btn" id="btn_5">5</button></td>
+          <td><button class="calc-btn" id="btn_6">6</button></td>
+          <td><button class="calc-btn btn-operator" id="btn_add">+</button></td>
+        </tr>
+        <tr>
+          <td><button class="calc-btn" id="btn_1">1</button></td>
+          <td><button class="calc-btn" id="btn_2">2</button></td>
+          <td><button class="calc-btn" id="btn_3">3</button></td>
+          <td><button class="calc-btn btn-operator" id="btn_C">/</button></td>
+        </tr>
+        <tr>
+          <td><button class="calc-btn" id="btn_empty3"></button></td>
+          <td><button class="calc-btn" id="btn_0">0</button></td>
+          <td><button class="calc-btn" id="btn_dot">.</button></td>
+          <td><button class="calc-btn btn-equals" id="btn_equals">=</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script src="./js/calculator.js"></script>
+</body>
+
+</html>
